@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/shop_managerment.css">
 </head>
 <body>
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="contents">
     <div class="mainarea clearfix">
         <div class="mainhead">
             <span class="title">商品管理</span>
@@ -54,40 +54,80 @@
                     <th width="10%">操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="tb">
+                    <tr v-for="stu,index in page.list">
                         <td>
-                            <input type="checkbox">
+                            <input type="checkbox" v-model="stu.checked">
                         </td>
                         <td>
-                            1
+                            {{index+1}}
                         </td>
                         <td>
-                            1
-                        </td>
+                            {{stu.proname}}
+                        </td>	
                         <td class="nametd">
                             <div class="namediv">
-                                <img src="" alt="图片" style="width: 30px;height: 30px;">
-                                <p>白T</p>
+                                <img src="/images/home/1.jpeg" alt="图片" style="width: 30px;height: 30px;">
+                                <p>{{stu.goodname}}</p>
                             </div>
                         </td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                        <td>{{stu.pronumber}}</td>
+                        <td>{{stu.color}},{{stu.size}}</td>
+                        <td>{{stu.prostock}}</td>
+                        <td>{{stu.sellingprice}}</td>
+                       <td>{{stu.costprice}}</td>
                         <td>1</td>
                         <td>
-                            <a href="javascript:;">删除</a>
-                            <span onclick="editshop_management()" >编辑</span>
+                            <a @click="del(stu.proid)" href="javascript:;">删除</a>
+                            <span onclick="editshop_management()" class="tb">编辑</span>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div class="pageMenu">
+			<span v-on:click="getPage(page.prePage)">上一页</span>
+			<span v-for="numPage in page.pages">
+				<span v-on:click="getPage(numPage)">{{numPage}}</span>
+			</span>
+			<span v-on:click="getPage(page.nextPage)">下一页</span>
+			
+		</div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+var provue=new Vue({
+	el:"#contents",
+	data:{
+		page:{
+			list:[]
+		}
+	},
+	methods:{
+		 del:function(proid,index){
+				$.ajax({
+					url:"/deleteproducinfo",
+					data:"proid="+proid,
+					success:function(result){
+							alert("删除成功");
+							provue.list.splice(index,1);
+					}
+				});
+			},
+		getPage:function(currentPage){
+			$.ajax({
+				url:"/proqueryAll",
+				data:{pageNum:currentPage,pageSize:1},
+				success:function(result){
+					provue.page=result;
+				}
+			});
+		},
+	},
+	created:function(){
+		this.getPage(1);
+	}
+});
     function addshop_management() {
         /*$(".modal-content").attr("id",id);*/
         go("shops","shop_upload");
