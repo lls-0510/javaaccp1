@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/store_management.css">
+
+</head>
+<body>
+        <div class="rightarea clearfix">
+            <div class="mainarea clearfix">
+                <div class="user_list_main clearfix">
+                    <div class="user_list_body clearfix">
+                        <div class="sub_title">门店列表</div>
+                        <div class="btn btn-warning" onclick="addstore()" style="float: right;position: relative;top: -23px;">添加门店</div>
+                        <table class="clearfix settable">
+                            <thead>
+                                <tr>
+                                    <th width="4%">序号</th>
+                                    <th width="14%">账号</th>
+                                    <th width="14%">店名</th>
+                                    <th width="5%">员工</th>
+                                    <th width="10%">联系人</th>
+                                    <th width="10%">手机</th>
+                                    <th width="10%">电话</th>
+                                    <th width="*">地址</th>
+                                    <th width="8%">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>
+                                        <span onclick="editfcade()">编辑</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="prompt">注：可添加多家门店，系统自动分配订单到附近门店。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function editfcade(){
+                go("stores","editfcade");
+            }
+            function addstore() {
+                go("stores","editfcade");
+            }
+        </script>
+</body>
+</html>

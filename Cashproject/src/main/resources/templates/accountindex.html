@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/accountindex.css">
+
+</head>
+<body>
+    <!--左右结构-->
+    <div class="area clearfix content-in">
+        <!--左边导航-->
+        <div class="navlist">
+            <ul class=" nav nav-tabs">
+                <li class="navindex current" data-id="accountinfo">
+                    <a href="javascript:;">账户信息</a>
+                </li>
+                <li class="">
+                    <a href="javascript:;">暂定中..</a>
+                </li>
+                <li class="">
+                    <a href="javascript:;">暂定中..</a>
+                </li>
+            </ul>
+        </div>
+        <!--右边显示区域  -->
+        <div class="accountcontent">
+            <div class="tab-content accounts">
+                <!--根据左边显示右边的区域-->
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+              
+                go("accounts","accountinfo");
+
+            });
+        $(".navlist li ").click(function () {
+
+            $(".navlist li").click(function () {
+
+                let dataid=$(this).attr("data-id");
+
+                $(".navlist li").removeClass("active");
+                $(this).addClass("active");
+
+                $(".tab-content div").removeClass("active");
+                go("accounts",dataid);
+
+            });
+        });
+    </script>
+</body>
+</html>

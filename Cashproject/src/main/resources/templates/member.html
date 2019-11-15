@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/member.css">
+
+</head>
+<body>
+<!--会员内容-->
+<div class="contentarea clearfix" style="height: 785px;">
+    <div class="navlists">
+        <ul>
+            <li class="current-item" data-id="member_info">
+                <a href="javascript:;">会员信息</a>
+            </li>
+            <li data-id="level_set">
+                <a href="javascript:;">等级设置</a>
+            </li>
+            <li data-id="integer_set">
+                <a href="javascript:;">积分设置</a>
+            </li>
+            <li data-id="recharge_deduction">
+                <a href="javascript:;">充值抵扣</a>
+            </li>
+            <li data-id="transaction_record">
+                <a href="javascript:;">成交记录</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="tab-content members">
+            <!--店铺下的功能模块-->
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".navlists li a").click(function () {
+        $(".navlists li").removeClass("current-item");
+        $(this).parent().addClass("current-item");
+    });
+    $(function () {
+        
+        go("members","member_info");
+    });
+    $(".navlists li").click(function () {
+        $(".members>div").remove();
+        let dataid=$(this).attr("data-id");
+
+        $(".navlists li").removeClass("active");
+        $(this).addClass("active");
+        $(".members div").removeClass("active");
+        go("members",dataid);
+    });
+</script>
+</body>
+</html>

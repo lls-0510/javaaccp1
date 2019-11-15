@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.ProductlistMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Productlist" >
+    <id column="prid" property="prid" jdbcType="INTEGER" />
+    <result column="proid" property="proid" jdbcType="INTEGER" />
+    <result column="ProName" property="proname" jdbcType="VARCHAR" />
+    <result column="Pronumber" property="pronumber" jdbcType="VARCHAR" />
+    <result column="Specifications" property="specifications" jdbcType="VARCHAR" />
+    <result column="ProStock" property="prostock" jdbcType="VARCHAR" />
+    <result column="Sellingprice" property="sellingprice" jdbcType="REAL" />
+    <result column="Costprice" property="costprice" jdbcType="REAL" />
+    <result column="Img" property="img" jdbcType="VARCHAR" />
+    <result column="Number" property="number" jdbcType="INTEGER" />
+    <result column="Proitem" property="proitem" jdbcType="VARCHAR" />
+    <result column="ProCargo" property="procargo" jdbcType="VARCHAR" />
+    <result column="Color" property="color" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    prid, proid, ProName, Pronumber, Specifications, ProStock, Sellingprice, Costprice, 
+    Img, Number, Proitem, ProCargo, Color, size
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ProductlistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from productlist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from productlist
+    where prid = #{prid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from productlist
+    where prid = #{prid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ProductlistExample" >
+    delete from productlist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Productlist" >
+    insert into productlist (prid, proid, ProName, 
+      Pronumber, Specifications, ProStock, 
+      Sellingprice, Costprice, Img, 
+      Number, Proitem, ProCargo, 
+      Color, size)
+    values (#{prid,jdbcType=INTEGER}, #{proid,jdbcType=INTEGER}, #{proname,jdbcType=VARCHAR}, 
+      #{pronumber,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, #{prostock,jdbcType=VARCHAR}, 
+      #{sellingprice,jdbcType=REAL}, #{costprice,jdbcType=REAL}, #{img,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER}, #{proitem,jdbcType=VARCHAR}, #{procargo,jdbcType=VARCHAR}, 
+      #{color,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Productlist" >
+    insert into productlist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prid != null" >
+        prid,
+      </if>
+      <if test="proid != null" >
+        proid,
+      </if>
+      <if test="proname != null" >
+        ProName,
+      </if>
+      <if test="pronumber != null" >
+        Pronumber,
+      </if>
+      <if test="specifications != null" >
+        Specifications,
+      </if>
+      <if test="prostock != null" >
+        ProStock,
+      </if>
+      <if test="sellingprice != null" >
+        Sellingprice,
+      </if>
+      <if test="costprice != null" >
+        Costprice,
+      </if>
+      <if test="img != null" >
+        Img,
+      </if>
+      <if test="number != null" >
+        Number,
+      </if>
+      <if test="proitem != null" >
+        Proitem,
+      </if>
+      <if test="procargo != null" >
+        ProCargo,
+      </if>
+      <if test="color != null" >
+        Color,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prid != null" >
+        #{prid,jdbcType=INTEGER},
+      </if>
+      <if test="proid != null" >
+        #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="proname != null" >
+        #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="pronumber != null" >
+        #{pronumber,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="prostock != null" >
+        #{prostock,jdbcType=VARCHAR},
+      </if>
+      <if test="sellingprice != null" >
+        #{sellingprice,jdbcType=REAL},
+      </if>
+      <if test="costprice != null" >
+        #{costprice,jdbcType=REAL},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="proitem != null" >
+        #{proitem,jdbcType=VARCHAR},
+      </if>
+      <if test="procargo != null" >
+        #{procargo,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ProductlistExample" resultType="java.lang.Integer" >
+    select count(*) from productlist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update productlist
+    <set >
+      <if test="record.prid != null" >
+        prid = #{record.prid,jdbcType=INTEGER},
+      </if>
+      <if test="record.proid != null" >
+        proid = #{record.proid,jdbcType=INTEGER},
+      </if>
+      <if test="record.proname != null" >
+        ProName = #{record.proname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pronumber != null" >
+        Pronumber = #{record.pronumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specifications != null" >
+        Specifications = #{record.specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prostock != null" >
+        ProStock = #{record.prostock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellingprice != null" >
+        Sellingprice = #{record.sellingprice,jdbcType=REAL},
+      </if>
+      <if test="record.costprice != null" >
+        Costprice = #{record.costprice,jdbcType=REAL},
+      </if>
+      <if test="record.img != null" >
+        Img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        Number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.proitem != null" >
+        Proitem = #{record.proitem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.procargo != null" >
+        ProCargo = #{record.procargo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null" >
+        Color = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update productlist
+    set prid = #{record.prid,jdbcType=INTEGER},
+      proid = #{record.proid,jdbcType=INTEGER},
+      ProName = #{record.proname,jdbcType=VARCHAR},
+      Pronumber = #{record.pronumber,jdbcType=VARCHAR},
+      Specifications = #{record.specifications,jdbcType=VARCHAR},
+      ProStock = #{record.prostock,jdbcType=VARCHAR},
+      Sellingprice = #{record.sellingprice,jdbcType=REAL},
+      Costprice = #{record.costprice,jdbcType=REAL},
+      Img = #{record.img,jdbcType=VARCHAR},
+      Number = #{record.number,jdbcType=INTEGER},
+      Proitem = #{record.proitem,jdbcType=VARCHAR},
+      ProCargo = #{record.procargo,jdbcType=VARCHAR},
+      Color = #{record.color,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Productlist" >
+    update productlist
+    <set >
+      <if test="proid != null" >
+        proid = #{proid,jdbcType=INTEGER},
+      </if>
+      <if test="proname != null" >
+        ProName = #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="pronumber != null" >
+        Pronumber = #{pronumber,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        Specifications = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="prostock != null" >
+        ProStock = #{prostock,jdbcType=VARCHAR},
+      </if>
+      <if test="sellingprice != null" >
+        Sellingprice = #{sellingprice,jdbcType=REAL},
+      </if>
+      <if test="costprice != null" >
+        Costprice = #{costprice,jdbcType=REAL},
+      </if>
+      <if test="img != null" >
+        Img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        Number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="proitem != null" >
+        Proitem = #{proitem,jdbcType=VARCHAR},
+      </if>
+      <if test="procargo != null" >
+        ProCargo = #{procargo,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        Color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prid = #{prid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Productlist" >
+    update productlist
+    set proid = #{proid,jdbcType=INTEGER},
+      ProName = #{proname,jdbcType=VARCHAR},
+      Pronumber = #{pronumber,jdbcType=VARCHAR},
+      Specifications = #{specifications,jdbcType=VARCHAR},
+      ProStock = #{prostock,jdbcType=VARCHAR},
+      Sellingprice = #{sellingprice,jdbcType=REAL},
+      Costprice = #{costprice,jdbcType=REAL},
+      Img = #{img,jdbcType=VARCHAR},
+      Number = #{number,jdbcType=INTEGER},
+      Proitem = #{proitem,jdbcType=VARCHAR},
+      ProCargo = #{procargo,jdbcType=VARCHAR},
+      Color = #{color,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR}
+    where prid = #{prid,jdbcType=INTEGER}
+  </update>
+</mapper>

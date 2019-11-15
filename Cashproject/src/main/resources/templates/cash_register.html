@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/editfcade.css">
+    <style>
+        .onlist{
+            height: 100%;
+            padding: 5px 0px;
+            box-sizing: border-box;
+        }
+        .onlist div{
+            text-align: center;
+            line-height: 36px;
+        }
+        .totalMoney{
+            float: right;
+            line-height: 36px;
+        }
+        .shoptable{
+            display:block;
+            height: 450px;
+            overflow-y: scroll;
+            width: 100%;
+            border: 1px solid #999999;
+            margin-top: 49px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            table-layout:fixed;
+        }
+        .shoptable thead{
+            width:350px;
+        }
+    </style>
+</head>
+<body>
+    <div class="rightarea clearfix">
+        <div class="title clearfix" style="margin-left: 20px;margin-top: -10px;margin-right: 20px;">
+            <h3 class="fl" >收银结算</h3>
+            <div class="add_userinfo fr" style="margin-top: 10px;">
+               客户姓名 <input type="text" class="form-control" style="display: inline;width: 200px;">
+            </div>
+        </div>
+        <div class="mainarea clearfix row">
+            <div class="col-md-7">
+                <div class="totalMoney clearfix">
+                    总金额： <span class="fr">￥</span>
+                    <input type="text" class="form-control" style="float: right;width: 100px;" disabled>
+                </div>
+                <ul class="clearfix" style="margin-top: 50px;padding: 10px 10px;width: 100%; border: 1px solid #666666; border-radius: 5px;">
+                    <li class="onlist clearfix row">
+                        <div class="onname col-md-4"><a href="javascript:;">名称</a></div>
+                        <div class="col-md-4"><input type="text" class="form-control" style="width: 100%    ;"></div>
+                        <div class="col-md-4">小计
+                            <span style="color: red">0</span>
+                            ￥
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                    <li class="onlist clearfix row">
+                        <div class="onname col-md-4"><a href="javascript:;">名称</a></div>
+                        <div class="col-md-4"><input type="text" class="form-control" style="width: 100%    ;"></div>
+                        <div class="col-md-4">小计
+                            <span style="color: red">0</span>
+                            ￥
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <div class="shopselect">
+                    <select name="" id="" class="form-control fl" style="width: 150px;">
+                        <option value="类别查询">类别查询</option>
+                    </select>
+                    <!--内容-->
+                    <div class="search clearfix" style="float: left;margin-left: 15px;">
+                        <input class="inputtext" type="text" placeholder="查询内容">
+                        <a href="javascript:;" class="search-btn"></a>
+                    </div>
+                </div>
+                <!--商品列表-->
+                <table class="shoptable clearfix table table-hover">
+                    <thead>
+                            <tr>
+                                <th width="10%"></th>
+                                <th width="10%">序列</th>
+                                <th width="80%">商品名称</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td width="20%">
+                                    <span style="cursor: pointer;color: skyblue"><</span>
+                                </td>
+                                <td width="10%">
+                                    <span style="display: block;width: 40px;">1</span>
+                                </td>
+                                <td width="80%">
+                                    <div style="width: 279px;">
+                                    <img src="" alt="图片" style="width: 30px;height: 30px;">
+                                    11111111111111111
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!--按钮-->
+        <div class="" style="padding-left: 150px;">
+            <a href="javascript:;" class="btn btn-danger" style="width: 120px;color: #ffffff !important;">挂起</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="javascript:;" class="btn btn-success" style="width: 120px;color: #ffffff !important">结算</a>
+        </div>
+    </div>
+</body>
+</html>

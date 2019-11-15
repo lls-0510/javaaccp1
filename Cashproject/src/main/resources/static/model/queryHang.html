@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .close{
+            position: relative;
+            top: -34px;
+        }
+
+        .lists label{
+            float: left;
+            /*width: 76px;*/
+            padding-top: 10px;
+            position: relative;
+            color: #333333;
+            font-size: 16px;
+        }
+
+        .checkboxlist label{
+            padding-right: 10px;
+            cursor: pointer;
+        }
+        .hang{
+            display: block;
+            height: 300px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <div class="modal-header">
+        <h3>挂起内容</h3>
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover hang" style="border: 1px solid #e0e0e0;max-height: 300px">
+            <thead>
+            <tr>
+                <th width="70px">编号</th>
+                <th width="130px">单号</th>
+                <th width="120px">时间</th>
+                <th width="250px">备注</th>
+            </tr>
+            </thead>
+            <tbody style="">
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <!--点击单号跳转到采购单编辑页面-->
+                        <a href="javascript:;" onclick="gosupplier(1111)">111</a>
+                    </td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="text-align: center;">
+        <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">关闭</span>
+    </div>
+</div>
+<script type="text/javascript">
+    function gosupplier(id) {
+        alert(id);
+        $(".shops").load("edit_purchase.html");
+    }
+</script>
+</body>
+</html>

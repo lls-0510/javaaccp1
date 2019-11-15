@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/store.css">
+
+</head>
+<body>
+    <!--店铺内容-->
+    <div class="contentarea clearfix" style="height: 785px;">
+            <div class="navlists">
+                <ul>
+                    <li class="current-item" data-id="store_management">
+                        <a href="javascript:;">店铺管理</a>
+                    </li>
+                    <li data-id="position">
+                        <a href="javascript:;">职位权限</a>
+                    </li>
+                    <li data-id="employee_management">
+                        <a href="javascript:;">员工管理</a>
+                    </li>
+                    <li data-id="alipay_collection">
+                        <a href="javascript:;">收银机支付宝收款</a>
+                    </li>
+                    <li class="wepay_collection">
+                        <a href="javascript:;">收银机微信付款</a>
+                    </li>
+                </ul>
+
+            </div>
+        <div class="content">
+            <div class="tab-content stores">
+                <!--店铺下的功能模块-->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(".navlists li a").click(function () {
+            $(".navlists li").removeClass("current-item");
+            $(this).parent().addClass("current-item");
+        });
+        $(function () {
+            go("stores","store_management");
+        });
+        $(".navlists li").click(function () {
+            $(".stores>div").remove();
+            let dataid=$(this).attr("data-id");
+
+            $(".navlists li").removeClass("active");
+            $(this).addClass("active");
+            $(".stores div").removeClass("active");
+            go("stores",dataid);
+        });
+
+
+    </script>
+</body>
+</html>

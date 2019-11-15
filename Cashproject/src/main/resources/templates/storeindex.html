@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/storeindex.css">
+</head>
+<body>
+        <!--上下结构-->
+        <div class="content-in">
+                <!--上下-->
+                <div class="topnav clearfix">
+                    <ul style="display: flex;justify-content: space-around" class="clearfix">
+                        <li data-id="store">
+                            <a href="javascript:;" class="current">店铺</a>
+                        </li>
+                        <li data-id="shop">
+                            <a href="javascript:;">商品</a>
+                        </li>
+                        <li data-id="forms">
+                            <a href="javascript:;">报表</a>
+                        </li>
+                        <li data-id="member">
+                            <a href="javascript:;">会员</a>
+                        </li>
+                        <li data-id="cash">
+                            <a href="javascript:;">收银</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content">
+                    <div class="tab-content storeindexs">
+                        <!--显示对应功能下方的模块-->
+                    </div>
+                </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function () {
+                go("storeindexs","store");
+            });
+            $(".topnav li").click(function () {
+                $(".storeindexs>div").remove();
+                let dataid=$(this).attr("data-id");
+                $(".topnav li").removeClass("active");
+                $(this).addClass("active");
+                $(".storeindexs div").removeClass("active");
+                go("storeindexs",dataid);
+            });
+            $(".topnav li a ").click(function () {
+                $(".topnav li a ").removeClass("current");
+                $(this).addClass("current");
+            });
+        </script>
+</body>
+</html>

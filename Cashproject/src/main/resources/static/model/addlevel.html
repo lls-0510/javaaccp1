@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .close{
+            position: relative;
+            top: -34px;
+        }
+        .lists{
+            float: left !important;
+            margin-bottom: 14px;
+            width: 100%;
+            margin-left: 0px!important;
+            margin-right: 0px !important;
+        }
+        .otherDiv input{
+            margin-top: 15px;
+        }
+        .lists label{
+            float: left;
+            /*width: 76px;*/
+            padding-top: 10px;
+            position: relative;
+        }
+
+        .checkboxlist label{
+            padding-right: 10px;
+            cursor: pointer;
+        }
+        .otherDiv{
+            background-color: #FFF;
+            border: 1px solid #C7C7C7;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            clear: both;
+            float: left;
+            width: 566px;
+        }
+        .head{
+            float: left;
+            width: 100%;
+            height: 36px;
+        }
+        .head span{
+            float: left;
+            line-height: 36px;
+            padding-left: 10px;
+        }
+        .btnx{
+            float: right;
+            background-color: #FFF;
+            border: 1px solid #44b549;
+            line-height: 22px;
+            margin-top: 6px;
+            margin-right: 6px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+        .btnx em{
+            float: left;
+            width: 42px;
+            text-align: center;
+        }
+        .x{
+            background-color: #44b549;
+            color: #FFF;
+        }
+        .xx{
+            background-color: #FFF;
+            color: #FFF;
+        }
+        .bodyDiv{
+            clear: both;
+            float: left;
+            width: 100%;
+            padding-bottom: 20px;
+            padding-top: 4px;
+            border-top: 1px solid #C7C7C7;
+        }
+        .bodyDiv .list{
+            float: left;
+            width: 90%;
+            clear: both;
+            padding-top: 16px;
+            padding-left: 10px;
+        }
+        .bodyDiv .list label{
+            float: left;
+            padding-top: 6px;
+        }
+        .inputtext{
+            background-color: #FFF;
+            border: 1px solid
+            #c7c7c7;
+            float: left;
+            height: 16px;
+            line-height: 16px;
+            padding-bottom: 6px;
+            padding-left: 6px;
+            padding-top: 6px;
+            margin-left: 4px;
+            margin-right: 4px;
+            margin-top: 10px !important;
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="modal-header">
+        <h3>添加等级</h3>
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <div class="modal-body">
+
+        <div class="lists">
+            <label><span style="color: red;">*</span>等级名称：</label>
+            <input type="text" style="width: 200px;" class="form-control">
+
+        </div>
+        <div class="lists">
+            <label><span style="color: red;">*</span>优惠折扣：</label>
+            <input type="text" style="width: 200px;" class="form-control">
+        </div>
+        <!--other-->
+        <div class="otherDiv">
+            <div class="head">
+                <span>自动升级</span>
+                <a href="javascript:;" class="btnx">
+                    <em class="x">开启</em>
+                    <em class="xx">关闭</em>
+                </a>
+            </div>
+            <div class="bodyDiv">
+                <div class="lists">
+                    <label>1、当会员消费达到</label>
+                    <input type="text" class="inputtext" >
+                    <label>元时，自动升级到该等级。</label>
+                </div>
+                <div class="lists" style="margin-top:-4px;">
+                    <label>2、该等级有效期：</label>
+                    <input style="float: left;" type="radio" checked="checked"  value="0" class="checkbox">
+                    <label >永久</label>
+                    <input type="radio"  style="float:left;" value="1" class="checkbox">
+                    <label >1年</label>
+                </div>
+                <div class="lists">3、自动升级，将在消费达到要求后的第二天生效。</div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="text-align: center;">
+        <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
+        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+    </div>
+</div>
+</body>
+</html>

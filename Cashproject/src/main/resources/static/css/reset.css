@@ -1,0 +1,17 @@
+li{
+    list-style-type: none;
+}
+*{
+    margin: 0 auto;
+    padding: 0;
+}
+a{
+    color: #525e71 !important;
+    text-decoration: none;
+}
+th,td{
+    text-align: center !important;
+}
+em{
+    font-style: normal !important;
+}

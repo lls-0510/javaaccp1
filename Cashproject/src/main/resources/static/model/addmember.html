@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .close{
+            position: relative;
+            top: -34px;
+        }
+        .lists{
+            float: left !important;
+            margin-bottom: 14px;
+            width: 280px;
+            margin-left: 0px!important;
+            margin-right: 0px !important;
+        }
+        .lists label{
+            float: left;
+            /*width: 76px;*/
+            padding-top: 10px;
+            position: relative;
+        }
+
+        .checkboxlist label{
+            padding-right: 10px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+<div>
+    <div class="modal-header">
+        <h3>添加会员</h3>
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <div class="modal-body">
+
+        <div class="lists">
+            <label><span style="color: red;">*</span>手机：</label>
+            <input type="text" style="width: 200px;" class="form-control">
+
+        </div>
+        <div class="lists">
+            <label><span style="color: red;">*</span>名称：</label>
+            <input type="text" style="width: 200px;" class="form-control">
+        </div>
+        <div class="lists">
+            <label><span style="color: red;"></span>等级：</label>
+            <select name="" id="" class="form-control" style="width: 200px;">
+                <option value="">请选择等级</option>
+                <option value="">vip</option>
+                <option value="">会员</option>
+            </select>
+        </div>
+        <div class="lists">
+            <label><span style="color: red;">*</span>密码：</label>
+            <input type="text" style="width: 200px;" class="form-control">
+        </div>
+        <div class="lists" style="width: 100%;">
+            <label style="margin-right:10px;">地址:</label>
+            <select name="" id="" class="form-control" style="width: 120px;float: left;">
+                <option value="">请选择省份</option>
+            </select>
+            <span style="float:left;margin: 0 15px 0 15px">-</span>
+            <select name="" id="" class="form-control" style="width: 120px;float: left;">
+                <option value="">请选择城市</option>
+            </select>
+            <span style="float:left;margin: 0 15px 0 15px">-</span>
+            <select name="" id="" class="form-control" style="width: 120px; float: left;">
+            <option value="">请选择地区</option>
+        </select>
+        </div>
+        <div class="lists" style="width: 100%;">
+            <label>街道：</label>
+            <input type="text" style="width: 350px;" class="form-control">
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="text-align: center;">
+        <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
+        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/editfcade.css">
+    <style>
+
+        .onlist div{
+            text-align: center;
+            line-height: 36px;
+        }
+        .lh td{
+            line-height: 36px !important;
+        }
+    </style>
+</head>
+<body>
+<div class="rightarea clearfix">
+    <div class="title clearfix" style="margin-left: 20px;margin-top: -10px;margin-right: 20px;">
+        <h3 class="fl">挂起查询</h3>
+        <div class="add_userinfo fr" style="margin-top: 10px;">
+            <div class="search">
+                <input class="inputtext" type="text" placeholder="根据客户姓名查找">
+                <a href="javascript:;" class="search-btn"></a>
+            </div>
+        </div>
+    </div>
+    <div class="mainarea clearfix ">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>序列</th>
+                        <th>所属购物车id</th>
+                        <th>名称</th>
+                        <th>数量</th>
+                        <th>小计</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody class="lh">
+                    <tr>
+                        <td>1</td>
+                        <td>123</td>
+                        <td>123123</td>
+                        <td>1</td>
+                        <td>111 <span>￥</span></td>
+                        <td>
+                            <a href="javascript:;" class="btn btn-sm-success">
+                                结算
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <!--分页按钮-->
+    <div class="pagebar" style="text-align: center;">
+        <div class="pagetion">
+            <div class="page">
+                <ul class="pagination">
+                    <li>
+                        <a href="javascript:;">
+                            首页
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            &laquo;
+                        </a>
+                    </li>
+                    <li>
+                        <span style="font-size: 14px;">1/5</span>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            &raquo;
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            尾页
+                        </a>
+                    </li>
+                    <li style="margin-left: 20px; float:left;">
+                        <input type="text" class="form-control" style="width: 100px;">
+                    </li>
+                    <li style="margin-left: 15px; float:left;">
+                        <a href="javascript:;" class="btn btn-default">
+                            跳转
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <!--&lt;!&ndash;按钮&ndash;&gt;
+    <div class="" style="text-align: center;">
+        <a href="javascript:;" class="btn btn-danger" style="width: 120px;color: #ffffff !important;">挂起</a>
+    </div>-->
+</div>
+</body>
+</html>

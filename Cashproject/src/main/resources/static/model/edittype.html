@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .close{
+        position: relative;
+        top: -34px;
+    }
+    .lists{
+        float: left !important;
+        margin-bottom: 14px;
+        width: 100%;
+        margin-left: 40px!important;
+        margin-right: 0px !important;
+        margin-top: 10px;
+    }
+    .lists label{
+        float: left;
+        /*width: 76px;*/
+        padding-top: 10px;
+        position: relative;
+        color: #333333;
+        font-size: 16px;
+    }
+
+    .checkboxlist label{
+        padding-right: 10px;
+        cursor: pointer;
+    }
+</style>
+<body>
+<div id="contentType">
+    <div class="modal-header">
+        <h3>编辑类别</h3>
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="lists">
+            <div class="dialog_bd clearfix">
+                <div class="lists" >
+                    <label class="label">名　称</label>
+                    <input type="text" v-model="lists.goodname" maxlength="16" value="" class="inputText form-control" name="directory" style="width: 300px;float: left;" >
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="text-align: center;">
+        <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
+        <a @click="update()" href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+    </div>
+</div>
+<script type="text/javascript">
+ 	var vue2=new Vue({
+		el:"#contentType",
+		data:{
+			lists:{}
+	 	},
+		methods:{
+			update:function(){
+				alert(1);
+				$.ajax({
+					url:"/doupdate",
+					data:{
+						"Goodname":vue2.lists.goodname,
+						"goodid":vue2.lists.goodid
+						},
+					
+					success:function(result){
+						
+						location.href="/index"
+					}
+				});
+			}
+		},
+		created:function(){
+			let id =$(".modal-content").attr("id");
+			$.ajax({
+				url:"/queryById",
+				data:{"goodid":id},
+				success:function(res){
+					vue2.lists = res;
+				}
+			});
+		}
+	}) 
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .close{
+            position: relative;
+            top: -34px;
+        }
+        .lists{
+            float: left;
+            margin-bottom: 14px;
+            width: 340px;
+        }
+        .lists label{
+            float: left;
+            /*width: 76px;*/
+            padding-top: 10px;
+            position: relative;
+        }
+        .checkboxlist{
+            float: left;
+            width: 100%;
+            padding-left: 78px;
+        }
+        .checkboxlist label{
+            padding-right: 10px;
+            cursor: pointer;
+        }
+
+        .j_checkbox{
+            float: left;
+            position: relative;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="modal-header">
+        <h3>编辑职位</h3>
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="lists">
+            <label>职位名称：</label>
+            <input type="text" maxlength="8" value="" class="form-control"style="width: 230px;" name="positionname">
+        </div>
+        <div class="lists">
+            <label >职位权限</label>
+        </div>
+        <div class="lists checkboxlist">
+            <label class="list_title">销售：</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+        </div>
+        <div class="lists checkboxlist">
+            <label class="list_title">销售：</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+        </div>
+        <div class="lists checkboxlist">
+            <label class="list_title">销售：</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+            <input type="checkbox" class="j_checkbox">
+            <label >收银开单</label>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="text-align: center;">
+        <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
+        <a href="javascript:;" class="btn btn-danger" style="width: 100px;color: #ffffff !important;">删除</a>
+        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+    </div>
+</div>
+</body>
+</html>

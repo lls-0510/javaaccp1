@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>日进斗金-index</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.js"></script>
+        <script src="js/index.js"></script>
+    
+</head>
+<body>
+<!--模态弹窗-->
+<div class="modal fade" id="tanchuan" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+    <!--头部-->
+    <div class="header clearfix">
+        <div class="top">
+            <div class="divUser">
+                <a href="javascript:;" class="logout">退出</a>
+                <a href="javascript:;" class="head">
+                    <p class="type">
+                        <span>未认证</span>
+                    </p>
+                    <p class="nick">
+                        <span>账号名称</span>
+                    </p>
+                    <img src="" alt="">
+                </a>
+            </div>
+            <!--logo-->
+            <a href="javascript:;">
+                <h2 class="logo" title="POS店铺管理系统,全新O2O平板收银系统-日进斗金收银软件"></h2>
+            </a>
+            <ul class="nav-menu clearfix nav nav-tabs"> <!--nav-tabs将会显示对应active的内容-->
+                <li class="nav-item"  data-id="accountindex">
+                    <a href="javascript:;">
+                        <span class="text">
+                            <span class="text-title">账户</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-id="storeindex">
+                    <a href="javascript:;" >
+                        <span class="text">
+                            <span class="text-title">实体店</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--内容 -->
+    <div class="content">
+        <div class="tab-content indexs">
+            <!--这里的内容根据点击的按钮按钮加载对应的html页面 由tab-pane active决定-->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="foot" style="background: #fafafa none repeat scroll 0 0;border-top: 1px solid #dfdfdf;float: left;padding: 20px 0;text-align: center;width: 100%;">
+        <p style="color: #5e5e5e;">Copyright © 2010-2019 POSO2O. All Rights Reserved.</p>
+    </div>
+    <script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+    <script type="text/javascript">
+    	
+    
+    	$(function(){
+        	go("indexs","login");
+    	});
+        $(".nav-item").click(function () {
+                    $(".indexs>div").remove();
+                    let dataid=$(this).attr("data-id");
+                    $(".nav-item").removeClass("active");
+                    $(this).addClass("active");
+                    $(".indexs div").removeClass("active");
+                    go("indexs",dataid);
+         }); 
+            
+    </script>
+</body>
+</html>

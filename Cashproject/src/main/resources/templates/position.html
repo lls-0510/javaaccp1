@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/position.css">
+</head>
+<body>
+    <!--职位权限-->
+    <div class="rightarea clearfix">
+
+        <!---->
+        <div class="mainarea clearfix">
+            <div class="mainhead">
+                <span class="title">职位权限</span>
+                <div class="searchArea">
+                    <div class="btn-div">
+                            <span  class="btn btn-success" onclick="addposition()" data-target="#tanchuan"  data-toggle="modal">
+                            添加职位
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="mainbody">
+                <table class="settable">
+                    <thead>
+                        <tr>
+                            <th width="20%">序号</th>
+                            <th width="*">名称</th>
+                            <th width="40%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>职位</td>
+                            <td>
+                                <span onclick="editposition()" data-target="#tanchuan"  data-toggle="modal">编辑</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    function addposition() {
+        /*$(".modal-content").attr("id",id);*/
+        $(".modal-content").load("model/addposition.html");
+    }
+    function editposition() {
+        /*$(".modal-content").attr("id",id);*/
+        $(".modal-content").load("model/editposition.html");
+    }
+</script>
+</body>
+</html>

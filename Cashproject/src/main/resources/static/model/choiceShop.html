@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .close{
+            position: relative;
+            top: -34px;
+        }
+        .otherDivss input{
+            margin-top: 15px;
+        }
+        .lists label{
+            float: left;
+            /*width: 76px;*/
+            padding-top: 10px;
+            position: relative;
+        }
+
+        .checkboxlist label{
+            padding-right: 10px;
+            cursor: pointer;
+        }
+
+      /*  .head span{
+            float: left;
+            line-height: 36px;
+            padding-left: 10px;
+        }
+*/
+        .btnx em{
+            float: left;
+            width: 42px;
+            text-align: center;
+        }
+
+        .bodyDiv .list label{
+            float: left;
+            padding-top: 6px;
+        }
+        .choiceAll{
+            float: left;
+        }
+        .tablenb{
+            display: block;
+            height: 350px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="modal-header">
+        <h3>选择商品</h3>
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <div class="modal-body" style="">
+        <table class="table table-striped tablenb" style="border: 1px solid #e0e0e0;max-height: 300px">
+            <thead>
+                <tr>
+                    <th width="8%">选择</th>
+                    <th width="18%">货号/条码</th>
+                    <th width="*">商品</th>
+                    <th width="20%">规格</th>
+                    <th width="12%">单价</th>
+                    <th width="12%">库存</th>
+                </tr>
+            </thead>
+            <tbody style="">
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>1</td>
+                    <td>
+                        <img src="" alt="图片">
+                        1111
+                    </td>
+                    <td>1</td>
+                    <td>
+                        1
+                    </td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="text-align: center;">
+        <div class="choiceAll">
+            <input type="checkbox">全选
+        </div>
+        <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
+        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+    </div>
+</div>
+</body>
+</html>

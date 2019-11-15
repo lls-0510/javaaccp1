@@ -1,0 +1,46 @@
+/*鐩掑瓙灞呬腑*/
+.div-in{
+    width: 1100px;
+    height: 100%;
+    margin: 0 auto ;
+}
+/*鐩掑瓙鍐呭980*/
+.content-in{
+    width: 1240px;
+    height: 100%;
+    margin: 0 auto;
+}
+/*娓呴櫎娴姩*/
+.clearfix::after{
+    /*璁剧疆娣诲姞鐨勫瓙鍏冪礌鐨勫唴瀹逛负绌�*/
+    content: "";
+    /*璁剧疆娣诲姞鐨勫瓙鍏冪礌涓哄潡绾у厓绱�*/
+    display: block;
+    /*璁剧疆娣诲姞鐨勫瓙鍏冪礌鐨勯珮搴︿负0*/
+    height: 0;
+    /*璁剧疆娣诲姞鐨勫瓙鍏冪礌鐪嬩笉瑙�*/
+    visibility: hidden;
+    /*缁欐坊鍔犵殑瀛愬厓绱犺缃甤lear: both;*/
+    clear: both;
+}
+.clearfix{
+    /*鍏煎IE6*/
+    *zoom:1;
+}
+/*宸︽诞鍔�*/
+.fl{
+    float: left;
+}
+/*鍙虫诞鍔�*/
+.fr{
+    float: right;
+}
+
+body{
+    font: 14px/1.5 "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","榛戜綋",Arial,sans-serif;
+    color: #222;
+}
+.inputtext{
+	height:100% !important;
+    outline: none !important;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>店铺</title>
+    <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+<!--店铺内容-->
+<div class="contentarea clearfix" style="height:100%;">
+    <div class="navlists clearfix" style="min-height: 728px">
+        <ul class="clearfix">
+            <li class="current-item" data-id="shop_type">
+                <a href="javascript:;">商品类型</a>
+            </li>
+            <li data-id="shop_managerment">
+                <a href="javascript:;">商品管理</a>
+            </li>
+            <li data-id="shop_upload" >
+                <a href="javascript:;">商品上传</a>
+            </li>
+            <li data-id="supplier">
+                <a href="javascript:;">供应商</a>
+            </li>
+            <li data-id="purchase_list">
+                <a href="javascript:;">采购单</a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="content clearfix">
+        <div class="tab-content shops clearfix">
+            <!--店铺下的功能模块-->
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(".navlists li a").click(function () {
+        $(".navlists li").removeClass("current-item");
+        $(this).parent().addClass("current-item");
+    });
+    $(function () {
+        go("shops","shop_type");
+    });
+    $(".navlists li").click(function () {
+        $(".shops>div").remove();
+        let dataid=$(this).attr("data-id");
+        $(".navlists li").removeClass("active");
+        $(this).addClass("active");
+        $(".shops div").removeClass("active");
+        go("shops",dataid);
+    });
+</script>
+</body>
+</html>

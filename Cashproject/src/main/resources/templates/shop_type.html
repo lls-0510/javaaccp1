@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/shop_type.css">
+
+</head>
+<body>
+<div class="rightarea clearfix" id="content">
+    <div class="mainarea clearfix">
+        <div class="user_list_main clearfix">
+            <div class="user_list_body clearfix">
+                <div class="sub_title">商品类别</div>
+                <span class="btn btn-success" onclick="addtype()" data-target="#tanchuan"  data-toggle="modal" style="float: right;position: relative;top: -23px;">添加类别</span>
+                <table class="clearfix settable">
+                    <thead>
+                        <tr>
+                            <th width="20%">序号</th>
+                            <th width="*">名称</th>
+                            <th width="40%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb">
+                        <tr v-for="stu,index in list">
+                        	<td>{{stu.goodid}}</td>
+                        	<td>{{stu.goodname}}</td>
+                             <td>
+                                <a  @click="adittype(stu.goodid)" data-target="#tanchuan"  data-toggle="modal">修改</a>
+                                <a @click="del(stu.goodid)" href="javascript:;">删除</a>
+                            </td>  
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+		var vue1=new Vue({
+			el:"#content",
+			data(){
+				return{
+					list:[]
+				}
+			},
+			methods:{
+				 del:function(goodid,index){
+						$.ajax({
+							url:"/deleteGoodType",
+							data:"goodid="+goodid,
+							success:function(result){
+									alert("删除成功");
+									vue1.list.splice(index,1);
+							}
+						});
+					},
+					adittype:function(id){
+				        $(".modal-content").attr("id",id);
+				         $(".modal-content").load("model/edittype.html"); 
+					}
+			}
+		});
+		
+		/* 查询 */
+		$(function(){
+			$.ajax({
+				url:"[[@{queryAll}]]",
+				success:function(result){
+						vue1.list = result;
+				}
+			});
+		});
+    function addtype() {
+        $(".modal-content").load("model/addtype.html");
+    }
+
+</script>
+</body>
+</html>

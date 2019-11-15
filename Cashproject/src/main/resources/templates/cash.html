@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>店铺</title>
+    <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+<!--店铺内容-->
+<div class="contentarea clearfix" style="height: 785px;">
+    <div class="navlists clearfix">
+        <ul class="clearfix">
+            <li class="current-item" data-id="cash_register">
+                <a href="javascript:;">收银</a>
+            </li>
+            <li data-id="hangupquery">
+                <a href="javascript:;">挂起查询</a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="content">
+        <div class="tab-content cashs">
+            <!--收银下的功能模块-->
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(".navlists li a").click(function () {
+        $(".navlists li").removeClass("current-item");
+        $(this).parent().addClass("current-item");
+        
+    });
+    $(function () {
+        go("cashs","cash_register");
+    });
+    $(".navlists li").click(function () {
+        $(".cashs>div").remove();
+        let dataid=$(this).attr("data-id");
+        $(".navlists li").removeClass("active");
+        $(this).addClass("active");
+        $(".cashs div").removeClass("active");
+        go("cashs",dataid);
+
+    });
+</script>
+</body>
+</html>

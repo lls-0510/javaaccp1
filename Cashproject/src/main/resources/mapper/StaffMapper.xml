@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.StaffMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Staff" >
+    <id column="staffId" property="staffid" jdbcType="VARCHAR" />
+    <result column="staffName" property="staffname" jdbcType="VARCHAR" />
+    <result column="staffpwd" property="staffpwd" jdbcType="VARCHAR" />
+    <result column="staffPhone" property="staffphone" jdbcType="VARCHAR" />
+    <result column="staffTime" property="stafftime" jdbcType="VARCHAR" />
+    <result column="headPortrait" property="headportrait" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    staffId, staffName, staffpwd, staffPhone, staffTime, headPortrait, industry
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.StaffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from staff
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from staff
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.StaffExample" >
+    delete from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Staff" >
+    insert into staff (staffId, staffName, staffpwd, 
+      staffPhone, staffTime, headPortrait, 
+      industry)
+    values (#{staffid,jdbcType=VARCHAR}, #{staffname,jdbcType=VARCHAR}, #{staffpwd,jdbcType=VARCHAR}, 
+      #{staffphone,jdbcType=VARCHAR}, #{stafftime,jdbcType=VARCHAR}, #{headportrait,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Staff" >
+    insert into staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffid != null" >
+        staffId,
+      </if>
+      <if test="staffname != null" >
+        staffName,
+      </if>
+      <if test="staffpwd != null" >
+        staffpwd,
+      </if>
+      <if test="staffphone != null" >
+        staffPhone,
+      </if>
+      <if test="stafftime != null" >
+        staffTime,
+      </if>
+      <if test="headportrait != null" >
+        headPortrait,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffid != null" >
+        #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="staffname != null" >
+        #{staffname,jdbcType=VARCHAR},
+      </if>
+      <if test="staffpwd != null" >
+        #{staffpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffphone != null" >
+        #{staffphone,jdbcType=VARCHAR},
+      </if>
+      <if test="stafftime != null" >
+        #{stafftime,jdbcType=VARCHAR},
+      </if>
+      <if test="headportrait != null" >
+        #{headportrait,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.StaffExample" resultType="java.lang.Integer" >
+    select count(*) from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update staff
+    <set >
+      <if test="record.staffid != null" >
+        staffId = #{record.staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffname != null" >
+        staffName = #{record.staffname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffpwd != null" >
+        staffpwd = #{record.staffpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffphone != null" >
+        staffPhone = #{record.staffphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stafftime != null" >
+        staffTime = #{record.stafftime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headportrait != null" >
+        headPortrait = #{record.headportrait,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        industry = #{record.industry,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update staff
+    set staffId = #{record.staffid,jdbcType=VARCHAR},
+      staffName = #{record.staffname,jdbcType=VARCHAR},
+      staffpwd = #{record.staffpwd,jdbcType=VARCHAR},
+      staffPhone = #{record.staffphone,jdbcType=VARCHAR},
+      staffTime = #{record.stafftime,jdbcType=VARCHAR},
+      headPortrait = #{record.headportrait,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Staff" >
+    update staff
+    <set >
+      <if test="staffname != null" >
+        staffName = #{staffname,jdbcType=VARCHAR},
+      </if>
+      <if test="staffpwd != null" >
+        staffpwd = #{staffpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffphone != null" >
+        staffPhone = #{staffphone,jdbcType=VARCHAR},
+      </if>
+      <if test="stafftime != null" >
+        staffTime = #{stafftime,jdbcType=VARCHAR},
+      </if>
+      <if test="headportrait != null" >
+        headPortrait = #{headportrait,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Staff" >
+    update staff
+    set staffName = #{staffname,jdbcType=VARCHAR},
+      staffpwd = #{staffpwd,jdbcType=VARCHAR},
+      staffPhone = #{staffphone,jdbcType=VARCHAR},
+      staffTime = #{stafftime,jdbcType=VARCHAR},
+      headPortrait = #{headportrait,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR}
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </update>
+</mapper>
