@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="contents">
     <div class="mainarea clearfix">
         <div class="mainhead">
             <span class="title">供应商</span>
@@ -21,21 +21,27 @@
             </div>
 
             <div class="list search">
-                <input class="inputtext" type="text" placeholder="查找">
-                <a href="javascript:;" class="search-btn"></a>
+                <input class="inputtext" type="text" placeholder="查找" name="Suname">
+                <a href="javascript:;" class="search-btn" @click="getPage()"></a>
             </div>
+            
             <div class="list">
-                <select name="" id="" class="form-control">
-                    <option value="请选择城市">请选择城市</option>
-                </select>
+                <select id="two" class="form-control">
+		        <option value="">--请选择--</option>
+		    </select>
             </div>
             <div class="list">
                 -
             </div>
             <div class="list">
-                <select name="" id="" class="form-control">
-                    <option value="请选择省份">请选择省份</option>
-                </select>
+                <select id="one" onchange="func(this.value)" class="form-control">
+			        <option value="">--请选择--</option>
+			        <option value="0">浙江省</option>
+			        <option value="1">广东省</option>
+			        <option value="2">福建省</option>
+			        <option value="3">湖南省</option>
+			    </select>
+
             </div>
 
             <div class="list">
@@ -58,20 +64,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr v-for="stu,index in page.list">
                     <td>
-                      1
+                     {{index+1}}
                     </td>
-                    <td>1
+                    <td>{{stu.sucompany}}
                     </td>
-                    <td>1
+                    <td>{{stu.suname}}
                     </td>
-                    <td >1
+                    <td >{{stu.people}}
                     </td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
+                    <td>{{stu.phone}}</td>
+                    <td>{{stu.telephone}}</td>
+                    <td>{{stu.email}}</td>
+                    <td>{{stu.province}}{{stu.city}}{{stu.area}}</td>
                     <td>
                         <a href="javascript:;">删除</a>
                         <span onclick="editsupplier()" data-target="#tanchuan"  data-toggle="modal">编辑</span>
@@ -79,10 +85,64 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="pageMenu">
+			<span v-on:click="getPage(page.prePage)">上一页</span>
+			<span v-for="numPage in page.pages">
+				<span v-on:click="getPage(numPage)">{{numPage}}</span>
+			</span>
+			<span v-on:click="getPage(page.nextPage)">下一页</span>
+			
+		</div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+var suppvue=new Vue({
+	el:"#contents",
+	data:{
+		page:{
+			list:[]
+		}
+	},
+	methods:{
+	
+		getPage:function(currentPage){
+			var Suname=$("[name='Suname']").val();
+			$.ajax({
+				url:"/suppqueryAll",
+				data:{pageNum:currentPage,pageSize:1,Suname:Suname},
+				success:function(result){
+					suppvue.page=result;
+				}
+			});
+		},
+	},
+	created:function(){
+		this.getPage(1);
+	}
+});
+		
+		var two = document.getElementById('two');
+		city = [];//申明
+		
+		//定义二级数据
+		city[0] = ['杭州市'];
+		city[1] = ['广州市'];
+		city[2] = ['厦门市'];
+		city[3] = ['株洲市','长沙市','湘潭市'];
+		function func(m){
+		    two.length = 1;
+		
+		//遍历生产option选项
+		    for (var i = 0; i < city[m].length; i++) {
+		
+		//创建一个option 把数据存储在option 
+		        var op = new Option(city[m][i],i);
+		
+		//把带有数据的option 添加到第二个select
+		        two.add(op);
+		    };
+		}
 
     function addsupplier() {
         $(".modal-content").load("model/addsupplier.html");

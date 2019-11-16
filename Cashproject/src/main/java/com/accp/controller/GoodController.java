@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Good;
+import com.accp.domain.Productinfo;
 import com.accp.service.GoodService;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 public class GoodController {
@@ -48,7 +50,12 @@ public class GoodController {
 		goodService.deleteGoodType(goodid);
 		return "success";
 	}
-	
+	/**
+	 * 查询商品类型id
+	 * @param goodid
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/queryById")
 	@ResponseBody
 	public Good doupate(Integer goodid,Model model) {
@@ -58,11 +65,60 @@ public class GoodController {
 		return clazz;
 	}
 	
+	/**
+	 * 查询商品信息id
+	 * @param proid
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/queryproById")
+	@ResponseBody
+	public Productinfo queryproById(Integer proid,Model model) {
+		model.addAttribute("proid",proid);
+		System.out.println("商品信息id"+proid);
+		Productinfo clazz=goodService.queryproById(proid);
+		return clazz;
+	}
+	/**
+	 * 修改
+	 * @param Goodname
+	 * @param goodid
+	 * @return
+	 */
 	@RequestMapping("/doupdate")
 	@ResponseBody
 	public String updateGoodType(String Goodname,Integer goodid) {
 		goodService.updateGoodType(Goodname, goodid);
 		return "success";
 	}
+	
+	/**
+	 * 分页查询
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping("/proqueryAll")
+	@ResponseBody
+	public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize) {
+		
+		PageInfo<Productinfo> page = goodService.proqueryAll(pageNum, pageSize);
+		System.out.println(page.toString());
+		return page;
+	}
+	
+	/**
+	 * 删除商品信息
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping("/deleteproducinfo")
+	@ResponseBody
+	public int deleteproducinfo(Integer proid) {
+		return goodService.deleteproducinfo(proid);
+	}
+	
+	
 
 }
