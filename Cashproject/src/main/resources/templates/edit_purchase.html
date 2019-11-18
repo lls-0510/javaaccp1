@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,7 @@
 </head>
 <body>
     <!--新建采购单-->
-    <div class="rightarea clearfix">
+    <div class="rightarea clearfix" id="su">
         <div class="mainarea clearfix">
             <div class="mainhead">
                 <span class="title">编辑采购单</span>
@@ -22,27 +22,26 @@
                 <div class="otherinput clearfix">
                     <div class="listDivs">
                         <label for="">单号</label>
-                        <input type="text" class="inputTextss form-control" >
+                        <input v-model="lists.odd" name="odd" type="text" class="inputTextss form-control" >
                     </div>
                     <div class="listDivs">
                         <label for="">交期</label>
-                        <input type="date" class="form-control" style="width: 204px;float: left;margin-right: 16px;">
+                        <input v-model="lists.time"  name="deliverytime" type="date" class="form-control" style="width: 204px;float: left;margin-right: 16px;">
                     </div>
                     <div class="listDivs">
-                        <label for="">供应商</label>
-                        <select type="date" class="form-control" style="width: 180px;float: left;">
-                            <option value="">请选择供应商</option>
+                         <select type="date" class="form-control" style="width: 180px;float: left;">
+                            <option v-for="item,inedx in name">{{item.suname}}</option>
                         </select>
                     </div>
                     <div class="listDivs">
                         <label for="">制表人</label>
-                        <select type="date" class="form-control" style="width: 180px;float: left;">
+                        <select  type="date" class="form-control" style="width: 180px;float: left;">
                             <option value="">12316564</option>
                         </select>
                     </div>
                     <div class="listDivs" style="margin-top: 10px;">
                         <label for="">备注</label>
-                        <input type="text" class="form-control" style="width:971px !important; float:left;">
+                        <input v-model="lists.remarks" type="text" class="form-control" style="width:971px !important; float:left;">
                     </div>
                 </div>
                 <!--end-->
@@ -60,21 +59,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr v-for="stu,index in lists">
                             <td>
-                                1
+                                {{stu.ltemno}}
                             </td>
-                            <td>1
+                            <td>{{stu.shapecode}}
                             </td>
-                            <td>1
+                            <td>{{stu.goodsname}}
                             </td>
-                            <td >1
+                            <td >{{stu.specification}}
                             </td>
-                            <td>1</td>
+                            <td>{{stu.odd}}</td>
                             <td>
-                                <input type="text" style="width: 80px;text-align: center;" class="form-control">
+                                <input v-model="lists.number" type="text" style="width: 80px;text-align: center;" class="form-control">
                             </td>
-                            <td>1</td>
+                            <td>{{stu.costprice}}</td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -88,7 +87,7 @@
 
                                 <div class="totalNumDiv">
                                     <span>合计</span>
-                                    <em class="">0</em>
+                                    <em class="">1</em>
                                     <span>件</span>
                                 </div>
 
@@ -100,16 +99,80 @@
                 <!--end-->
                 <div class="btnarear" style="margin-top: 25px;">
                     <span style="float: left;color:#44b549;" data-target="#tanchuan"  data-toggle="modal" onclick="addShop()">+添加商品</span>
-                    <a href="javascript:;" class="btn btn-default" style="width: 100px;">清空</a>
+                    <a id="kong" href="javascript:;" class="btn btn-default" style="width: 100px;">清空</a>
                     <a href="javascript:;" class="btn btn-success" style="width: 100px;color:#ffffff !important;">提交</a>
                 </div>
             </div>
         </div>
     </div>
 <script type="text/javascript">
+	var editsu=new Vue({
+	el:"#su",
+	data:{
+		lists:[],
+		name:[]
+ 	},
+	methods:{
+		/* update:function(){
+			alert("进来了供应商修改");
+			$.ajax({
+				url:"/sudoupdate",
+				data:{
+					"suname":editsu.lists.suname,
+					
+					},
+				success:function(result){
+					alert(result);
+					
+				}
+			});
+		} */
+	},   
+	created:function(){    
+		let purchaseid =$(".modal-content").attr("purchaseid");
+		$.ajax({
+			url:"/purchasequeryAllById",
+			data:{"purchaseid":purchaseid},
+			success:function(res){
+				editsu.lists = res;
+			}
+		});
+	}
+}) 
+	/* 查询 */
+	$(function(){
+		$.ajax({
+			url:"/queryByName",
+			success:function(result){
+				editsu.name = result;
+			}
+		});
+	});
+	//清空
+	$(function(){
+		$("#kong").click(function(){
+			$("input").each(function(){
+				$(this).val("");
+			})
+		})
+		//流水号
+    	$("[name='deliverytime']").change(function(){
+    		let deliverytime=$(this).val();
+    		$.ajax({
+    			url:"/findMax",
+    			data:{deliverytime:deliverytime},
+    			success:function(res){
+    				$("[name='odd']").val(res);
+    			}
+    		});
+    	});
+	})
     function addShop() {
         $(".modal-content").load("model/choiceShop.html");
-    }
+    } 
+    $(function(){ 
+    	console.log($(".modal-content").attr("purchaseid"))
+    });
 </script>
 </body>
 </html>

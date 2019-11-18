@@ -31,6 +31,7 @@
     </style>
 </head>
 <body>
+<form action="/insertsupplier" method="post">
 <div>
     <div class="modal-header">
         <h3>添加供应商</h3>
@@ -40,54 +41,59 @@
 
         <div class="lists">
             <label>公司名称：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" name="suname">
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>公司简称：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" name="sucompany">
 
         </div>
         <div class="lists">
             <label>联系人：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" name="people">
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>手机：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" name="phone">
         </div>
         <div class="lists">
             <label>邮箱：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" name="email">
         </div>
         <div class="lists">
             <label>电话：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" name="telephone">
         </div>
         <div class="lists clearfix" style="width: 100%;">
             <label>地址</label>
-            <select name="" id="" class="form-control" style="width: 105px;float: left;">
-                <option value="">请选择省份</option>
+            <select name="province" id="" class="form-control" style="width: 105px;float: left;">
+                <option>请选择省份</option>
+                <option>株洲</option>
             </select>
             <span style="float: left;margin: 0 5px 0 5px ;">-</span>
-            <select name="" id="" class="form-control" style="width: 105px; float: left;">
-                <option value="">请选择城市</option>
+            <select name="city" id="" class="form-control" style="width: 105px; float: left;">
+                <option>请选择城市</option>
+                <option>株洲</option>
             </select>
             <span style="float: left;margin: 0 5px 0 5px ;">-</span>
-            <select name="" id="" class="form-control" style="width: 105px;float: left;">
-            <option value="">请选择地区</option>
+            <select name="area" id="" class="form-control" style="width: 105px;float: left;">
+            <option>请选择地区</option>
+            <option>株洲</option>
         </select>
         </div>
         <div class="lists" style="width: 100%;">
             <label>街道：</label>
-            <input type="text" style="width: 300px;" class="form-control fl">
+            <input type="text" style="width: 300px;" class="form-control fl" name="street">
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+<!--         <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+ -->        <input type="submit" value="新增" class="btn btn-success" style="width: 100px;color: #ffffff !important;">
     </div>
 </div>
+</form>
 </body>
 </html>

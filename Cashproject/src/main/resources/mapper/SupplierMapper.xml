@@ -106,11 +106,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.accp.domain.Supplier" >
-    insert into supplier (SuId, Suname, Sucompany, 
+    insert into supplier (Suname, Sucompany, 
       People, Phone, Email, 
       Telephone, Province, City, 
       area, Street)
-    values (#{suid,jdbcType=INTEGER}, #{suname,jdbcType=VARCHAR}, #{sucompany,jdbcType=VARCHAR}, 
+    values (#{suname,jdbcType=VARCHAR}, #{sucompany,jdbcType=VARCHAR}, 
       #{people,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{area,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR})

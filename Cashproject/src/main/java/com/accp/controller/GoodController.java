@@ -1,4 +1,4 @@
-gg'ipackage com.accp.controller;
+package com.accp.controller;
 
 import java.util.List;
 
@@ -79,6 +79,19 @@ public class GoodController {
 		Productinfo clazz=goodService.queryproById(proid);
 		return clazz;
 	}
+	
+	/**
+	 * 查询
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/aa")
+	public String index(Model model,Integer proid) {
+		List<Productinfo>list=goodService.queryprById(proid);
+		model.addAttribute("list", list);
+		System.out.println("id为--"+proid);
+		return "add_purchase";
+	}
 	/**
 	 * 修改
 	 * @param Goodname
@@ -87,9 +100,21 @@ public class GoodController {
 	 */
 	@RequestMapping("/doupdate")
 	@ResponseBody
-	public String updateGoodType(String Goodname,Integer goodid) {
-		goodService.updateGoodType(Goodname, goodid);
-		return "success";
+	public int updateGoodType(String Goodname,Integer goodid) {
+		return goodService.updateGoodType(Goodname, goodid);
+	}
+	
+	/**
+	 * 选中商品
+	 * @param Goodname
+	 * @param goodid
+	 * @return
+	 */
+	@RequestMapping("/query")
+	@ResponseBody
+	public List<Productinfo> query() {
+		return goodService.query();
+		 
 	}
 	
 	/**

@@ -79,8 +79,8 @@
                     <td>{{stu.email}}</td>
                     <td>{{stu.province}}{{stu.city}}{{stu.area}}</td>
                     <td>
-                        <a href="javascript:;">删除</a>
-                        <span onclick="editsupplier()" data-target="#tanchuan"  data-toggle="modal">编辑</span>
+                        <a href="" @click="del(stu.suid)">删除</a>
+                        <span @click="editsupplier(stu.suid)" data-target="#tanchuan"  data-toggle="modal">编辑</span>
                     </td>
                 </tr>
                 </tbody>
@@ -105,17 +105,30 @@ var suppvue=new Vue({
 		}
 	},
 	methods:{
-	
+		 del:function(suid,index){
+				$.ajax({
+					url:"/deletesupplie",
+					data:"suid="+suid,
+					success:function(result){
+							alert("删除成功");
+							suppvue.page.splice(index,1);
+					}
+				});
+			},
 		getPage:function(currentPage){
 			var Suname=$("[name='Suname']").val();
 			$.ajax({
 				url:"/suppqueryAll",
-				data:{pageNum:currentPage,pageSize:1,Suname:Suname},
+				data:{pageNum:currentPage,pageSize:7,Suname:Suname},
 				success:function(result){
 					suppvue.page=result;
 				}
 			});
 		},
+		editsupplier:function(suid) {
+			 $(".modal-content").attr("suid",suid); 
+	        $(".modal-content").load("model/editsupplier.html");
+	    }
 	},
 	created:function(){
 		this.getPage(1);
@@ -147,10 +160,10 @@ var suppvue=new Vue({
     function addsupplier() {
         $(".modal-content").load("model/addsupplier.html");
     }
-
+/* 
     function editsupplier() {
         $(".modal-content").load("model/editsupplier.html");
-    }
+    } */
 
 </script>
 </body>
