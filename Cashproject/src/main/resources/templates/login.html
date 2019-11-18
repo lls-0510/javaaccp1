@@ -1,3 +1,77 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/login.css">
+
+
+</head>
+<body>
+
+<div class="login-body">
+    <!--标题-->
+    <div class="login-header">
+        <!--注册联系客服链接-->
+        <div class="register-right ">
+            <span>如需注册，请联系客服  </span>
+            <a href="javascript:;">
+                <span></span>
+            </a>
+        </div>
+        用户登录
+    </div>
+    <!--表单-->
+    <div class="login-form">
+        <div class="form-item">
+            <input   type="text" placeholder="账号" name="username" maxlength="11"  class="form-control">
+        </div>
+        <div class="form-item">
+            <input type="text" placeholder="密码" name="pwd"   class="form-control">
+        </div>
+        <div class="form-item code">
+            <input type="text" placeholder="验证码" name="code" maxlength="11"  class="form-control">
+            <div class="code-pane">验证码区域 <img src="" alt="" title="点击换一张"></div>
+        </div>
+        <div class="form-item">
+            <a href="javascript:;" class="forgetpwd">忘记密码？</a>
+
+            <input type="checkbox" class="checkbox">记住账号
+
+        </div>
+        <div class="form-item">
+            <button class="btn btn-success" >登录</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+<script type="text/javascript">
+$(".btn").click(function(){
+	var username = $("[name=username]").val();
+	var userpwd = $("[name=pwd]").val();
+	if(username == ""){
+		alert("用户名不能为空！！");
+	}
+	
+	if(userpwd == ""){
+		alert("密码不能为空！！");
+	}
+	
+	$.ajax({
+		url:"user/login",
+		data:{username:username,userpwd:userpwd},
+		type:"post",
+		success:function(result){
+			alert(result)
+		}
+	});
+});
+</script>
+</body>
+=======
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -50,4 +124,5 @@
 
 </script>
 </body>
+>>>>>>> ad45f253016ce81239e7ff4ca85d585d81c820bd
 </html>
