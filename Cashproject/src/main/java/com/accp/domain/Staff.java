@@ -1,7 +1,7 @@
 package com.accp.domain;
 
 public class Staff {
-    private String staffid;
+    private Integer staffid;
 
     private String staffname;
 
@@ -15,11 +15,37 @@ public class Staff {
 
     private String industry;
 
-    public String getStaffid() {
+    private Integer storeid;
+
+    private String cardgo;
+    
+    private Integer id;
+    
+    private String storename;
+    
+    
+
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getStorename() {
+		return storename;
+	}
+
+	public void setStorename(String storename) {
+		this.storename = storename;
+	}
+
+	public Integer getStaffid() {
         return staffid;
     }
 
-    public void setStaffid(String staffid) {
+    public void setStaffid(Integer staffid) {
         this.staffid = staffid;
     }
 
@@ -69,5 +95,21 @@ public class Staff {
 
     public void setIndustry(String industry) {
         this.industry = industry;
+    }
+
+    public Integer getStoreid() {
+        return storeid;
+    }
+
+    public void setStoreid(Integer storeid) {
+        this.storeid = storeid;
+    }
+
+    public String getCardgo() {
+        return cardgo;
+    }
+
+    public void setCardgo(String cardgo) {
+        this.cardgo = cardgo;
     }
 }

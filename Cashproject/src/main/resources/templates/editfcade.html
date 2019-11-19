@@ -6,26 +6,27 @@
     <link rel="stylesheet" href="css/editfcade.css">
 </head>
 <body>
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="content2">
+<form id="insertForm" name="form"  method="post" enctype="multipart/form-data">
     <div class="mainarea clearfix">
             <!--编辑页面-->
-            <div class="new_mainarea" id="">
+            <div class="new_mainarea" id="myModal">
                 <!--左边-->
                 <div class="lefthead clearfix">
                     <div class="hdimgs">
-                        <div class="pic">
-                            <img src="" alt="">
-                        </div>
+                        <div id="pic">
+						<input name="insertFiles" class="avatar-input" id="avatarInput" type="file">
+						</div>
                     </div>
                     <div class="username clearfix">
                         <div style="margin-bottom:6px;">店铺简称：</div>
-                        <input type="text" name="shopname" class="inputText shopname" id="shopname" value="" maxlength="32">
+                        <input v-model="shop.jcname" type="text" name="jcname" class="inputText shopname" id="shopname" value="" maxlength="32">
                         <i>*</i>
                         <div class="ligdiv">
                             3/16
                         </div>
                         <div class="deacripCont">
-                            <textarea name="remark" cols="45" rows="5" class="description" id="remark" title="店铺简介" placeholder="店铺简介"></textarea>
+                            <textarea v-model="shop.shopname" name="remark" cols="45" rows="5" class="description" id="remark" title="店铺简介" placeholder="店铺简介"></textarea>
                         </div>
                         <div class="ligdiv">
                             140/140
@@ -36,7 +37,7 @@
                 <div class="right_edit">
                     <div class="new_eidt">
                         <em class="bg_icon"></em>
-                        <p class="edit_head">编辑门店</p>
+                        <p class="edit_head">新增门店</p>
                         <div class="body">
                             <div class="lista list_title">店铺信息</div>
                             <div class="form_edit clearfix">
@@ -47,7 +48,7 @@
                                             联系人
                                         </span>
                                     </label>
-                                    <input type="text" class="inputTexts" >
+                                    <input name="people" v-model="shop.shopname" type="text" class="inputTexts" >
                                 </div>
                                 <div class="lista clearfix">
                                     <label for="" class="label">
@@ -56,7 +57,7 @@
                                             手机
                                         </span>
                                     </label>
-                                    <input type="text" class="inputTexts" >
+                                    <input name="phone" v-model="shop.shopname" type="text" class="inputTexts" >
                                 </div>
                                 <div class="lista clearfix ">
                                     <label for="" class="label">
@@ -64,7 +65,7 @@
                                             固话
                                         </span>
                                     </label>
-                                    <input type="text" class="inputTexts" >
+                                    <input name="telephone" v-model="shop.shopname" type="text" class="inputTexts" >
                                 </div>
                                 <div class="lista clearfix">
                                     <label for="" class="label">
@@ -72,12 +73,12 @@
                                           时间
                                         </span>
                                     </label>
-                                    <select name="" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">开始时间</option>
+                                    <select v-model="shop.shopname" name="startime" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option selected>2001-1-1</option>
                                     </select>
                                     <span style="float:left;margin: 0 5px">-</span>
-                                    <select name="" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">结束时间</option>
+                                    <select v-model="shop.shopname" name="endtime" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option value="">2001-2-2</option>
                                     </select>
                                 </div>
                                 <div class="lista clearfix" style="width: 600px;">
@@ -86,16 +87,16 @@
                                           地址
                                         </span>
                                     </label>
-                                    <select name="" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">请选择省份</option>
+                                    <select v-model="shop.shopname" name="province" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option value="">湖南省</option>
                                     </select>
                                     <span style="float:left;margin: 0 5px">-</span>
-                                    <select name="" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">请选择城市</option>
+                                    <select v-model="shop.shopname" name="city" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option value="">株洲市</option>
                                     </select>
                                     <span style="float:left;margin: 0 5px">-</span>
-                                    <select name="" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">请选择地区</option>
+                                    <select v-model="shop.shopname" name="area" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option value="">石峰区</option>
                                     </select>
                                 </div>
                                 <div class="lista clearfix">
@@ -104,7 +105,7 @@
                                           &nbsp;&nbsp;&nbsp;&nbsp;
                                         </span>
                                     </label>
-                                    <input type="text" class="inputTexts" placeholder="填写详细地址信息">
+                                    <input name="ditem" v-model="shop.shopname" type="text" class="inputTexts" placeholder="填写详细地址信息">
                                 </div>
                             </div>
                         </div>
@@ -113,10 +114,50 @@
                 <!--按钮-->
                 <div class="btn_foot">
                     <a href="javascript:;" class="btn btn-default">取消</a>
-                    <a href="javascript:;" class="btn btn-success" style="color: #ffffff !important;">确定</a>
+                    <a @click="insertshop()" href="javascript:;" class="btn btn-success" style="color: #ffffff !important;">确定</a>
                 </div>
             </div>
     </div>
+    </form>
 </div>
 </body>
+        <script type="text/javascript">
+        	var storeVue2 = new Vue({
+        		el:"#content2",
+        		data(){
+        			return {
+        				page:{
+        					list:[]
+        				},
+        				shop:{
+        					
+        				}
+        			}
+        		},
+        		methods:{
+        			insertshop:function(){
+        				var formData = new FormData($('form')[0]);
+        				
+        				//console.log(formData.get("detailaddress"));
+        				$.ajax({
+        					url:"/uploadAjax",
+        					data:formData,
+        					type:"post",
+        					processData:false,
+        					contentType:false,
+        					success:function(result){
+        						console.log(result);
+        						$('#myModal').modal('hide');
+        						document.getElementById("insertForm").reset();
+        					}
+        				});
+        			}
+        		},
+        			
+        		created:function(){
+        			
+        		}
+        	});
+        	
+        </script>
 </html>

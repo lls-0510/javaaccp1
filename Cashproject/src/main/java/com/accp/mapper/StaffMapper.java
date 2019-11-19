@@ -4,13 +4,14 @@ import com.accp.domain.Staff;
 import com.accp.domain.StaffExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface StaffMapper {
     int countByExample(StaffExample example);
 
     int deleteByExample(StaffExample example);
 
-    int deleteByPrimaryKey(String staffid);
+    int deleteByPrimaryKey(Integer staffid);
 
     int insert(Staff record);
 
@@ -18,7 +19,7 @@ public interface StaffMapper {
 
     List<Staff> selectByExample(StaffExample example);
 
-    Staff selectByPrimaryKey(String staffid);
+    Staff selectByPrimaryKey(Integer staffid);
 
     int updateByExampleSelective(@Param("record") Staff record, @Param("example") StaffExample example);
 
@@ -27,4 +28,7 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
+    
+    @Select("SELECT * FROM staff a INNER JOIN store b ON a.`storeid`=b.`id` WHERE a.`staffName` LIKE #{staffName}")
+    List<Staff>staffqueryAll(String staffname);
 }

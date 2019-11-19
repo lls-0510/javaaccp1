@@ -9,7 +9,7 @@
 </head>
 <body>
 <!--员工管理-->
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="staffcontents">
     <div class="mainarea clearfix">
         <div class="mainhead">
             <span class="title">员工管理</span>
@@ -21,18 +21,18 @@
                 </div>
             </div>
             <div class="list search">
-                <input class="inputtext" type="text" placeholder="查找">
-                <a href="javascript:;" class="search-btn"></a>
+                <input name="staffname" class="inputtext" type="text" placeholder="查找">
+                <a href="javascript:;" class="search-btn" @click="getPage()"></a>
             </div>
             <div class="list">
                 <select name="" id="" class="form-control">
-                    <option value="全部职位">全部职位</option>
+                     <option v-for="items,index in po">{{items.type}}</option>
                 </select>
 
             </div>
             <div class="list">
                 <select name="" id="" class="form-control">
-                    <option value="全部店铺">全部店铺</option>
+                    <option v-for="item,index in lists">{{item.storename}}</option>
                 </select>
 
             </div>
@@ -51,34 +51,73 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                    <tr v-for="stu,index in page.list">
+                        <td>{{index+1}}</td>
+                        <td>{{stu.storename}}</td>
+                        <td>{{stu.industry}}</td>
+                        <td>{{stu.cardgo}}</td>
+                        <td>{{stu.staffname}}</td>
+                        <td>{{stu.staffpwd}}</td>
                         <td>
                             <span onclick="editmanagement()" data-target="#tanchuan"  data-toggle="modal">编辑</span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>
-                            <a href="javascript:;">编辑</a>
-                        </td>
-                    </tr>
+   
                 </tbody>
             </table>
+            <div class="pageMenu">
+			<span v-on:click="getPage(page.prePage)">上一页</span>
+			<span v-for="numPage in page.pages">
+				<span v-on:click="getPage(numPage)">{{numPage}}</span>
+			</span>
+			<span v-on:click="getPage(page.nextPage)">下一页</span>
+			
+		</div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+var staffvue=new Vue({
+	el:"#staffcontents",
+	data:{
+		lists:[],
+		po:[],
+		page:{
+			list:[]
+		}
+	},
+	methods:{
+		getPage:function(currentPage){
+			var staffname=$("[name='staffname']").val();
+			$.ajax({
+				url:"/staffqueryAll",
+				data:{pageNum:currentPage,pageSize:1,staffname:staffname},
+				success:function(result){
+					staffvue.page=result;
+				}
+			});
+		}
+	},
+	created:function(){
+		this.getPage(1);
+		var that=this;
+		$.ajax({
+			url:"/queryStore",
+			success:function(result){
+				that.lists = result;
+			}
+		});
+	}
+});
+	$(function(){
+		var th=this;
+		$.ajax({
+			url:"/querypost",
+			success:function(result){
+				th.po = result;
+			}
+		});
+	})
     function addemployee() {
         /*$(".modal-content").attr("id",id);*/
         $(".modal-content").load("model/addemployee.html");
@@ -87,6 +126,7 @@
         /*$(".modal-content").attr("id",id);*/
         $(".modal-content").load("model/aditemployee.html");
     }
+    
 </script>
 </body>
 </html>

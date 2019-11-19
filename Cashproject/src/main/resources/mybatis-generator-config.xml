@@ -34,6 +34,7 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.accp.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
+<<<<<<< HEAD
 			<!--<table schema="car" tableName="car"></table>
 			<table schema="cars" tableName="cars"></table>
 			<table schema="cashregister" tableName="cashregister"></table>
@@ -62,6 +63,11 @@
 			<table schema="vip" tableName="vip "></table>
 			<table schema="vote" tableName="vote"></table>-->
 			<table schema="integral" tableName="integral"></table>
+=======
+			
+			<table schema="post" tableName="post"></table>
+			
+>>>>>>> lls
 			
 <!-- 		<table schema="Sys_permissions" tableName="sys_permissions"></table> -->
 <!-- 		<table schema="Sys_roles" tableName="sys_roles"></table> -->

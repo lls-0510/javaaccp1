@@ -25,7 +25,113 @@ public class Store {
 
     private String ditem;
 
-    public Integer getId() {
+    private String storename;
+
+    private String card;
+    
+    private Integer staffid;
+
+    private String staffname;
+
+    private String staffpwd;
+
+    private String staffphone;
+
+    private String stafftime;
+
+    private String headportrait;
+
+    private String industry;
+
+    private Integer storeid;
+    
+    private Integer staffcount;
+
+	 private String img;
+
+    private String remark;
+
+    private String jcname;
+
+    private String coummt1;
+
+    private String count2;
+    
+    
+
+    public Integer getStaffid() {
+		return staffid;
+	}
+
+	public void setStaffid(Integer staffid) {
+		this.staffid = staffid;
+	}
+
+	public String getStaffname() {
+		return staffname;
+	}
+
+	public void setStaffname(String staffname) {
+		this.staffname = staffname;
+	}
+
+	public String getStaffpwd() {
+		return staffpwd;
+	}
+
+	public void setStaffpwd(String staffpwd) {
+		this.staffpwd = staffpwd;
+	}
+
+	public String getStaffphone() {
+		return staffphone;
+	}
+
+	public void setStaffphone(String staffphone) {
+		this.staffphone = staffphone;
+	}
+
+	public String getStafftime() {
+		return stafftime;
+	}
+
+	public void setStafftime(String stafftime) {
+		this.stafftime = stafftime;
+	}
+
+	public String getHeadportrait() {
+		return headportrait;
+	}
+
+	public void setHeadportrait(String headportrait) {
+		this.headportrait = headportrait;
+	}
+
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+	public Integer getStoreid() {
+		return storeid;
+	}
+
+	public void setStoreid(Integer storeid) {
+		this.storeid = storeid;
+	}
+
+	public Integer getStaffcount() {
+		return staffcount;
+	}
+
+	public void setStaffcount(Integer staffcount) {
+		this.staffcount = staffcount;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -112,4 +218,61 @@ public class Store {
     public void setDitem(String ditem) {
         this.ditem = ditem;
     }
+
+    public String getStorename() {
+        return storename;
+    }
+
+    public void setStorename(String storename) {
+        this.storename = storename;
+    }
+
+    public String getCard() {
+        return card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
+    }
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getJcname() {
+		return jcname;
+	}
+
+	public void setJcname(String jcname) {
+		this.jcname = jcname;
+	}
+
+	public String getCoummt1() {
+		return coummt1;
+	}
+
+	public void setCoummt1(String coummt1) {
+		this.coummt1 = coummt1;
+	}
+
+	public String getCount2() {
+		return count2;
+	}
+
+	public void setCount2(String count2) {
+		this.count2 = count2;
+	}
+    
 }
