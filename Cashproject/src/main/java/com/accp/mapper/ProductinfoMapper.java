@@ -34,9 +34,15 @@ public interface ProductinfoMapper {
     @Select("SELECT * FROM `productinfo` a INNER JOIN `productlist` b ON a.`proid`=b.`proid` INNER JOIN `good` c ON b.`goodid`=c.`Goodid`")
     List<Productinfo>queryAll();
     
+    @Select("SELECT * FROM `productinfo` a INNER JOIN `productlist` b ON a.`proid`=b.`proid`")
+    List<Productinfo>query();
+    
     @Delete("delete from productinfo where proid =#{proid}")
     int deleteproducinfo(Integer proid);
     
     @Select("SELECT * FROM `productinfo` a INNER JOIN `productlist` b ON a.`proid`=b.`proid` INNER JOIN `good` c ON b.`goodid`=c.`Goodid` WHERE a.`proid`=#{proid}")
     Productinfo queryById(Integer proid);
+    
+    @Select("SELECT * FROM `productinfo` a INNER JOIN `productlist` b ON a.`proid`=b.`proid`WHERE a.`proid`=#{proid}")
+    List<Productinfo> queryproById(Integer proid);
 }

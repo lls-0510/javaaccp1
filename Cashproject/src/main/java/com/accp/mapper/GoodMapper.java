@@ -41,4 +41,5 @@ public interface GoodMapper {
     
     @Update("update good set Goodname=#{Goodname} where goodid=#{goodid}")
     int updateGoodType(@Param("Goodname")String Goodname,@Param("goodid")Integer goodid);
+    
 }

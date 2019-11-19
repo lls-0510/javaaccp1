@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-<div>
+<div id="contentTypexxx">
     <div class="modal-header">
         <h3>编辑供应商</h3>
         <span class="close" data-dismiss="modal">&times;</span>
@@ -40,54 +40,96 @@
 
         <div class="lists">
             <label>公司名称：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="lists.suname" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>公司简称：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="lists.sucompany" type="text" style="width: 200px;" class="form-control">
 
         </div>
         <div class="lists">
             <label>联系人：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="lists.people" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>手机：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="lists.phone" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="lists">
             <label>邮箱：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="lists.email" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="lists">
             <label>电话：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="lists.telephone" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="lists clearfix" style="width: 100%;">
             <label>地址</label>
-            <select name="" id="" class="form-control" style="width: 105px;float: left;">
-                <option value="">请选择省份</option>
+            <select  name="" id="" class="form-control" style="width: 105px;float: left;">
+                <option selected>{{lists.province}}</option>
             </select>
             <span style="float: left;margin: 0 5px 0 5px ;">-</span>
-            <select name="" id="" class="form-control" style="width: 105px; float: left;">
-                <option value="">请选择城市</option>
-            </select>
+            <select  name="" id="" class="form-control" style="width: 105px; float: left;">
+                <option selected >{{lists.city}}</option>
+            </select> 
             <span style="float: left;margin: 0 5px 0 5px ;">-</span>
-            <select name="" id="" class="form-control" style="width: 105px;float: left;">
-            <option value="">请选择地区</option>
+            <select  name="" id="" class="form-control" style="width: 105px;float: left;">
+            <option value="">{{lists.area}}</option>
         </select>
         </div>
         <div class="lists" style="width: 100%;">
             <label>街道：</label>
-            <input type="text" style="width: 300px;" class="form-control fl">
+            <input v-model="lists.street" type="text" style="width: 300px;" class="form-control fl">
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+        <a href="javascript:;" @click="update()" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
     </div>
 </div>
+<script type="text/javascript">
+ 	var suvuexxx=new Vue({
+		el:"#contentTypexxx",
+		data:{
+			stu:[]
+	 	},
+		methods:{
+			update:function(){
+				alert("进来了供应商修改");
+				$.ajax({
+					url:"/sudoupdate",
+					data:{
+						"suname":suvuexxx.lists.suname,
+						"sucompany":suvuexxx.lists.sucompany,
+						"people":suvuexxx.lists.people,
+						"phone":suvuexxx.lists.phone,
+						"email":suvuexxx.lists.email,
+						"telephone":suvuexxx.lists.telephone,
+						"province":suvuexxx.lists.province,
+						"city":suvuexxx.lists.city,
+						"area":suvuexxx.lists.area,
+						"suid":suvuexxx.lists.suid
+						},
+					success:function(result){
+						alert(result);
+						/* location.href="/index" */
+					}
+				});
+			}
+		},   
+		created:function(){    
+			let suid =$(".modal-content").attr("suid");
+			$.ajax({
+				url:"/suqueryById",
+				data:{"suid":suid},
+				success:function(res){
+					suvuexxx.lists = res;
+				}
+			});
+		}
+	}) 
+</script>
 </body>
 </html>

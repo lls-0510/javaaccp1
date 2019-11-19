@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -59,30 +59,18 @@
         <table class="table table-striped tablenb" style="border: 1px solid #e0e0e0;max-height: 300px">
             <thead>
                 <tr>
-                    <th width="8%">选择</th>
+                    <th width="4%">选择</th>
+                     
                     <th width="18%">货号/条码</th>
                     <th width="*">商品</th>
-                    <th width="20%">规格</th>
+                    <th width="16%">规格</th>
                     <th width="12%">单价</th>
                     <th width="12%">库存</th>
+                    <th width="8%">编号</th>
                 </tr>
             </thead>
-            <tbody style="">
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>1</td>
-                    <td>
-                        <img src="" alt="图片">
-                        1111
-                    </td>
-                    <td>1</td>
-                    <td>
-                        1
-                    </td>
-                    <td>1</td>
-                </tr>
+            <tbody style="" id="tb">
+                
             </tbody>
         </table>
         <div class="clearfix"></div>
@@ -90,11 +78,60 @@
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <div class="choiceAll">
-            <input type="checkbox">全选
+            <input type="checkbox" id="checkAll" value="" onclick="sb()">全选
         </div>
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
         <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
     </div>
 </div>
+
+<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				url:"/query",
+				type:"post",
+ 				dataType:"json",  
+				success:function(result){	
+					result.forEach(function(i){
+ 						var td1=$("<td><input type='checkbox' id='box' name='box' onclick='checkBox()'>").html();
+ 						var td2=$("<td>");
+						var td3=$("<td>").html(i.proname);
+						var td4=$("<td>").html(i.color);
+						var td5=$("<td>").html(i.sellingpric);
+						var td6=$("<td>").html(i.prostock);
+						var td7=$("<td>").html(i.proid);
+						var tr=$("<tr>");
+						 var a=$("<a th:href='/aa?proid="+i.proid+">").html(i.procargo);
+						td2.append(a); 
+						tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7);
+						$("#tb").append(tr);
+						
+					});
+				}
+			});
+		});
+		/* function sb(){
+			var ischeck=document.getElementById("checkAll").checked;
+			if(ischeck){
+				checkBox();
+			}else{
+				discheckBox();
+			}
+		}
+		//选中
+		function checkBox(){
+			var boxarry=document.getElementsByName("box");
+			for(var i=0; i<boxarry.length; i++){
+				boxarry[i].checked=true;
+			}
+		}
+		//取消
+		function discheckBox(){
+			var boxarry=document.getElementsByName("box");
+			for(var i=0; i<boxarry.length; i++){
+				boxarry[i].checked=false;
+			}
+		} */
+</script>
 </body>
 </html>

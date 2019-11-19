@@ -28,6 +28,38 @@ public class SupplierService {
 		supplierMapper.suppqueryAll("%"+Suname+"%");
 		 return page.toPageInfo();
 	}
+	/**
+	 * 新增供应商
+	 * @param record
+	 * @return
+	 */
+	public int insertsupplier(Supplier record) {
+		return supplierMapper.insert(record);
+	}
+	
+	public Supplier suqueryById(Integer suid) {
+		return supplierMapper.suqueryById(suid);
+	}
+	
+	/**
+	 * 删除供应商
+	 * @param record
+	 * @return
+	 */
+	public int deletesupplie(Integer suid) {
+		return supplierMapper.deletesupplie(suid);
+	}
+	/**
+	 * 查询供应商
+	 * @return
+	 */
+	public List<Supplier> queryByName() {
+		return supplierMapper.queryByName();
+	}
+	
+	public int sudoupdate(String suname,String sucompany,String people,String phone,String email,String telephone,String province,String city,String area,Integer suid) {
+		return supplierMapper.sudoupdate(suname, sucompany, people, phone, email, telephone, province, city, area, suid);
+	}
 	 
 	
 	

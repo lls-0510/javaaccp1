@@ -20,8 +20,33 @@ public class Purchasedetails {
     private Integer count;
 
     private Float money;
+    
+    private String time;
+    
+    private String remarks;
+    
+    
 
-    public Integer getId() {
+    
+    
+    public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+    
+
+    public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public Integer getId() {
         return id;
     }
 

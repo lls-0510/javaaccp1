@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,7 @@
 </head>
 <body>
     <!--新建采购单-->
-    <div class="rightarea clearfix">
+    <div class="rightarea clearfix" id="contents"> 
         <div class="mainarea clearfix">
             <div class="mainhead">
                 <span class="title">新建采购单</span>
@@ -22,16 +22,16 @@
                 <div class="otherinput clearfix">
                     <div class="listDivs">
                         <label for="">单号</label>
-                        <input type="text" class="inputTextss form-control" >
+                        <input type="text" class="inputTextss form-control" name="odd">
                     </div>
                     <div class="listDivs">
                         <label for="">交期</label>
-                        <input type="date" class="form-control" style="width: 204px;float: left;margin-right: 16px;">
+                        <input name="deliverytime" type="date" class="form-control" style="width: 204px;float: left;margin-right: 16px;">
                     </div>
                     <div class="listDivs">
                         <label for="">供应商</label>
-                        <select type="date" class="form-control" style="width: 180px;float: left;">
-                            <option value="">请选择供应商</option>
+                <select type="date" class="form-control" style="width: 180px;float: left;">
+                            <option v-for="item,inedx in name">{{item.suname}}</option>
                         </select>
                     </div>
                     <div class="listDivs">
@@ -60,17 +60,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                1
+                        <tr th:each="item : ${list}">
+                            <td th:text="${item.procargo}">
+                                
                             </td>
-                            <td>1
+                            <td th:text="${item.procargo}">
                             </td>
-                            <td>1
+                            <td th:text="${item.proname}">
                             </td>
-                            <td >1
+                            <td th:text="${item.color}">
                             </td>
-                            <td>1</td>
+                            <td th:text="${item.sellingprice}"></td>
                             <td>
                                 <input type="text" style="width: 80px;text-align: center;" class="form-control">
                             </td>
@@ -107,6 +107,38 @@
         </div>
     </div>
 <script type="text/javascript">
+var puichppvue1=new Vue({
+	el:"#contents",
+	data:{
+		name:[]
+	},
+	methods:{
+	},
+	created:function(){
+	}
+});
+		/* 查询 */
+		$(function(){
+			$.ajax({
+				url:"/queryByName",
+				success:function(result){
+					puichppvue1.name = result;
+				}
+			});
+		});
+	$(function(){
+		//流水号
+    	$("[name='deliverytime']").change(function(){
+    		let deliverytime=$(this).val();
+    		$.ajax({
+    			url:"/findMax",
+    			data:{deliverytime:deliverytime},
+    			success:function(res){
+    				$("[name='odd']").val(res);
+    			}
+    		});
+    	});
+	})
     function addShop() {
         $(".modal-content").load("model/choiceShop.html");
     }
