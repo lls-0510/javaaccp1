@@ -1,29 +1,21 @@
 package com.accp.controller;
 
-<<<<<<< HEAD
-=======
-import java.io.File;
-import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
 
->>>>>>> oxw
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-<<<<<<< HEAD
 
 import com.accp.domain.Staff;
-import com.accp.domain.Store;
 import com.accp.service.StaffService;
 import com.github.pagehelper.PageInfo;
 
 @Controller
 public class StaffController {
-	@Autowired
-	StaffService staffService;
 	
+	@Autowired
+	private StaffService service;
 	/**
 	 * 员工分页查询
 	 * @param pageNum
@@ -39,28 +31,16 @@ public class StaffController {
 		if(pageSize   == null) {
 			pageSize = 1 ; 
 		}
-		PageInfo<Staff> page = staffService.staffqueryAll(pageNum, pageSize,staffname);
+		PageInfo<Staff> page = service.staffqueryAll(pageNum, pageSize,staffname);
 		System.out.println(page.toString());
 		return page;
 	}
 	
-
-=======
-import org.springframework.web.multipart.MultipartFile;
-
-import com.accp.domain.Staff;
-import com.accp.service.StaffService;
-
-@Controller
-public class StaffController {
-
-	@Autowired
-	private StaffService service;
 	
 	//显示账户
-	@RequestMapping("/queryByName")
+	@RequestMapping("/queryByNames")
 	@ResponseBody
-	public Staff queryByName(HttpSession hs) {
+	public Staff queryByNames(HttpSession hs) {
 		String name = hs.getAttribute("username").toString();
 		return service.queryByName(name);
 	}
@@ -82,5 +62,5 @@ public class StaffController {
 	
 	//修改账户
 	
->>>>>>> oxw
 }
+
