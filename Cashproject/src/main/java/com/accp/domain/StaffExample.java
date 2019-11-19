@@ -114,62 +114,52 @@ public class StaffExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffidEqualTo(String value) {
+        public Criteria andStaffidEqualTo(Integer value) {
             addCriterion("staffId =", value, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidNotEqualTo(String value) {
+        public Criteria andStaffidNotEqualTo(Integer value) {
             addCriterion("staffId <>", value, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidGreaterThan(String value) {
+        public Criteria andStaffidGreaterThan(Integer value) {
             addCriterion("staffId >", value, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidGreaterThanOrEqualTo(String value) {
+        public Criteria andStaffidGreaterThanOrEqualTo(Integer value) {
             addCriterion("staffId >=", value, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidLessThan(String value) {
+        public Criteria andStaffidLessThan(Integer value) {
             addCriterion("staffId <", value, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidLessThanOrEqualTo(String value) {
+        public Criteria andStaffidLessThanOrEqualTo(Integer value) {
             addCriterion("staffId <=", value, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidLike(String value) {
-            addCriterion("staffId like", value, "staffid");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffidNotLike(String value) {
-            addCriterion("staffId not like", value, "staffid");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffidIn(List<String> values) {
+        public Criteria andStaffidIn(List<Integer> values) {
             addCriterion("staffId in", values, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidNotIn(List<String> values) {
+        public Criteria andStaffidNotIn(List<Integer> values) {
             addCriterion("staffId not in", values, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidBetween(String value1, String value2) {
+        public Criteria andStaffidBetween(Integer value1, Integer value2) {
             addCriterion("staffId between", value1, value2, "staffid");
             return (Criteria) this;
         }
 
-        public Criteria andStaffidNotBetween(String value1, String value2) {
+        public Criteria andStaffidNotBetween(Integer value1, Integer value2) {
             addCriterion("staffId not between", value1, value2, "staffid");
             return (Criteria) this;
         }
@@ -591,6 +581,136 @@ public class StaffExample {
 
         public Criteria andIndustryNotBetween(String value1, String value2) {
             addCriterion("industry not between", value1, value2, "industry");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidIsNull() {
+            addCriterion("storeid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidIsNotNull() {
+            addCriterion("storeid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidEqualTo(Integer value) {
+            addCriterion("storeid =", value, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidNotEqualTo(Integer value) {
+            addCriterion("storeid <>", value, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidGreaterThan(Integer value) {
+            addCriterion("storeid >", value, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("storeid >=", value, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidLessThan(Integer value) {
+            addCriterion("storeid <", value, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidLessThanOrEqualTo(Integer value) {
+            addCriterion("storeid <=", value, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidIn(List<Integer> values) {
+            addCriterion("storeid in", values, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidNotIn(List<Integer> values) {
+            addCriterion("storeid not in", values, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidBetween(Integer value1, Integer value2) {
+            addCriterion("storeid between", value1, value2, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreidNotBetween(Integer value1, Integer value2) {
+            addCriterion("storeid not between", value1, value2, "storeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoIsNull() {
+            addCriterion("CardGo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoIsNotNull() {
+            addCriterion("CardGo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoEqualTo(String value) {
+            addCriterion("CardGo =", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoNotEqualTo(String value) {
+            addCriterion("CardGo <>", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoGreaterThan(String value) {
+            addCriterion("CardGo >", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoGreaterThanOrEqualTo(String value) {
+            addCriterion("CardGo >=", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoLessThan(String value) {
+            addCriterion("CardGo <", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoLessThanOrEqualTo(String value) {
+            addCriterion("CardGo <=", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoLike(String value) {
+            addCriterion("CardGo like", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoNotLike(String value) {
+            addCriterion("CardGo not like", value, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoIn(List<String> values) {
+            addCriterion("CardGo in", values, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoNotIn(List<String> values) {
+            addCriterion("CardGo not in", values, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoBetween(String value1, String value2) {
+            addCriterion("CardGo between", value1, value2, "cardgo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardgoNotBetween(String value1, String value2) {
+            addCriterion("CardGo not between", value1, value2, "cardgo");
             return (Criteria) this;
         }
     }

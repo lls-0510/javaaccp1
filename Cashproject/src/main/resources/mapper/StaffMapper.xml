@@ -2,13 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.StaffMapper" >
   <resultMap id="BaseResultMap" type="com.accp.domain.Staff" >
-    <id column="staffId" property="staffid" jdbcType="VARCHAR" />
+    <id column="staffId" property="staffid" jdbcType="INTEGER" />
     <result column="staffName" property="staffname" jdbcType="VARCHAR" />
     <result column="staffpwd" property="staffpwd" jdbcType="VARCHAR" />
     <result column="staffPhone" property="staffphone" jdbcType="VARCHAR" />
     <result column="staffTime" property="stafftime" jdbcType="VARCHAR" />
     <result column="headPortrait" property="headportrait" jdbcType="VARCHAR" />
     <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="storeid" property="storeid" jdbcType="INTEGER" />
+    <result column="CardGo" property="cardgo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    staffId, staffName, staffpwd, staffPhone, staffTime, headPortrait, industry
+    staffId, staffName, staffpwd, staffPhone, staffTime, headPortrait, industry, storeid, 
+    CardGo
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.StaffExample" >
     select
@@ -85,15 +88,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from staff
-    where staffId = #{staffid,jdbcType=VARCHAR}
+    where staffId = #{staffid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from staff
-    where staffId = #{staffid,jdbcType=VARCHAR}
+    where staffId = #{staffid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.accp.domain.StaffExample" >
     delete from staff
@@ -104,10 +107,12 @@
   <insert id="insert" parameterType="com.accp.domain.Staff" >
     insert into staff (staffId, staffName, staffpwd, 
       staffPhone, staffTime, headPortrait, 
-      industry)
-    values (#{staffid,jdbcType=VARCHAR}, #{staffname,jdbcType=VARCHAR}, #{staffpwd,jdbcType=VARCHAR}, 
+      industry, storeid, CardGo
+      )
+    values (#{staffid,jdbcType=INTEGER}, #{staffname,jdbcType=VARCHAR}, #{staffpwd,jdbcType=VARCHAR}, 
       #{staffphone,jdbcType=VARCHAR}, #{stafftime,jdbcType=VARCHAR}, #{headportrait,jdbcType=VARCHAR}, 
-      #{industry,jdbcType=VARCHAR})
+      #{industry,jdbcType=VARCHAR}, #{storeid,jdbcType=INTEGER}, #{cardgo,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Staff" >
     insert into staff
@@ -133,10 +138,16 @@
       <if test="industry != null" >
         industry,
       </if>
+      <if test="storeid != null" >
+        storeid,
+      </if>
+      <if test="cardgo != null" >
+        CardGo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="staffid != null" >
-        #{staffid,jdbcType=VARCHAR},
+        #{staffid,jdbcType=INTEGER},
       </if>
       <if test="staffname != null" >
         #{staffname,jdbcType=VARCHAR},
@@ -156,6 +167,12 @@
       <if test="industry != null" >
         #{industry,jdbcType=VARCHAR},
       </if>
+      <if test="storeid != null" >
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="cardgo != null" >
+        #{cardgo,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.accp.domain.StaffExample" resultType="java.lang.Integer" >
@@ -168,7 +185,7 @@
     update staff
     <set >
       <if test="record.staffid != null" >
-        staffId = #{record.staffid,jdbcType=VARCHAR},
+        staffId = #{record.staffid,jdbcType=INTEGER},
       </if>
       <if test="record.staffname != null" >
         staffName = #{record.staffname,jdbcType=VARCHAR},
@@ -188,6 +205,12 @@
       <if test="record.industry != null" >
         industry = #{record.industry,jdbcType=VARCHAR},
       </if>
+      <if test="record.storeid != null" >
+        storeid = #{record.storeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardgo != null" >
+        CardGo = #{record.cardgo,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -195,13 +218,15 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update staff
-    set staffId = #{record.staffid,jdbcType=VARCHAR},
+    set staffId = #{record.staffid,jdbcType=INTEGER},
       staffName = #{record.staffname,jdbcType=VARCHAR},
       staffpwd = #{record.staffpwd,jdbcType=VARCHAR},
       staffPhone = #{record.staffphone,jdbcType=VARCHAR},
       staffTime = #{record.stafftime,jdbcType=VARCHAR},
       headPortrait = #{record.headportrait,jdbcType=VARCHAR},
-      industry = #{record.industry,jdbcType=VARCHAR}
+      industry = #{record.industry,jdbcType=VARCHAR},
+      storeid = #{record.storeid,jdbcType=INTEGER},
+      CardGo = #{record.cardgo,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,8 +252,14 @@
       <if test="industry != null" >
         industry = #{industry,jdbcType=VARCHAR},
       </if>
+      <if test="storeid != null" >
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="cardgo != null" >
+        CardGo = #{cardgo,jdbcType=VARCHAR},
+      </if>
     </set>
-    where staffId = #{staffid,jdbcType=VARCHAR}
+    where staffId = #{staffid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.accp.domain.Staff" >
     update staff
@@ -237,7 +268,9 @@
       staffPhone = #{staffphone,jdbcType=VARCHAR},
       staffTime = #{stafftime,jdbcType=VARCHAR},
       headPortrait = #{headportrait,jdbcType=VARCHAR},
-      industry = #{industry,jdbcType=VARCHAR}
-    where staffId = #{staffid,jdbcType=VARCHAR}
+      industry = #{industry,jdbcType=VARCHAR},
+      storeid = #{storeid,jdbcType=INTEGER},
+      CardGo = #{cardgo,jdbcType=VARCHAR}
+    where staffId = #{staffid,jdbcType=INTEGER}
   </update>
 </mapper>

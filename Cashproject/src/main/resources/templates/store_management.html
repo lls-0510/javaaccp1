@@ -8,7 +8,7 @@
 
 </head>
 <body>
-        <div class="rightarea clearfix">
+        <div class="rightarea clearfix" id="storecontents">
             <div class="mainarea clearfix">
                 <div class="user_list_main clearfix">
                     <div class="user_list_body clearfix">
@@ -29,15 +29,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr >
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
+                               <tr v-for="stu,index in page.list">
+                                    <td>{{index+1}}</td>
+                                    <td>{{stu.card}}</td>
+                                   	<td>{{stu.storename}}</td>
+                                    <td>{{stu.staffcount}}</td>
+                                    <td>{{stu.people}}</td>
+                                    <td>{{stu.phone}}</td>
+                                    <td>{{stu.telephone}}</td>
+                                    <td>{{stu.city}}</td>
                                     <td>
                                         <span onclick="editfcade()">编辑</span>
                                     </td>
@@ -46,16 +46,46 @@
                         </table>
                         <p class="prompt">注：可添加多家门店，系统自动分配订单到附近门店。</p>
                     </div>
+                     <div class="pageMenu">
+			<span v-on:click="getPage(page.prePage)">上一页</span>
+			<span v-for="numPage in page.pages">
+				<span v-on:click="getPage(numPage)">{{numPage}}</span>
+			</span>
+			<span v-on:click="getPage(page.nextPage)">下一页</span>
+			
+		</div>
                 </div>
             </div>
         </div>
         <script type="text/javascript">
-            function editfcade(){
-                go("stores","editfcade");
-            }
-            function addstore() {
-                go("stores","editfcade");
-            }
+        var storevue=new Vue({
+        	el:"#storecontents",
+        	data:{
+        		page:{
+        			list:[]
+        		}
+        	},
+        	methods:{
+        		getPage:function(currentPage){
+        			$.ajax({
+        				url:"/storequeryAll",
+        				data:{pageNum:currentPage,pageSize:1},
+        				success:function(result){
+        					storevue.page=result;
+        				}
+        			});
+        		}
+        	},
+        	created:function(){
+        		this.getPage(1);
+        	}
+        });
+        function editfcade(){
+            go("stores","editfcade");
+        }
+        function addstore() {
+            go("stores","editfcade");
+        }		
         </script>
 </body>
 </html>

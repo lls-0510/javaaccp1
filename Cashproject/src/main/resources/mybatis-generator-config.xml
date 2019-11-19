@@ -34,34 +34,9 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.accp.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
-			<table schema="car" tableName="car"></table>
-			<table schema="cars" tableName="cars"></table>
-			<table schema="cashregister" tableName="cashregister"></table>
-			<table schema="good" tableName="good"></table>
-			<table schema="goodsdetail" tableName="goodsdetail"></table>
-			<table schema="goodspec" tableName="goodspec"></table>
-			<table schema="message" tableName="message"></table>
-			<table schema="nexus" tableName="nexus"></table>
+			
 			<table schema="post" tableName="post"></table>
-			<table schema="powerone" tableName="powerone"></table>
-			<table schema="powertwo" tableName="powertwo"></table>
-			<table schema="productinfo" tableName="productinfo"></table>
-			<table schema="productlist" tableName="productlist"></table>
-			<table schema="purchase" tableName="purchase	"></table>
-			<table schema="purchasedetails" tableName="purchasedetails"></table>
-			<table schema="recharge" tableName="recharge"></table>
-			<table schema="saletype" tableName="saletype"></table>
-			<table schema="size" tableName="size"></table>
-			<table schema="staff" tableName="staff"></table>
-			<table schema="store" tableName="store"></table>
-			<table schema="storetype" tableName="storetype"></table>
-			<table schema="supplier" tableName="supplier"></table>
-			<table schema="turnover" tableName="turnover"></table>
-			<table schema="turnoverdetails" tableName="turnoverdetails"></table>
-			<table schema="user" tableName="user"></table>
-			<table schema="vip" tableName="vip "></table>
-			<table schema="vote" tableName="vote"></table>
-			<table schema="vtype" tableName="vtype"></table>
+			
 			
 <!-- 		<table schema="Sys_permissions" tableName="sys_permissions"></table> -->
 <!-- 		<table schema="Sys_roles" tableName="sys_roles"></table> -->
