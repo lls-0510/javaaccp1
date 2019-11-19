@@ -29,6 +29,11 @@ public interface StaffMapper {
 
     int updateByPrimaryKey(Staff record);
     
+<<<<<<< HEAD
     @Select("SELECT * FROM staff a INNER JOIN store b ON a.`storeid`=b.`id` WHERE a.`staffName` LIKE #{staffName}")
     List<Staff>staffqueryAll(String staffname);
+=======
+    @Select("select * from staff where staffname = #{name}")
+    Staff queryByName(String name);
+>>>>>>> oxw
 }

@@ -5,15 +5,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.Staff;
+<<<<<<< HEAD
 import com.accp.domain.Store;
 import com.accp.mapper.StaffMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+=======
+import com.accp.mapper.StaffMapper;
+>>>>>>> oxw
 
 @Service
 @Transactional
 public class StaffService {
+<<<<<<< HEAD
 	@Autowired
 	private StaffMapper staffMapper;
 	
@@ -28,4 +33,13 @@ public class StaffService {
 	}
 	
 
+=======
+	
+	@Autowired
+	private StaffMapper mapper;
+	
+	public Staff queryByName(String name) {
+		return mapper.queryByName(name);
+	}
+>>>>>>> oxw
 }

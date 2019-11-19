@@ -25,6 +25,7 @@
     <!--头部-->
     <div class="header clearfix">
         <div class="top">
+        
             <div class="divUser">
                 <a href="javascript:;" class="logout">退出</a>
                 <a href="javascript:;" class="head">
@@ -32,9 +33,9 @@
                         <span>未认证</span>
                     </p>
                     <p class="nick">
-                        <span>账号名称</span>
+                        <span name="username">账号名称</span>
                     </p>
-                    <img src="" alt="">
+                    <img src="" alt="" name="headx">
                 </a>
             </div>
             <!--logo-->
@@ -75,6 +76,7 @@
     
     	$(function(){
         	go("indexs","login");
+     		
     	});
         $(".nav-item").click(function () {
                     $(".indexs>div").remove();
@@ -85,6 +87,17 @@
                     go("indexs",dataid);
          }); 
             
+        function check(){
+        	$.ajax({
+        		url:"/queryByName",
+    			type:"post",
+    			success:function(result){
+    					$("[name=username]").html(result.staffname);
+    					$("[name=headx]").attr("src",result.headPortrait);
+    				}
+        	});
+    	 }
+        
     </script>
 </body>
 </html>

@@ -29,6 +29,6 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
     
-    @Select("SELECT COUNT(*) FROM `user` WHERE Username =#{username} AND Userpwd =#{userpwd}")
-    int Login(@Param("username")String username,@Param("userpwd")String userpwd);
+    @Select("SELECT * FROM `user` WHERE Username =#{username} AND Userpwd =#{userpwd}")
+    User Login(@Param("username")String username,@Param("userpwd")String userpwd);
 }
