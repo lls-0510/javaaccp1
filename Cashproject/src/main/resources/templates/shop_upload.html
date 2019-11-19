@@ -5,6 +5,79 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/shop_upload.css">
     <script src="js/wangEditor.js"></script>
+     <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            width: 397px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .magnifierContainer {
+            display: flex;
+            margin-top: 30px;
+        }
+        .magnifierContainer img{
+        	width:100%;
+        	height:100%;
+        }
+        .imgMedium {
+            position: relative;
+        }
+        .imgLeft .magnifier {
+            position: absolute;
+            display: none;
+            width: 200px;
+            height: 200px;
+        }
+        .mediumContainer {
+            width: 350px;
+            height: 350px;
+            border: 1px solid #eee;
+            overflow: hidden;
+        }
+        #zhezhao {
+            width: 350px;
+            height: 350px;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            border: 1px solid transparent;
+        }
+        #zhezhao:hover {
+            cursor: move;
+        }
+        .img_x {
+            width: 350px;
+            height: 70px;
+            border: 1px solid #eee;
+            margin-top: 20px;
+            display: flex;
+        }
+        .img_x li{
+           /*  width: 54px;
+            height: 54px; */
+            border: 2px solid transparent;
+            margin: 8px 4px;
+            padding: 2px;
+        }
+        .img_u {
+            width: 500px;
+            height: 450px;
+            border: 1px solid #eee;
+            float: left;
+            margin-left: 15px;
+            overflow: hidden;
+            display:none;
+           	position:relative;
+            z-index:999;
+        }
+    </style>
 </head>
 <body>
 <div class="rightarea clearfix">
@@ -422,36 +495,45 @@
                     <!--infoend-->
                     <!--上传图片  放大-->
                     <div class="productshow clearfix">
-                        <div class="magni">
-                            <div class="tb-booth s310">
-                                <a href="javascript:;">
-                                    <img src="images/storeindex/uploadImg150_150.jpg" lt="">
-                                </a>
-                            </div>
-                        </div>
-                        <!--下一张下一张-->
-                        <div class="staticPic clearfix">
-                            <span class="prev"></span>
-                            <span class="next"></span>
-                            <!--小图滚动区域-->
-                            <div class="smallPic">
-                                <div class="pic-list">
-                                    <ul class="thumb">
-                                        <li>
+		              <div class="container">
+						    <div class="magnifierContainer">
+						        <div class="imgLeft">
+						            <!-- 中号图片 -->
+						            <div class="imgMedium" id="imgMedium">
+						                <!-- 放大镜 -->
+						                <div class="magnifier" id="magnifier">
+						                    <img src="http://product.dangdang.com/images/zoom_pup.png">
+						                </div>
+						                <!-- 图片 -->
+						                <div class="mediumContainer" id="mediumContainer">
+						                    <img src="">	
+						                </div>
+						                <div id="zhezhao"></div>
+						            </div>
+						
+						            <!-- 缩略图 -->
+						            <ul class="img_x thumb" id="img_x">
+
+						                <li id="addimg">
                                             <input type="file" class="uploadimg">
                                             <a  class="imgd" href="javascript:;">
                                                 <img src="images/storeindex/add_ico.png" alt="">
                                             </a>
                                         </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+						            </ul>
+						        </div>
+						        <div class="imgRight">
+						            <!-- 大图 -->
+						            <div class="img_u" id="img_u">
+						                <img src="">
+						            </div>
+						        </div>
+						    </div>
+						</div>
                     </div>
                     <!--富文本编辑器 保存商品信息-->
                     <div class="editPanel clearfix">
                         <p class="title">商品信息</p>
-
                         <div id="editwang"></div>
                         <!--按钮-->
                         <div class="btn-close-insert">
@@ -468,6 +550,70 @@
     var E = window.wangEditor;
     var editor = new E('#editwang');
     editor.create();
+    
+    /* 上传图片并预览 */
+    $(".uploadimg").change(function(e) {
+            var imgBox = e.target;
+            createliimg(imgBox);
+   });
+
+   function createliimg(tag) {
+            var file = tag.files[0];
+            var imgSrc;
+            if (!/image\/\w+/.test(file.type)) {
+                alert("请选择图片格式！");
+                return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                imgSrc = this.result;
+                var imgs = document.createElement("img");
+                let img = $(imgs).attr("src", imgSrc);
+                //
+               	$("#addimg").before($("<li onmouseenter=\"mouse(this)\"></li>").append(img));   
+            };
+    }
+    
+    $('#img_x li').eq(0).css('border', '2px solid coral');
+    $('#zhezhao').mousemove(function(e){
+        $('#img_u').show();
+        $('#magnifier').show();
+        var left = e.offsetX - parseInt($('#magnifier').width()) / 2;
+        var top = e.offsetY - parseInt($('#magnifier').height()) / 2;
+        left = left < 0 ? 0 : left;
+        left = left > (parseInt($('#zhezhao').outerWidth()) - parseInt($('#magnifier').outerWidth())) ? (parseInt($('#zhezhao').outerWidth()) - parseInt($('#magnifier').outerWidth())) : left;
+        top = top < 0 ? 0 : top;
+        top = top > (parseInt($('#zhezhao').outerHeight()) - parseInt($('#magnifier').outerHeight())) ? (parseInt($('#zhezhao').outerHeight()) - parseInt($('#magnifier').outerHeight())) : top;
+
+        $('#magnifier').css('left', left + 'px');
+        $('#magnifier').css('top', top + 'px');
+
+        var leftRate = left / parseInt($('#zhezhao').outerWidth());
+        var bigLeft = leftRate * parseInt($('#img_u img').outerWidth());
+        $('#img_u img').css('margin-left', -bigLeft + 'px');
+
+        var topRate = top / parseInt($('#zhezhao').outerHeight());
+        var bigTop =  topRate * parseInt($('#img_u img').outerHeight());
+        $('#img_u img').css('margin-top', -bigTop + 'px');
+    })
+    $('#zhezhao').mouseleave(function(){
+        $('#img_u').hide();
+        $('#magnifier').hide();
+    })
+
+  
+    function mouse(th){
+    	$(th).css('border', '2px solid coral').siblings().css('border', '2px solid transparent');
+        $('#mediumContainer img').eq(0).attr('src',$(th).find("img").attr("src"));
+        $('#img_u img').eq(0).attr('src', $(th).find("img").attr("src"));
+    }
+    
+    
+    /*  添加颜色*/
+    $(".addColorBtn").click(function(){
+    	
+    });
 </script>
 </body>
 </html>

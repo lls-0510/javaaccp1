@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,10 +10,13 @@
         }
         .lists{
             float: left !important;
-            margin-bottom: 14px;
+            margin-bottom: 14px; 
             width: 100%;
             margin-left: 0px!important;
             margin-right: 0px !important;
+        }
+        .otherDiv input{
+            margin-top: 15px;
         }
         .lists label{
             float: left;
@@ -35,9 +38,6 @@
             clear: both;
             float: left;
             width: 566px;
-        }
-        .otherDiv input{
-            margin-top: 15px;
         }
         .head{
             float: left;
@@ -81,25 +81,27 @@
             padding-top: 4px;
             border-top: 1px solid #C7C7C7;
         }
-        .bodyDiv .list{
+        .bodyDiv .list123{
             float: left;
             width: 90%;
             clear: both;
             padding-top: 16px;
             padding-left: 10px;
         }
-        .bodyDiv .list label{
+        .bodyDiv .list123 label{
             float: left;
             padding-top: 6px;
         }
         .inputtext{
             background-color: #FFF;
-            border: 1px solid #c7c7c7;
+            border: 1px solid
+            #c7c7c7;
             float: left;
             height: 16px;
             line-height: 16px;
             padding-bottom: 6px;
             padding-left: 6px;
+            padding-top: 6px;
             margin-left: 4px;
             margin-right: 4px;
             margin-top: 10px !important;
@@ -108,54 +110,138 @@
     </style>
 </head>
 <body>
-<div>
+<div id="editlevelvue">
     <div class="modal-header">
-        <h3>修改等级</h3>
+        <h3>编辑等级</h3>
         <span class="close" data-dismiss="modal">&times;</span>
     </div>
     <div class="modal-body">
 
         <div class="lists">
-            <label><span style="color: red;">*</span>等级名称：</label>
-            <input type="text" style="width: 200px;" class="form-control">
-
+            <label><span style="color: red;">*</span>等级名称：</label>  
+            <input  style="width: 200px;" class="form-control" v-model="level.vtname">
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>优惠折扣：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" v-model="level.vtdiscount">
         </div>
         <!--other-->
         <div class="otherDiv">
             <div class="head">
                 <span>自动升级</span>
-                <a href="javascript:;" class="btnx">
+                <a href="javascript:;" class="btnx" >
+                	<input type="hidden" v-model="level.vrule">
                     <em class="x">开启</em>
                     <em class="xx">关闭</em>
                 </a>
             </div>
-            <div class="bodyDiv">
-                <div class="lists">
-                    <label>1、当会员消费达到</label>
-                    <input type="text" class="inputtext" >
-                    <label>元时，自动升级到该等级。</label>
-                </div>
-                <div class="lists" style="margin-top:-4px;">
-                    <label>2、该等级有效期：</label>
-                    <input style="float: left;" type="radio" checked="checked"  value="0" class="checkbox">
-                    <label >永久</label>
-                    <input style="float: left;" type="radio" value="1" class="checkbox">
-                    <label >1年</label>
-                </div>
-                <div class="lists">3、自动升级，将在消费达到要求后的第二天生效。</div>
-            </div>
+            <template v-if="level.vrule == 0">
+	            <div class="bodyDiv">
+	                <div class="lists">
+	                    <label>1、当会员消费达到</label>
+	                    <input type="text" class="inputtext" v-model="level.maxmoney">  
+	                    <label>元时，自动升级到该等级。</label>
+	                </div>
+	                <div class="lists" style="margin-top:-4px;">
+	                    <label>2、该等级有效期：</label>
+	                    <template v-if="level.validitydata == 0">
+	                     	 <label >永久</label>
+	                    	<input style="float: left;" type="radio" checked="checked"  value="0" class="checkbox" name="validitydata">
+	                    		                    <label >1年</label>
+	                    	
+	                    	<input style="float: left;" type="radio"   value="1" class="checkbox" name="validitydata">
+	                    </template>
+	                  
+	                     <template v-if="level.validitydata == 1">
+	                       <label >永久</label>
+	                    	<input style="float: left;" type="radio"  value="0" class="checkbox" name="validitydata">
+	                    		                    <label >1年</label>
+	                    	
+	                    	<input style="float: left;" type="radio" checked="checked"    value="1" class="checkbox" name="validitydata">
+	                    </template>
+	                    
+	                    <template v-if="level.validitydata == null">
+	                       <label >永久</label>
+	                    	<input style="float: left;" type="radio"  value="0" class="checkbox" name="validitydata">
+	                    		                    <label >1年</label>
+	                    	
+	                    	<input style="float: left;" type="radio"     value="1" class="checkbox" name="validitydata">
+	                    </template>
+	                </div>
+	                <div class="lists">3、自动升级，将在消费达到要求后的第二天生效。</div>
+	            </div>
+        	</template>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;" @click="updatelevel">确定</a>
     </div>
 </div>
+<script type="text/javascript">
+	
+	var editlevelvue = new Vue({
+		el:"#editlevelvue", 
+		data:{
+			level:{
+				
+			}
+		},methods:{
+			getlevel:function(){
+				let vid = $(".modal-content").attr("id");
+				$.ajax({
+					url:"/getlevel",  
+					type:"post", 
+					data:{
+						vid:vid 
+					},
+					success:function(res){
+						editlevelvue.level = res;
+						if(editlevelvue.level.vrule == 1){
+							$(".x").css({"background-color":"#FFF","color":"#FFF"});  
+							$(".xx").css({"background-color":"#44b549","color":"#FFF"});
+						}
+					}
+				});
+			},updatelevel:function(){
+				var vas = $("[name=\"validitydata\"]");  
+				vas.each(function(i,e){
+					if(e.checked == true){
+						editlevelvue.level.validitydata=$(e).attr("value");
+					}
+				});
+				 
+				$.ajax({
+					url:"/updatelevel",  
+					type:"post", 
+					data:JSON.stringify(editlevelvue.level), 
+					contentType:"application/json;charset=utf-8", 
+					success:function(res){
+				        go("members","level_set");
+					}
+				});
+				
+			}
+		},created:function(){
+			this.getlevel(); 
+		}
+	});
+	
+	$(".x").click(function(){
+		$(this).css({"background-color":"#FFF","color":"#FFF"});  
+		$(".xx").css({"background-color":"#44b549","color":"#FFF"});
+		$(".bodyDiv").slideUp();
+		editlevelvue.level.vrule = 1; 
+	});
+	$(".xx").click(function(){
+		$(this).css({"background-color":"#fff","color":"#FFF"});  
+		$(".x").css({"background-color":"#44b549","color":"#FFF"});
+		$(".bodyDiv").slideDown();
+		editlevelvue.level.vrule = 0; 
+	});
+	
+</script>
 </body>
 </html>

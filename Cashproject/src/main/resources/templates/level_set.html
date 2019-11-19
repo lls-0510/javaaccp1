@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/level_set.css">
 </head>
 <body>
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="levelvue">
     <div class="mainarea clearfix">
         <div class="user_list_main clearfix">
             <div class="user_list_body clearfix">
@@ -23,19 +23,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>
-                            <a href="javascript:;">删除</a>
-                            <span onclick="editlevel()" data-target="#tanchuan"  data-toggle="modal">修改</span>
-                        </td>
-                    </tr>
-
-
-
+                    	<template v-for="level,index in levls">
+                    		<tr>
+		                        <td>{{index+1}}</td>
+		                        <td>{{level.vtname}}</td>
+		                        <td>{{level.vtdiscount}}</td>
+		                        <td>
+		                        	<template v-if="level.vrule == 1">
+		                        		--
+		                        	</template>
+		                        	<template v-if="level.vrule == 0">
+		                        		自动升级
+		                        	</template>
+		                        </td>
+		                        
+		                        <td>
+		                            <a href="javascript:;" @click="dellevel(level.vtid,level.vtname)">删除</a>
+		                            <span @click="editlevel(level.vtid)" data-target="#tanchuan"  data-toggle="modal">修改</span>
+		                        </td>
+		                    </tr>
+                    	</template>
                     </tbody>
                 </table>
             </div>
@@ -43,12 +50,47 @@
     </div>
 </div>
 <script type="text/javascript">
-    function editlevel() {
-        $(".modal-content").load("model/aditlevel.html");
-    }
-    function addlevel() {
+    
+    var levelvue = new Vue({
+    	el:"#levelvue",
+    	data(){
+    		return{
+    			levls:[]
+    		}
+    	},methods:{
+    		getlevels:function(){
+    			$.ajax({
+    				url:"[[@{/getlevels}]]", 
+    				type:"post", 
+    				success:function(res){
+    					levelvue.levls =res;
+    				}
+    			})
+    		},dellevel:function(vid,vname){
+    			if(confirm("你是否要删除["+vname+"]")){
+    				$.ajax({
+    					url:"[[@{/dellevel}]]",  
+    					type:"post", 
+    					data:{
+    						tid:vid
+    					},success:function(res){
+    						levelvue.getlevels();
+    					}
+    				});
+    			}
+    		},editlevel:function(vid) {
+    	        $(".modal-content").load("model/aditlevel.html");
+    	    	$(".modal-content").attr("id",vid);
+    	    }
+    	},created:function(){
+    		this.getlevels();
+    	}
+    });
+   
+    function addlevel(vid){
         $(".modal-content").load("model/addlevel.html");
     }
+    
 </script>
 </body>
 </html>

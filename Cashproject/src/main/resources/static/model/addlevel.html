@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,7 +10,7 @@
         }
         .lists{
             float: left !important;
-            margin-bottom: 14px;
+            margin-bottom: 14px; 
             width: 100%;
             margin-left: 0px!important;
             margin-right: 0px !important;
@@ -81,14 +81,14 @@
             padding-top: 4px;
             border-top: 1px solid #C7C7C7;
         }
-        .bodyDiv .list{
+        .bodyDiv .list123{
             float: left;
             width: 90%;
             clear: both;
             padding-top: 16px;
             padding-left: 10px;
         }
-        .bodyDiv .list label{
+        .bodyDiv .list123 label{
             float: left;
             padding-top: 6px;
         }
@@ -110,7 +110,7 @@
     </style>
 </head>
 <body>
-<div>
+<div id="addlevelvue">
     <div class="modal-header">
         <h3>添加等级</h3>
         <span class="close" data-dismiss="modal">&times;</span>
@@ -118,19 +118,19 @@
     <div class="modal-body">
 
         <div class="lists">
-            <label><span style="color: red;">*</span>等级名称：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <label><span style="color: red;">*</span>等级名称：</label>  
+            <input  style="width: 200px;" class="form-control" v-model="level.vtname">
 
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>优惠折扣：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input type="text" style="width: 200px;" class="form-control" v-model="level.vtdiscount">
         </div>
         <!--other-->
         <div class="otherDiv">
             <div class="head">
                 <span>自动升级</span>
-                <a href="javascript:;" class="btnx">
+                <a href="javascript:;" class="btnx" vrule="0">
                     <em class="x">开启</em>
                     <em class="xx">关闭</em>
                 </a>
@@ -138,14 +138,14 @@
             <div class="bodyDiv">
                 <div class="lists">
                     <label>1、当会员消费达到</label>
-                    <input type="text" class="inputtext" >
+                    <input type="text" class="inputtext" v-model="level.maxmoney">  
                     <label>元时，自动升级到该等级。</label>
                 </div>
                 <div class="lists" style="margin-top:-4px;">
                     <label>2、该等级有效期：</label>
-                    <input style="float: left;" type="radio" checked="checked"  value="0" class="checkbox">
+                    <input style="float: left;" type="radio" checked="checked"  value="0" class="checkbox" name="validitydata">
                     <label >永久</label>
-                    <input type="radio"  style="float:left;" value="1" class="checkbox">
+                    <input type="radio"  style="float:left;" value="1" class="checkbox" name="validitydata">
                     <label >1年</label>
                 </div>
                 <div class="lists">3、自动升级，将在消费达到要求后的第二天生效。</div>
@@ -156,8 +156,52 @@
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;" @click="add">确定</a>
     </div>
 </div>
+<script type="text/javascript">
+	
+	var addlevelvue = new Vue({
+		el:"#addlevelvue", 
+		data:{
+			level:{
+				
+			}
+		},methods:{
+			add:function(){
+				addlevelvue.level.vrule = $(".btnx").attr("vrule");
+				var vas = $("[name=\"validitydata\"]");  
+				vas.each(function(i,e){
+					if(e.checked == true){
+						addlevelvue.level.validitydata=$(e).attr("value");
+					}
+				});
+				$.ajax({
+					url:"/addlevel",  
+					type:"post", 
+					data:JSON.stringify(addlevelvue.level), 
+					contentType:"application/json;charset=utf-8", 
+					success:function(res){
+				        go("members","level_set");
+					}
+				});
+			}
+		}
+	});
+	
+	$(".x").click(function(){
+		$(this).css({"background-color":"#FFF","color":"#FFF"});  
+		$(".xx").css({"background-color":"#44b549","color":"#FFF"});
+		$(".bodyDiv").slideUp();
+		$(".btnx").attr("vrule","1");
+	});
+	$(".xx").click(function(){
+		$(this).css({"background-color":"#fff","color":"#FFF"});  
+		$(".x").css({"background-color":"#44b549","color":"#FFF"});
+		$(".bodyDiv").slideDown();
+		$(".btnx").attr("vrule","0");
+	});
+	
+</script>
 </body>
 </html>

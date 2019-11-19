@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="integraset">
     <div class="mainarea clearfix">
         <div class="user_list_main clearfix">
             <div class="user_list_body clearfix">
@@ -22,7 +22,7 @@
                         <div class="title">积分抵扣</div>
                         <div class="cont">
                             <label>使用积分</label>
-                            <input type="text" class="form-control" style="width: 110px;float: left;margin: 0 5px ">
+                            <input type="text" class="form-control jfinput" style="width: 110px;float: left;margin: 0 5px " v-model="integra.integral">
                             <label >可抵扣</label>
                             <span style="color: rgb(240, 91, 35); float: left; padding-left: 10px; padding-right: 10px; font-size: 16px; padding-top: 8px;">1.00</span>
                             <label >元</label>
@@ -30,12 +30,66 @@
                     </div>
                    <div class="clearfix"></div>
                    <div class="fr" style="margin-right: 100px">
-                       <a href="javascript:;" class="btn btn-success" style="color: #fff !important;width: 100px;">确定</a>
+                       <a href="javascript:;" class="btn btn-success qd" style="color: #fff !important;width: 100px;" @click="updateintergra">确定</a>
                    </div>
                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+		var integravue = new Vue({
+			el:"#integraset",
+			data:{
+				integra:{}
+			},methods:{
+				getintegra:function(){
+					$.ajax({
+						url:"[[@{/getintegra}]]",
+						type:"post",  
+						success:function(res){
+							integravue.integra = res;
+							if(integravue.integra.flag == 1){   //不开启积分抵钱
+								$(".x").css({"background-color":"#FFF","color":"#FFF"});  
+								$(".xx").css({"background-color":"#44b549","color":"#FFF"});
+								$(".jfinput").attr("disabled","disabled");
+								$(".qd").attr("disabled","disabled");
+							}
+						}
+					});
+				},updateintergra:function(){
+					$.ajax({
+						url:"[[@{/updateintegra}]]",
+						type:"post",  
+						data:JSON.stringify(integravue.integra), 
+						contentType:"application/json;charset=utf-8",
+						success:function(res){
+							alert("设置成功");
+						}
+					});
+				}
+			},created:function(){
+				this.getintegra();
+			}
+		});
+
+		$(".x").click(function(){
+			$(this).css({"background-color":"#FFF","color":"#FFF"});  
+			$(".xx").css({"background-color":"#44b549","color":"#FFF"});
+			integravue.integra.flag = 1;
+			$(".jfinput").attr("disabled","disabled");
+			$(".qd").attr("disabled","disabled");
+		});
+		$(".xx").click(function(){
+			$(this).css({"background-color":"#fff","color":"#FFF"});  
+			$(".x").css({"background-color":"#44b549","color":"#FFF"});
+			integravue.integra.flag = 0; 
+			$(".jfinput").attr("disabled",false);
+			$(".qd").attr("disabled",false);
+		});
+		
+</script>
 </body>
 </html>
