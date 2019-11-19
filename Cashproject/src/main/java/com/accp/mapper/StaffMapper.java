@@ -4,6 +4,7 @@ import com.accp.domain.Staff;
 import com.accp.domain.StaffExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface StaffMapper {
     int countByExample(StaffExample example);
@@ -27,4 +28,7 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
+    
+    @Select("select * from staff where staffname = #{name}")
+    Staff queryByName(String name);
 }

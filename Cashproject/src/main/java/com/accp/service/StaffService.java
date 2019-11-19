@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.accp.domain.User;
-import com.accp.mapper.UserMapper;
+import com.accp.domain.Staff;
+import com.accp.mapper.StaffMapper;
 
 @Service
 @Transactional
-public class UserService {
-
-	@Autowired
-	private UserMapper mapper;
+public class StaffService {
 	
-	public User login(String username,String userpwd) {
-		return mapper.Login(username, userpwd);
-	} 
+	@Autowired
+	private StaffMapper mapper;
+	
+	public Staff queryByName(String name) {
+		return mapper.queryByName(name);
+	}
 }

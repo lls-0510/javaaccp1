@@ -1,13 +1,45 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 
     <link rel="stylesheet" href="css/login.css">
-
-
+	<style>
+        .drag{
+            width: 250px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #e8e8e8;
+            position: relative;
+            margin:0 auto;
+        }
+        .bgs{
+            width:40px;
+            height: 100%;
+            position: absolute;
+            background-color: #75CDF9;
+        }
+        .texts{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            user-select: none;
+        }
+        .btns{
+            width:40px;
+            height: 38px;
+            position: absolute;
+            border:1px solid #ccc;
+            cursor: move;
+            font-family: "宋体";
+            text-align: center;
+            background-color: #fff;
+            user-select: none;
+            color:#666;
+        }
+    </style>
 </head>
 <body>
 
@@ -26,15 +58,18 @@
     <!--表单-->
     <div class="login-form">
         <div class="form-item">
-            <input   type="text" placeholder="账号" name="username" maxlength="11"  class="form-control">
+            <input  type="text" placeholder="账号" name="username" maxlength="11"  class="form-control">
         </div>
         <div class="form-item">
             <input type="text" placeholder="密码" name="pwd"   class="form-control">
         </div>
-        <div class="form-item code">
-            <input type="text" placeholder="验证码" name="code" maxlength="11"  class="form-control">
-            <div class="code-pane">验证码区域 <img src="" alt="" title="点击换一张"></div>
-        </div>
+   <div class="form-item">
+    <div class="drag ">
+        <div class="bgs"></div>
+        <div class="texts" onselectstart="return false;">请拖动滑块解锁</div>
+        <div class="btns">&gt;&gt;</div>
+    </div>
+    </div>
         <div class="form-item">
             <a href="javascript:;" class="forgetpwd">忘记密码？</a>
 
@@ -47,82 +82,132 @@
     </div>
 </div>
 
-<script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
 <script type="text/javascript">
+
+let yz = false;
 $(".btn").click(function(){
-	var username = $("[name=username]").val();
+	var username = $(".form-control").val();
 	var userpwd = $("[name=pwd]").val();
+	alert(username)
+	if(!yz){
+		alert("请先滑动验证！！")
+		return;
+	}
 	if(username == ""){
 		alert("用户名不能为空！！");
+		return;
 	}
 	
 	if(userpwd == ""){
 		alert("密码不能为空！！");
+		return;
 	}
 	
 	$.ajax({
-		url:"user/login",
+		url:"/login",
 		data:{username:username,userpwd:userpwd},
-		type:"post",
 		success:function(result){
-			alert(result)
+			if(result !=  ""){
+				alert("登陆成功!");
+				 go("indexs","accountindex");
+				go("accounts","accountinfo");
+				check(); 
+			}else{
+				alert("登陆失败");
+			}
 		}
 	});
 });
+
+$(function(){
+
+//一、定义一个获取DOM元素的方法
+var $ = function(selector){
+        return  document.querySelector(selector);
+    },
+    box = $(".drag"),//容器
+    bgs = $(".bgs"),//背景
+    texts = $(".texts"),//文字
+    btns = $(".btns"),//滑块
+    success = false,//是否通过验证的标志
+    distance = box.offsetWidth - btns.offsetWidth;//滑动成功的宽度（距离）
+
+//二、给滑块注册鼠标按下事件
+btns.onmousedown = function(e){
+
+    //1.鼠标按下之前必须清除掉后面设置的过渡属性
+    btns.style.transition = "";
+    bgs.style.transition ="";
+
+    //说明：clientX 事件属性会返回当事件被触发时，鼠标指针向对于浏览器页面(或客户区)的水平坐标。
+
+    //2.当滑块位于初始位置时，得到鼠标按下时的水平位置
+    var e = e || window.event;
+    var downX = e.clientX;
+
+    //三、给文档注册鼠标移动事件
+    document.onmousemove = function(e){
+
+        var e = e || window.event;
+        //1.获取鼠标移动后的水平位置
+        var moveX = e.clientX;
+
+        //2.得到鼠标水平位置的偏移量（鼠标移动时的位置 - 鼠标按下时的位置）
+        var offsetX = moveX - downX;
+
+        //3.在这里判断一下：鼠标水平移动的距离 与 滑动成功的距离 之间的关系
+        if( offsetX > distance){
+            offsetX = distance;//如果滑过了终点，就将它停留在终点位置
+        }else if( offsetX < 0){
+            offsetX = 0;//如果滑到了起点的左侧，就将它重置为起点位置
+        }
+
+        //4.根据鼠标移动的距离来动态设置滑块的偏移量和背景颜色的宽度
+        btns.style.left = offsetX + "px";
+        bgs.style.width = offsetX + "px";
+
+        //如果鼠标的水平移动距离 = 滑动成功的宽度
+        if( offsetX == distance){
+
+            //1.设置滑动成功后的样式
+            texts.innerHTML = "验证通过";
+            texts.style.color = "#fff";
+            btns.innerHTML = "&radic;";
+            btns.style.color = "green";
+            bgs.style.backgroundColor = "lightgreen";
+
+            //2.设置滑动成功后的状态
+            success = true;
+            //成功后，清除掉鼠标按下事件和移动事件（因为移动时并不会涉及到鼠标松开事件）
+            btns.onmousedown = null;
+            document.onmousemove = null;
+
+            //3.成功解锁后的回调函数
+            setTimeout(function(){
+            	yz = true;
+                alert('解锁成功！');
+            },100);
+        }
+    }
+
+    //四、给文档注册鼠标松开事件
+    document.onmouseup = function(e){
+
+        //如果鼠标松开时，滑到了终点，则验证通过
+        if(success){
+            return;
+        }else{
+            //反之，则将滑块复位（设置了1s的属性过渡效果）
+            btns.style.left = 0;
+            bgs.style.width = 0;
+            btns.style.transition = "left 1s ease";
+            bgs.style.transition = "width 1s ease";
+        }
+        //只要鼠标松开了，说明此时不需要拖动滑块了，那么就清除鼠标移动和松开事件。
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
+}
+});
 </script>
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-    <link rel="stylesheet" href="css/login.css">
-
-
-</head>
-<body>
-
-<div class="login-body">
-    <!--标题-->
-    <div class="login-header">
-        <!--注册联系客服链接-->
-        <div class="register-right ">
-            <span>如需注册，请联系客服  </span>
-            <a href="javascript:;">
-                <span></span>
-            </a>
-        </div>
-        用户登录
-    </div>
-    <!--表单-->
-    <div class="login-form">
-        <div class="form-item">
-            <input   type="text" placeholder="账号" name="username" maxlength="11"  class="form-control">
-        </div>
-        <div class="form-item">
-            <input type="text" placeholder="密码" name="pwd"   class="form-control">
-        </div>
-        <div class="form-item code">
-            <input type="text" placeholder="验证码" name="code" maxlength="11"  class="form-control">
-            <div class="code-pane">验证码区域 <img src="" alt="" title="点击换一张"></div>
-        </div>
-        <div class="form-item">
-            <a href="javascript:;" class="forgetpwd">忘记密码？</a>
-
-            <input type="checkbox" class="checkbox">记住账号
-
-        </div>
-        <div class="form-item">
-            <button class="btn btn-success" >登录</button>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-
-</script>
-</body>
->>>>>>> ad45f253016ce81239e7ff4ca85d585d81c820bd
-</html>
