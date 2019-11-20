@@ -80,7 +80,7 @@
     </style>
 </head>
 <body>
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="shoploaddiv">
     <div class="mainarea clearfix">
         <div class="mainhead clearfix">
             <span class="title">商品上传</span>
@@ -95,11 +95,11 @@
                                     <i>*</i>
                                     商品货号
                                 </span>
-                                <input type="text" class="inputtext" >
-                                <span>
+                                <input type="text" class="inputtext" v-model="shop.shh">
+                                <!-- <span>
                                     商品品牌
                                 </span>
-                                <input type="text" class="inputtext" >
+                                <input type="text" class="inputtext" > -->
                             </div>
                             <!---->
                             <div class="listdiv">
@@ -107,7 +107,7 @@
                                     <i>*</i>
                                     商品名称
                                 </span>
-                                <input type="text" class="inputtext" style="width: 398px;">
+                                <input type="text" class="inputtext" style="width: 398px;" v-model="shop.sname">
                             </div>
                             <!---->
                             <div class="listdiv">
@@ -115,12 +115,12 @@
                                     <i>*</i>
                                     吊牌价格
                                 </span>
-                                <input type="text" class="inputtext" >
+                                <input type="text" class="inputtext" v-model="shop.sdpprice">
                                 <span>
                                     <i>*</i>
                                     成本价格
                                 </span>
-                                <input type="text" class="inputtext" >
+                                <input type="text" class="inputtext" v-model="shop.scbprice">
                             </div>
                             <!---->
                             <div class="listdiv">
@@ -128,9 +128,12 @@
                                     <i>*</i>
                                     吊牌类别
                                 </span>
-                                <select name="" id="" class="form-control" style="float:left;width: 168px;">
-                                    <option value="请选择类别" >请选择类别</option>
-                                </select>
+                                <select name="" id="splx" class="form-control" style="float:left;width: 168px;">
+                                	<option value="请选择类别" >请选择类别</option>
+                                	<template v-for="type in types">
+                                    	<option :value="type.goodid" >{{type.goodname}}</option>
+                                    </template> 
+                                </select> 
                             </div>
                             <!---->
                             <div class="listdiv">
@@ -139,7 +142,7 @@
                                     商品颜色
                                 </span>
                                 <!--固定颜色需选择-->
-                                <div class="colorchoice">
+                                 <div class="colorchoice">
                                     <table class="colorstable">
                                         <colgroup>
                                             <col width="25%">
@@ -157,61 +160,30 @@
                                         <tr>
                                             <td>
                                                 <ul class="listcolor">
-                                                    <li>
+                                                    <li c="color-000000">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
+                                                                <span class="colorImg color-000000"></span>
                                                                 黑色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="color-666666">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg color-666666"></span>
+                                                                深灰色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="color-e4e4e4">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
-                                                            </label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul class="listcolor">
-                                                    <li>
-                                                        <input type="checkbox" class="checkbox" value="黑色">
-                                                        <a href="javascript:;">
-                                                            <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
-                                                            </label>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="checkbox" value="黑色">
-                                                        <a href="javascript:;">
-                                                            <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
-                                                            </label>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="checkbox" value="黑色">
-                                                        <a href="javascript:;">
-                                                            <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg color-e4e4e4"></span>
+                                                                浅灰色
                                                             </label>
                                                         </a>
                                                     </li>
@@ -219,30 +191,30 @@
                                             </td>
                                             <td>
                                                 <ul class="listcolor">
-                                                    <li>
+                                                    <li c="color-fff">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg color-fff"></span>
+                                                                白色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="color-transparent">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg color-transparent"></span>
+                                                                透明
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="color-assortment">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg color-assortment"></span>
+                                                                花色
                                                             </label>
                                                         </a>
                                                     </li>
@@ -250,30 +222,61 @@
                                             </td>
                                             <td>
                                                 <ul class="listcolor">
-                                                    <li>
+                                                    <li c="color-990000">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg color-990000"></span>
+                                                                酒红色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="color-ff0000">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg color-ff0000"></span>
+                                                                红色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="c-ffb6c1">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-ffb6c1"></span>
+                                                                粉红色
+                                                            </label>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul class="listcolor">
+                                                    <li c="c-041690">
+                                                        <input type="checkbox" class="checkbox" value="黑色">
+                                                        <a href="javascript:;">
+                                                            <label for="" class="color">
+                                                                <span class="colorImg c-041690"></span>
+                                                                深蓝色
+                                                            </label>
+                                                        </a>
+                                                    </li>
+                                                    <li c="c-0000ff">
+                                                        <input type="checkbox" class="checkbox" value="黑色">
+                                                        <a href="javascript:;">
+                                                            <label for="" class="color">
+                                                                <span class="colorImg c-0000ff"></span>
+                                                                蓝色
+                                                            </label>
+                                                        </a>
+                                                    </li>
+                                                    <li  c="c-1eddff">
+                                                        <input type="checkbox" class="checkbox" value="黑色">
+                                                        <a href="javascript:;">
+                                                            <label for="" class="color">
+                                                                <span class="colorImg c-1eddff"></span>
+                                                                天蓝色
                                                             </label>
                                                         </a>
                                                     </li>
@@ -291,69 +294,38 @@
                                         </colgroup>
                                         <tbody>
                                         <tr>
-                                            <th>黑色系</th>
-                                            <th>白色系</th>
-                                            <th>红色系</th>
-                                            <th>蓝色系</th>
+                                            <th>黄色系</th>
+                                            <th>绿色系</th>
+                                            <th>紫色系</th>
+                                            <th>其他色系</th>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <ul class="listcolor">
-                                                    <li>
+                                                    <li c="c-ffa500">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-ffa500"></span>
+                                                                桔色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="c-ffff00">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-ffff00"></span>
+                                                                黄色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="c-ffffb1">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
-                                                            </label>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul class="listcolor">
-                                                    <li>
-                                                        <input type="checkbox" class="checkbox" value="黑色">
-                                                        <a href="javascript:;">
-                                                            <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
-                                                            </label>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="checkbox" value="黑色">
-                                                        <a href="javascript:;">
-                                                            <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
-                                                            </label>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="checkbox" value="黑色">
-                                                        <a href="javascript:;">
-                                                            <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-ffffb1"></span>
+                                                                浅黄色
                                                             </label>
                                                         </a>
                                                     </li>
@@ -361,30 +333,30 @@
                                             </td>
                                             <td>
                                                 <ul class="listcolor">
-                                                    <li>
+                                                    <li c="c-5d762a">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-5d762a"></span>
+                                                                军绿色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="c-008000">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-008000"></span>
+                                                                绿色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="c-98fb98">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-98fb98"></span>
+                                                                浅绿色
                                                             </label>
                                                         </a>
                                                     </li>
@@ -392,36 +364,82 @@
                                             </td>
                                             <td>
                                                 <ul class="listcolor">
-                                                    <li>
+                                                    <li c="c-4b0082">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-4b0082"></span>
+                                                                深紫色
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="c-800080">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-800080"></span>
+                                                                紫色
+                                                            </label>
+                                                        </a>
+                                                    </li>  
+                                                    <li c="c-dda0dd">
+                                                        <input type="checkbox" class="checkbox" value="黑色">
+                                                        <a href="javascript:;">
+                                                            <label for="" class="color">
+                                                                <span class="colorImg c-dda0dd" ></span>
+                                                                紫罗兰
+                                                            </label>
+                                                        </a> 
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul class="listcolor">
+                                                    <li c="c-bdb76b">
+                                                        <input type="checkbox" class="checkbox" value="黑色">
+                                                        <a href="javascript:;">
+                                                            <label for="" class="color">
+                                                                <span class="colorImg c-bdb76b"></span>
+                                                                深卡其
                                                             </label>
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li c="c-855b00">
                                                         <input type="checkbox" class="checkbox" value="黑色">
                                                         <a href="javascript:;">
                                                             <label for="" class="color">
-                                                                <span class="colorImg"></span>
-                                                                黑色
+                                                                <span class="colorImg c-855b00"></span>
+                                                                褐色
+                                                            </label>
+                                                        </a>
+                                                    </li>
+                                                    <li c="c-d2691e">
+                                                        <input type="checkbox" class="checkbox" value="黑色">
+                                                        <a href="javascript:;">
+                                                            <label for="" class="color">
+                                                                <span class="colorImg c-d2691e"></span>
+                                                                巧克力
                                                             </label>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="colorstable" id="colorstable">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>颜色名称</th>
+                                           <!--  <th>颜色图片</th> -->
+                                        </tr>
+                                      
                                         </tbody>
                                     </table>
                                     <!--添加颜色的按钮-->
@@ -435,29 +453,36 @@
                                    商品尺码
                                 </span>
                                 <div class="fdcolor clearfix">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:;">均码</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">26</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">xxl</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">s</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">30</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">sm</a>
+                                    <ul id="cm">
+                                    	<template v-for="size1,index in sizes">
+                                    		<li :cc = "size1.size" >
+                                            	<a onclick="chcm(this)" on="0" :xl="size1.id" href="javascript:;">{{size1.size}}</a>
+                                        	</li>
+                                    	</template>
+                                    </ul>
+                                    <!--编辑尺寸的按钮-->
+                                    <a href="javascript:;" class="editSizeBtn" bj="0" >编辑尺寸</a>
+                                </div> 
+                                <!--编辑--> 
+                                <div class="editcolor clearfix">
+                                    <ul>       
+                                    	<template v-for="size2,index in newsizes">
+	                                        <li :key="size2.id">
+	                                            <input type="text"  v-model="size2.size">
+	                                            <a href="javascript:;" class="delcm" @click="delcc(size2,index)"></a>
+	                                        </li>
+                                        </template>
+                                         <li id="addcc">
+                                            <a href="javascript:;" class="btn btn-default" @click="addcc">添加尺寸</a>
                                         </li>
                                     </ul>
+                                    <!--编辑尺寸的按钮-->
+                                    <div class="fr clearfix">
+                                        <a href="javascript:;" class="btn btn-default" bj="0" @click="qxfbsize">取消</a>
+                                        <a href="javascript:;" class="btn btn-success" bj="0" style="color: #fff !important;" @click="fbsize">确定</a>
+                                    </div>
                                 </div>
-                                <!--添加尺寸的按钮-->
-                                <a href="javascript:;" class="editSizeBtn">编辑尺寸</a>
+                               
                             </div>
                             <!---->
                             <div class="listdiv" >
@@ -465,9 +490,9 @@
                                     <i>*</i>
                                     库存总数
                                 </span>
-                                <input type="text" class="inputtext"  style="width: 124px;">
+                                <input type="text" class="inputtext totalnum"  style="width: 124px;">
                                 <label style="color: rgb(240, 91, 35); float: left; padding-left: 8px; line-height: 36px;">请勿随意修改库存，以免影响库存准确性</label>
-                                <table class="colorstable">
+                                <table class="colorstable" id="xztable">
                                     <colgroup>
                                         <col width="40%">
                                         <col width="20%">
@@ -514,10 +539,10 @@
 						            <!-- 缩略图 -->
 						            <ul class="img_x thumb" id="img_x">
 
-						                <li id="addimg">
+						                <li id="addimg"> 
                                             <input type="file" class="uploadimg">
                                             <a  class="imgd" href="javascript:;">
-                                                <img src="images/storeindex/add_ico.png" alt="">
+                                                <img src="images/storeindex/add_ico.png"   alt="">
                                             </a>
                                         </li>
 						            </ul>
@@ -537,8 +562,8 @@
                         <div id="editwang"></div>
                         <!--按钮-->
                         <div class="btn-close-insert">
-                            <a href="javascript:;" class="btn btn-default">取消发布</a>
-                            <a href="javascript:;" class="btn btn-success" style="color: #ffffff !important;">发布商品</a>
+                            <a href="javascript:;" class="btn btn-default" >取消发布</a>
+                            <a href="javascript:;" class="btn btn-success" style="color: #ffffff !important;" @click="fbsp">发布商品</a>
                         </div>
                     </div>
                 </div>
@@ -546,17 +571,220 @@
     </div>
 </div>
 <script type="text/javascript">
+
+	var shoploadVue = new Vue({
+		el:"#shoploaddiv",
+		data:{
+				newsizes:[],
+				sizes:[],
+				shop:{   //商品主表   Q:两个不同的数组，指向同一个引用地址 造成了影响
+					shopd:[]  //商品从表
+				}, 
+				types:[]
+		},methods:{  
+			getSize:function(){  //获取尺寸
+				$.post("/getSize",{},function(res){
+					shoploadVue.sizes = res;
+					shoploadVue.newsizes =JSON.parse(JSON.stringify(res));  
+					let nums = [];
+					 $("#cm li a").filter((i,e) => {  //得到选中的尺寸
+			            if($(e).attr("on")  === "1"){
+			                nums.push($(e).attr("xl"));
+			            }
+			     	}); 
+					 $(".fdcolor:nth-child(2)").show();
+			         $(".editcolor").hide();   
+			         $("#cm li a").css("border","1px solid #e2e1e3");
+			         $("#cm li a").attr("on","0");
+			          nums.forEach(e=>{  //循环判断，拿现在的数据和之前的对比 
+			        	  shoploadVue.sizes.forEach((ie,ee)=>{
+			        	    	if(ie.id == e){
+			        	    		$("[xl="+e+"]").css("border","1px solid orange");
+			        	    		$("[xl="+e+"]").attr("on","1")
+			        	    	}
+			        	    })
+			          }); 
+			          changeTable(); 
+				});
+			},delcc:function(size2,index){   //删除尺寸  
+				shoploadVue.newsizes.splice(index,1); 
+			},addcc:function(){  //增加尺寸   
+				shoploadVue.newsizes.push({"":"","":""});
+			},qxfbsize:function(){   //取消发布size
+				shoploadVue.newsizes =JSON.parse( JSON.stringify(shoploadVue.sizes));  				
+				 $(".fdcolor:nth-child(2)").show();
+		         $(".editcolor").hide();   
+			},fbsize:function(){   //发布size 
+				//将新的sizes传过去  进行增加和修改 
+				$.ajax({
+					url:"/addsize", 
+					data:JSON.stringify(shoploadVue.newsizes),  
+					type:"post",  
+					contentType:"application/json;charset=utf-8", 
+					success:function(res){
+						shoploadVue.getSize();
+						
+					} 
+				});
+			},getType:function(){
+				$.post("/getgType",{},function(res){
+					shoploadVue.types = res;
+				});
+			},fbsp:function(){
+				
+				shoploadVue.shop.goodid = $("#splx").val();
+				shoploadVue.shop.goodimg = urls ;
+				/* 
+					获取颜色 尺寸 数量 条形码  
+				*/ 
+				shoploadVue.shop.goodtext =$(".w-e-text").text(); 
+				$("#xztable tbody tr").each((i,e)=>{
+					let shopd ={};
+					let gg = $(e).find("td:first").text().split("/");  
+					shopd.scolor = gg[0];
+					if(gg.length <= 1){
+						shopd.scc = gg[0];  
+					}else{
+						shopd.scc = gg[1];  
+					}
+					shopd.snum = $(e).find("td").eq(1).find("input").val();
+					shopd.snumbe = $(e).find("td").eq(2).find("input").val() 
+
+					shoploadVue.shop.shopd.push(shopd); 
+					
+				}); 
+				//传送  
+				$.ajax({
+					url:"/addshop", 
+					type:"post",  
+					contentType:"application/json;charset=utf-8",  
+					data:JSON.stringify(shoploadVue.shop),  
+					success:function(res){
+						alert("商品发布成功！");
+					}
+
+				});
+			}
+		},created:function(){
+			this.getSize();  //获取尺寸 
+			this.getType();  //获取商品类别 
+		}
+	});
+	 /*删除元素*/ 
+    function clo(th) {
+        let c = $(th).attr("color");
+        if(c != "" && c != null){
+            $("[c=\""+c+"\"]").find("input:checkbox").removeAttr("checked");
+        }
+        $(th).parent().parent().remove();
+        changeTable();
+    }
+    /*选中尺码*/ 
+    function chcm(th) {
+        if($(th).attr("on")  === "0"){
+            $(th).css("border","1px solid orange");
+            $(th).attr("on","1")
+        } else if($(th).attr("on")  === "1"){
+            $(th).css("border","1px solid #e2e1e3");
+            $(th).attr("on","0")
+        }
+        changeTable();
+    }
+    /*点击编辑尺码*/
+    $(".editSizeBtn").click(function () {
+            $(".fdcolor:nth-child(2)").hide();
+            $(".editcolor").show();
+    });
+   
+    
+    
+    function changeTable() {
+        $("#xztable tbody").html("");
+        /**
+         * 1. 得到选中的颜色   得到选中的尺寸
+         * 2.  循环 颜色 再内循环 尺寸
+         * 3. 内循环中创建element
+         */
+        let colors = $("#colorstable tbody tr:not(tr:first)");   //得到选中的颜色
+        let ccs = $("#cm li a").filter((i,e) => {  //得到选中的尺寸
+            if($(e).attr("on")   === "1"){
+                return e;
+            }
+        });
+        let now = new Date();
+        /*循环*/
+        if(colors.length>0){
+            colors.each((i,e)=>{   //循环颜色
+                let colorname = ($(e).find("td:first").find("input").val());
+                if(ccs.length > 0){  //如果颜色也选中了
+                    ccs.each((i1,e1)=>{   //循环尺寸
+                        let ccname = $(e1).text();
+                        let tr = $("<tr>");
+                        let td1 = $("<td>").text(colorname+"/"+ccname);
+                        let td2 = $("<td>").append(`<input onchange="jskc()" style="width:101px;text-align:center;" type='text' value='0'>`);
+                        let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();
+                        let td3 = $("<td>").append(`<input style="width:203px;text-align:center;" type='text' value='${txNumber}'>`);
+                        tr.append(td1).append(td2).append(td3);
+                        $("#xztable tbody").append(tr);
+                    })
+                }else{
+                    let tr = $("<tr>");
+                    let td1 = $("<td>").text(colorname);
+                    let td2 = $("<td>").append(`<input onchange="jskc()" style="width:101px;text-align:center;" type='text' value='0'>`);
+                    let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();;
+                    let td3 = $("<td>").append(`<input style="width:203px;text-align:center;" type='text' value='${txNumber}'>`);
+                    tr.append(td1).append(td2).append(td3);
+                    $("#xztable tbody").append(tr);
+                }
+            })
+        }else{ 
+        	if(ccs.length > 0){  //如果颜色也选中了
+                ccs.each((i1,e1)=>{   //循环尺寸
+                    let ccname = $(e1).text();
+                    let tr = $("<tr>");
+                    let td1 = $("<td>").text(ccname);
+                    let td2 = $("<td>").append(`<input onchange="jskc()" style="width:101px;text-align:center;" type='text' value='0'>`);
+                    let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();
+                    let td3 = $("<td>").append(`<input style="width:203px;text-align:center;" type='text' value='${txNumber}'>`);
+                    tr.append(td1).append(td2).append(td3);
+                    $("#xztable tbody").append(tr);
+                })
+            }
+        } 
+        jskc();
+    }
     /*创建富文本编辑器*/
     var E = window.wangEditor;
     var editor = new E('#editwang');
     editor.create();
-    
-    /* 上传图片并预览 */
+    var urls = ""; 
+    /* 预览图片 */
     $(".uploadimg").change(function(e) {
+    	/* 先进行图片的上传 */
+		var formData = new FormData();
+		var files = $(".uploadimg")[0].files;
+		alert(JSON.stringify(files))
+		for(var i=0;i<files.length;i++){
+			formData.append("files",files[i]);
+		} 
+		$.ajax({
+			url:"/uploadsimg",
+			data:formData, 
+			type:"post", 
+			processData:false,
+			contentType:false,
+			success:function(result){
+				if(urls == ""){
+					urls = result ; 
+				}else{
+					urls = urls + ","+result;
+				}
+				alert(urls)
+			}
+		});
             var imgBox = e.target;
             createliimg(imgBox);
    });
-
    function createliimg(tag) {
             var file = tag.files[0];
             var imgSrc;
@@ -568,7 +796,7 @@
             reader.readAsDataURL(file);
             reader.onload = function() {
                 imgSrc = this.result;
-                var imgs = document.createElement("img");
+                var imgs = $("<img src=\"\" name=\"simgs\">")
                 let img = $(imgs).attr("src", imgSrc);
                 //
                	$("#addimg").before($("<li onmouseenter=\"mouse(this)\"></li>").append(img));   
@@ -609,11 +837,62 @@
         $('#img_u img').eq(0).attr('src', $(th).find("img").attr("src"));
     }
     
-    
-    /*  添加颜色*/
-    $(".addColorBtn").click(function(){
-    	
+    $("#colorstable").hide();
+    $(".listcolor .checkbox ").change(function () {
+        $("#colorstable").show();
+        let cname  = $(this).next().children().text().trim();
+        let cgg = $(this).parent().attr("c");
+        let c = $(this).parent().attr("c");
+        let index = $("#colorstable tr:last>td:first>span:first").text();
+            index = parseInt(index) + 1  ;
+            if(isNaN(index)){
+                index = 1; 
+            }
+        let tr = $(`<tr >
+                        <td>
+                            <span style="width: 25px;">${index}</span>
+                            <span class="color_object ${cgg}" style=""></span>
+                            <input type="text" class="fl srys" placeholder="请输入颜色" value="${cname}" onchange="changeTable()" style="">
+                            <a href="javascript:;" class ="clo" style="" color = "${c}" onclick="clo(this)">X</a>
+                        </td>
+                        
+                </tr>`);
+        /* <td>
+        <div class="uploadimgxxx" style="">
+            <input class="imageInputText fl" type="text" disabled>
+            <a href="javascript:;" class="fl btn btn-default" style="margin-left: 5px;">上传图片</a>
+            <input type="file" class="fimg" style="">
+        </div>
+    </td> */
+        $("#colorstable tbody").append(tr);
+        changeTable();
     });
+    
+    $(".addColorBtn").click(function () {
+        /*添加颜色*/
+        $("#colorstable").show();
+        let tr = $(`<tr >
+                        <td>
+                            <span style="width: 25px;">1</span>
+                            <span class="color_object" style="background: #fff;"></span>
+                            <input type="text" class="fl srys" placeholder="请输入颜色" onchange="changeTable()" style="">
+                            <a href="javascript:;" class ="clo"  onclick="clo(this)" style="">X</a>
+                        </td>
+                        
+                </tr>`);
+        $("#colorstable tbody").append(tr);
+        changeTable();
+    });
+   
+   	function jskc(){
+   		let total = 0 ; 
+   		$("#xztable tr:not(tr:first)").each((i,e)=>{
+   			total = total + parseInt($(e).find("td").eq(1).find("input").val()); 
+   		});  
+   		$(".totalnum").val(total); 
+   	}
+    
+    
 </script>
 </body>
 </html>

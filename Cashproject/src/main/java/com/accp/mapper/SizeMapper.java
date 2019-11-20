@@ -3,6 +3,8 @@ package com.accp.mapper;
 import com.accp.domain.Size;
 import com.accp.domain.SizeExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 
 public interface SizeMapper {
@@ -27,4 +29,7 @@ public interface SizeMapper {
     int updateByPrimaryKeySelective(Size record);
 
     int updateByPrimaryKey(Size record);
+    
+    @Delete("delete from size")
+    int deleteAll();
 }

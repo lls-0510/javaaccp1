@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v12.4.1 (64 bit)
-MySQL - 5.7.18-log : Database - project
+SQLyog Ultimate v12.08 (64 bit)
+MySQL - 5.5.60 : Database - project
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -31,10 +31,6 @@ CREATE TABLE `car` (
 
 /*Data for the table `car` */
 
-LOCK TABLES `car` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `cars` */
 
 DROP TABLE IF EXISTS `cars`;
@@ -49,10 +45,6 @@ CREATE TABLE `cars` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `cars` */
-
-LOCK TABLES `cars` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `cashregister` */
 
@@ -76,10 +68,6 @@ CREATE TABLE `cashregister` (
 
 /*Data for the table `cashregister` */
 
-LOCK TABLES `cashregister` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `good` */
 
 DROP TABLE IF EXISTS `good`;
@@ -92,13 +80,7 @@ CREATE TABLE `good` (
 
 /*Data for the table `good` */
 
-LOCK TABLES `good` WRITE;
-
-insert  into `good`(`Goodid`,`Goodname`) values 
-(4,'裙子2222'),
-(5,'外套');
-
-UNLOCK TABLES;
+insert  into `good`(`Goodid`,`Goodname`) values (5,'外套');
 
 /*Table structure for table `goodsdetail` */
 
@@ -114,10 +96,6 @@ CREATE TABLE `goodsdetail` (
 
 /*Data for the table `goodsdetail` */
 
-LOCK TABLES `goodsdetail` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `goodspec` */
 
 DROP TABLE IF EXISTS `goodspec`;
@@ -130,9 +108,23 @@ CREATE TABLE `goodspec` (
 
 /*Data for the table `goodspec` */
 
-LOCK TABLES `goodspec` WRITE;
+/*Table structure for table `integral` */
 
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `integral`;
+
+CREATE TABLE `integral` (
+  `integral` int(11) DEFAULT NULL COMMENT '积分',
+  `Inte_money` double DEFAULT NULL COMMENT '可低金额 t:100 = 1元',
+  `flag` int(11) DEFAULT NULL COMMENT '是否开启',
+  `intid` int(10) NOT NULL AUTO_INCREMENT,
+  `bz2` varchar(50) DEFAULT NULL,
+  `bz3` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`intid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `integral` */
+
+insert  into `integral`(`integral`,`Inte_money`,`flag`,`intid`,`bz2`,`bz3`) values (1000,1,0,1,NULL,NULL);
 
 /*Table structure for table `message` */
 
@@ -148,14 +140,7 @@ CREATE TABLE `message` (
 
 /*Data for the table `message` */
 
-LOCK TABLES `message` WRITE;
-
-insert  into `message`(`messageid`,`content`,`username`,`createdate`) values 
-(1,'哇哈哈哈','娃娃','2019-07-30 10:53:30'),
-(3,'哇哈哈哈1','娃娃1','2019-07-30 10:54:05'),
-(4,'哇哈哈哈2','娃娃2','2019-07-30 10:54:21');
-
-UNLOCK TABLES;
+insert  into `message`(`messageid`,`content`,`username`,`createdate`) values (1,'哇哈哈哈','娃娃','2019-07-30 10:53:30'),(3,'哇哈哈哈1','娃娃1','2019-07-30 10:54:05'),(4,'哇哈哈哈2','娃娃2','2019-07-30 10:54:21');
 
 /*Table structure for table `nexus` */
 
@@ -169,10 +154,6 @@ CREATE TABLE `nexus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `nexus` */
-
-LOCK TABLES `nexus` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `post` */
 
@@ -190,10 +171,6 @@ CREATE TABLE `post` (
 
 /*Data for the table `post` */
 
-LOCK TABLES `post` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `powerone` */
 
 DROP TABLE IF EXISTS `powerone`;
@@ -205,10 +182,6 @@ CREATE TABLE `powerone` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 /*Data for the table `powerone` */
-
-LOCK TABLES `powerone` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `powertwo` */
 
@@ -223,57 +196,6 @@ CREATE TABLE `powertwo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 /*Data for the table `powertwo` */
-
-LOCK TABLES `powertwo` WRITE;
-
-UNLOCK TABLES;
-
-/*Table structure for table `productinfo` */
-
-DROP TABLE IF EXISTS `productinfo`;
-
-CREATE TABLE `productinfo` (
-  `proid` int(11) NOT NULL,
-  `proName` varchar(50) NOT NULL,
-  `ProPrice` float NOT NULL,
-  `prosaleType` int(11) NOT NULL,
-  PRIMARY KEY (`proid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
-/*Data for the table `productinfo` */
-
-LOCK TABLES `productinfo` WRITE;
-
-UNLOCK TABLES;
-
-/*Table structure for table `productlist` */
-
-DROP TABLE IF EXISTS `productlist`;
-
-CREATE TABLE `productlist` (
-  `prid` int(11) NOT NULL,
-  `proid` int(11) NOT NULL,
-  `ProName` varchar(50) NOT NULL,
-  `Pronumber` varchar(50) NOT NULL,
-  `Specifications` varchar(50) NOT NULL,
-  `ProStock` varchar(50) NOT NULL,
-  `Sellingprice` float NOT NULL,
-  `Costprice` float NOT NULL,
-  `Img` varchar(50) NOT NULL,
-  `Number` int(11) NOT NULL,
-  `Proitem` varchar(50) NOT NULL,
-  `ProCargo` varchar(50) NOT NULL,
-  `Color` varchar(50) NOT NULL,
-  `size` varchar(50) NOT NULL,
-  PRIMARY KEY (`prid`) USING BTREE,
-  KEY `proid` (`proid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
-/*Data for the table `productlist` */
-
-LOCK TABLES `productlist` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `purchase` */
 
@@ -295,9 +217,7 @@ CREATE TABLE `purchase` (
 
 /*Data for the table `purchase` */
 
-LOCK TABLES `purchase` WRITE;
-
-UNLOCK TABLES;
+insert  into `purchase`(`purchaseid`,`Userid`,`odd`,`delivery time`,`SuId`,`Number`,`Price`,`shop`) values (1,1,'1','2019-11-16',1,1,1,'1'),(2,2,'2','2019-11-16',2,2,2,'2');
 
 /*Table structure for table `purchasedetails` */
 
@@ -320,9 +240,7 @@ CREATE TABLE `purchasedetails` (
 
 /*Data for the table `purchasedetails` */
 
-LOCK TABLES `purchasedetails` WRITE;
-
-UNLOCK TABLES;
+insert  into `purchasedetails`(`Id`,`purchaseid`,`ltemno`,`shapecode`,`goodsname`,`goodsphoto`,`specification`,`costprice`,`count`,`money`) values (1,1,'1','1','1','1','1',1,1,1),(2,2,'2','2','2','2','2',2,2,2);
 
 /*Table structure for table `recharge` */
 
@@ -344,10 +262,6 @@ CREATE TABLE `recharge` (
 
 /*Data for the table `recharge` */
 
-LOCK TABLES `recharge` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `saletype` */
 
 DROP TABLE IF EXISTS `saletype`;
@@ -361,25 +275,59 @@ CREATE TABLE `saletype` (
 
 /*Data for the table `saletype` */
 
-LOCK TABLES `saletype` WRITE;
+/*Table structure for table `shop` */
 
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `shop`;
+
+CREATE TABLE `shop` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
+  `shh` varchar(20) DEFAULT NULL,
+  `sname` varchar(50) DEFAULT NULL,
+  `sdpprice` double DEFAULT NULL,
+  `scbprice` double DEFAULT NULL,
+  `goodid` int(11) DEFAULT NULL,
+  `goodimg` varchar(2000) DEFAULT NULL,
+  `goodText` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`sid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+/*Data for the table `shop` */
+
+insert  into `shop`(`sid`,`shh`,`sname`,`sdpprice`,`scbprice`,`goodid`,`goodimg`,`goodText`) values (1,'111','111111',111,111,5,NULL,NULL),(2,'222','22',2,22,4,NULL,NULL),(3,'333','33',3,33,5,NULL,'123sssss'),(4,'44','444',44,44,5,'D:\\staticSource/content3.jpg,D:\\staticSource/content4.jpg,D:\\staticSource/content2.jpg','123123'),(5,'lls','4444',44,44,5,'D:\\staticSource/content1.jpg,D:\\staticSource/content3.jpg','ggggg');
+
+/*Table structure for table `shopdetails` */
+
+DROP TABLE IF EXISTS `shopdetails`;
+
+CREATE TABLE `shopdetails` (
+  `sdid` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) DEFAULT NULL,
+  `scolor` varchar(10) DEFAULT NULL,
+  `scc` varchar(10) DEFAULT NULL,
+  `snum` int(11) DEFAULT NULL,
+  `sNumbe` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`sdid`),
+  KEY `shopdetails_ibfk_1` (`sid`),
+  CONSTRAINT `shopdetails_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `shop` (`sid`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+/*Data for the table `shopdetails` */
+
+insert  into `shopdetails`(`sdid`,`sid`,`scolor`,`scc`,`snum`,`sNumbe`) values (2,1,'黑色','30',10,'20191120177718277584'),(3,2,'x','x',11,'20191120535486561599'),(4,3,'绿色','x',2,'20191120444771524114'),(5,3,'绿色','30',3,'20191120375056711239'),(6,3,'浅绿色','x',4,'20191120-89378761251'),(7,3,'浅绿色','30',3,'20191120329414259551');
 
 /*Table structure for table `size` */
 
 DROP TABLE IF EXISTS `size`;
 
 CREATE TABLE `size` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `size` varchar(50) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 /*Data for the table `size` */
 
-LOCK TABLES `size` WRITE;
-
-UNLOCK TABLES;
+insert  into `size`(`id`,`size`) values (47,'x'),(55,'30'),(57,'l'),(58,'s');
 
 /*Table structure for table `staff` */
 
@@ -397,10 +345,6 @@ CREATE TABLE `staff` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 /*Data for the table `staff` */
-
-LOCK TABLES `staff` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `store` */
 
@@ -424,10 +368,6 @@ CREATE TABLE `store` (
 
 /*Data for the table `store` */
 
-LOCK TABLES `store` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `storetype` */
 
 DROP TABLE IF EXISTS `storetype`;
@@ -440,10 +380,6 @@ CREATE TABLE `storetype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 /*Data for the table `storetype` */
-
-LOCK TABLES `storetype` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `supplier` */
 
@@ -466,9 +402,7 @@ CREATE TABLE `supplier` (
 
 /*Data for the table `supplier` */
 
-LOCK TABLES `supplier` WRITE;
-
-UNLOCK TABLES;
+insert  into `supplier`(`SuId`,`Suname`,`Sucompany`,`People`,`Phone`,`Email`,`Telephone`,`Province`,`City`,`area`,`Street`) values (1,'1','1','1','1','1','1','1','2','2','2');
 
 /*Table structure for table `turnover` */
 
@@ -489,10 +423,6 @@ CREATE TABLE `turnover` (
 
 /*Data for the table `turnover` */
 
-LOCK TABLES `turnover` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `turnoverdetails` */
 
 DROP TABLE IF EXISTS `turnoverdetails`;
@@ -510,10 +440,6 @@ CREATE TABLE `turnoverdetails` (
 
 /*Data for the table `turnoverdetails` */
 
-LOCK TABLES `turnoverdetails` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `user` */
 
 DROP TABLE IF EXISTS `user`;
@@ -527,10 +453,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 /*Data for the table `user` */
-
-LOCK TABLES `user` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `vip` */
 
@@ -550,10 +472,6 @@ CREATE TABLE `vip` (
 
 /*Data for the table `vip` */
 
-LOCK TABLES `vip` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `vote` */
 
 DROP TABLE IF EXISTS `vote`;
@@ -570,31 +488,29 @@ CREATE TABLE `vote` (
 
 /*Data for the table `vote` */
 
-LOCK TABLES `vote` WRITE;
-
-insert  into `vote`(`voteid`,`messageid`,`username`,`createdate`) values 
-(0,1,'娃娃','2019-07-30 10:53:30'),
-(0,3,'娃娃1','2019-07-30 10:54:05'),
-(0,4,'娃娃2','2019-07-30 10:54:21');
-
-UNLOCK TABLES;
+insert  into `vote`(`voteid`,`messageid`,`username`,`createdate`) values (0,1,'娃娃','2019-07-30 10:53:30'),(0,3,'娃娃1','2019-07-30 10:54:05'),(0,4,'娃娃2','2019-07-30 10:54:21');
 
 /*Table structure for table `vtype` */
 
 DROP TABLE IF EXISTS `vtype`;
 
 CREATE TABLE `vtype` (
-  `VTid` int(11) NOT NULL,
+  `VTid` int(11) NOT NULL AUTO_INCREMENT,
   `VTname` varchar(50) NOT NULL,
   `VtDiscount` float NOT NULL,
+  `vrule` int(1) NOT NULL COMMENT '升级规则  0是自动 1是手动',
+  `maxmoney` double DEFAULT NULL COMMENT '消费达到',
+  `validityData` int(11) DEFAULT NULL COMMENT '有效期 0永久 1 一年',
+  `bz1` varchar(50) DEFAULT NULL,
+  `bz2` varchar(50) DEFAULT NULL,
+  `bz3` varchar(50) DEFAULT NULL,
+  `bz4` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`VTid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 /*Data for the table `vtype` */
 
-LOCK TABLES `vtype` WRITE;
-
-UNLOCK TABLES;
+insert  into `vtype`(`VTid`,`VTname`,`VtDiscount`,`vrule`,`maxmoney`,`validityData`,`bz1`,`bz2`,`bz3`,`bz4`) values (7,'vip',0.8,0,1,0,NULL,NULL,NULL,NULL),(8,'测试等级1',1,0,1111,0,NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

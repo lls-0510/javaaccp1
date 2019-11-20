@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.ShopMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Shop" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="shh" property="shh" jdbcType="VARCHAR" />
+    <result column="sname" property="sname" jdbcType="VARCHAR" />
+    <result column="sdpprice" property="sdpprice" jdbcType="DOUBLE" />
+    <result column="scbprice" property="scbprice" jdbcType="DOUBLE" />
+    <result column="goodid" property="goodid" jdbcType="INTEGER" />
+    <result column="goodimg" property="goodimg" jdbcType="VARCHAR" />
+    <result column="goodText" property="goodtext" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sid, shh, sname, sdpprice, scbprice, goodid, goodimg, goodText
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ShopExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ShopExample" >
+    delete from shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"  useGeneratedKeys="true" keyColumn="sid" keyProperty="sid" parameterType="com.accp.domain.Shop" >
+    insert into shop (sid, shh, sname, 
+      sdpprice, scbprice, goodid, 
+      goodimg, goodText)
+    values (#{sid,jdbcType=INTEGER}, #{shh,jdbcType=VARCHAR}, #{sname,jdbcType=VARCHAR}, 
+      #{sdpprice,jdbcType=DOUBLE}, #{scbprice,jdbcType=DOUBLE}, #{goodid,jdbcType=INTEGER}, 
+      #{goodimg,jdbcType=VARCHAR}, #{goodtext,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Shop" >
+    insert into shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="shh != null" >
+        shh,
+      </if>
+      <if test="sname != null" >
+        sname,
+      </if>
+      <if test="sdpprice != null" >
+        sdpprice,
+      </if>
+      <if test="scbprice != null" >
+        scbprice,
+      </if>
+      <if test="goodid != null" >
+        goodid,
+      </if>
+      <if test="goodimg != null" >
+        goodimg,
+      </if>
+      <if test="goodtext != null" >
+        goodText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="shh != null" >
+        #{shh,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sdpprice != null" >
+        #{sdpprice,jdbcType=DOUBLE},
+      </if>
+      <if test="scbprice != null" >
+        #{scbprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodid != null" >
+        #{goodid,jdbcType=INTEGER},
+      </if>
+      <if test="goodimg != null" >
+        #{goodimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodtext != null" >
+        #{goodtext,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ShopExample"  resultType="java.lang.Integer" >
+    select count(*) from shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shop
+    <set >
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.shh != null" >
+        shh = #{record.shh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sname != null" >
+        sname = #{record.sname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdpprice != null" >
+        sdpprice = #{record.sdpprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scbprice != null" >
+        scbprice = #{record.scbprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodid != null" >
+        goodid = #{record.goodid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodimg != null" >
+        goodimg = #{record.goodimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodtext != null" >
+        goodText = #{record.goodtext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shop
+    set sid = #{record.sid,jdbcType=INTEGER},
+      shh = #{record.shh,jdbcType=VARCHAR},
+      sname = #{record.sname,jdbcType=VARCHAR},
+      sdpprice = #{record.sdpprice,jdbcType=DOUBLE},
+      scbprice = #{record.scbprice,jdbcType=DOUBLE},
+      goodid = #{record.goodid,jdbcType=INTEGER},
+      goodimg = #{record.goodimg,jdbcType=VARCHAR},
+      goodText = #{record.goodtext,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Shop" >
+    update shop
+    <set >
+      <if test="shh != null" >
+        shh = #{shh,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="sdpprice != null" >
+        sdpprice = #{sdpprice,jdbcType=DOUBLE},
+      </if>
+      <if test="scbprice != null" >
+        scbprice = #{scbprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodid != null" >
+        goodid = #{goodid,jdbcType=INTEGER},
+      </if>
+      <if test="goodimg != null" >
+        goodimg = #{goodimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodtext != null" >
+        goodText = #{goodtext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Shop" >
+    update shop
+    set shh = #{shh,jdbcType=VARCHAR},
+      sname = #{sname,jdbcType=VARCHAR},
+      sdpprice = #{sdpprice,jdbcType=DOUBLE},
+      scbprice = #{scbprice,jdbcType=DOUBLE},
+      goodid = #{goodid,jdbcType=INTEGER},
+      goodimg = #{goodimg,jdbcType=VARCHAR},
+      goodText = #{goodtext,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

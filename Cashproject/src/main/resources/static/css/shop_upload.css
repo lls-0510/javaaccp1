@@ -304,3 +304,150 @@
     margin-top: 20px;
     display: block;
 }
+.uploadimgxxx{
+    height: 44px;
+    padding-top: 5px;
+    position: relative;
+    display: block;
+    width: 100%;
+}
+.imageInputText{
+    background-color: #FAFAFA;
+    float: left;
+    margin-left: 4px;
+    width: 105px;
+    border: 1px solid #e7e7eb;
+    padding-right: 2px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 14px;
+    padding-left: 6px;
+    vertical-align: middle;
+}
+.color_object{
+    margin-top: 10px;
+    width: 14px !important;
+    height: 14px;
+    background: #000;
+}
+.srys{
+    margin-left: 10px;height: 32px;width: 132px;
+}
+.clo{
+    display: block;float:left;margin-top: 10px;width: 25px;
+}
+.fimg{
+    position: relative;top: -36px;right: -116px;background: none repeat scroll 0 0 #FFFFFF;filter: alpha(opacity=0);opacity: 0.0;width: 82px;height: 34px;
+}
+/*—’…´…Ë÷√*/
+.color-000000{
+    background: #000000;
+}
+.color-666666{
+    background: #666666;
+}
+.color-e4e4e4{
+    background: #e4e4e4;
+}
+.color-fff{
+    background: #ffffff;
+}
+
+.color-transparent{
+background:url(http://style1.buyinchina.com/img/addProductColor.gif) no-repeat scroll 0 -20px transparent;
+}
+.color-assortment{
+background:url(http://style1.buyinchina.com/img/addProductColor.gif) no-repeat scroll 0 0 transparent;
+}
+.color-990000{
+    background: #990000;
+}
+.color-ff0000{
+    background: #ff0000;
+}
+.c-ffb6c1{
+    background: #ffb6c1;
+}
+.c-041690{
+    background: #041690;
+}
+.c-0000ff{
+    background: #0000ff;
+}
+.c-1eddff{
+    background: #1eddff;
+}
+.c-ffa500{
+    background: #ffa500;
+}
+.c-ffff00{
+    background: #ffff00;
+}
+.c-ffffb1{
+    background: #ffffb1;
+}
+.c-5d762a{
+    background: #5d762a;
+}
+.c-008000{
+    background: #008000;
+}
+.c-98fb98{
+    background: #98fb98;
+}
+.c-4b0082{
+    background: #4b0082;
+}
+.c-800080{
+    background: #800080;
+}
+.c-dda0dd{
+    background: #dda0dd;
+}
+.c-bdb76b{
+    background: #bdb76b;
+}
+.c-855b00{
+    background: #855b00;
+}
+.c-d2691e{
+    background: #d2691e;
+}
+.editcolor{
+    float: right;
+    width: 436px;
+    margin-top: -15px;
+    display: none;
+}
+.editcolor ul{
+    float: left;
+    width: 100%;
+}
+.editcolor li { 
+    position: relative;
+    float: left;
+    width: 102px;
+    margin-left: 6px;
+    margin-bottom: 6px;
+    background-color: #FFF;
+}
+.editcolor li input{
+    border: 1px solid #e2e1e3; 
+    text-align: center;
+    line-height: 32px;
+    height: 32px; 
+    width: 74px;
+    padding: 2px 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.delcm{
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    background: #FFF url(http://www.poso2o.com/WeChat/style/img/base_z2b638f.png) no-repeat 0 -388px;
+    display: block;
+    height: 16px;
+    width: 16px;
+}

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.ShopdetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Shopdetails" >
+    <id column="sdid" property="sdid" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="scolor" property="scolor" jdbcType="VARCHAR" />
+    <result column="scc" property="scc" jdbcType="VARCHAR" />
+    <result column="snum" property="snum" jdbcType="INTEGER" />
+    <result column="sNumbe" property="snumbe" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sdid, sid, scolor, scc, snum, sNumbe
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ShopdetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shopdetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopdetails
+    where sdid = #{sdid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shopdetails
+    where sdid = #{sdid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ShopdetailsExample" >
+    delete from shopdetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Shopdetails" >
+    insert into shopdetails (sdid, sid, scolor, 
+      scc, snum, sNumbe)
+    values (#{sdid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{scolor,jdbcType=VARCHAR}, 
+      #{scc,jdbcType=VARCHAR}, #{snum,jdbcType=INTEGER}, #{snumbe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Shopdetails" >
+    insert into shopdetails
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sdid != null" >
+        sdid,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="scolor != null" >
+        scolor,
+      </if>
+      <if test="scc != null" >
+        scc,
+      </if>
+      <if test="snum != null" >
+        snum,
+      </if>
+      <if test="snumbe != null" >
+        sNumbe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sdid != null" >
+        #{sdid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="scolor != null" >
+        #{scolor,jdbcType=VARCHAR},
+      </if>
+      <if test="scc != null" >
+        #{scc,jdbcType=VARCHAR},
+      </if>
+      <if test="snum != null" >
+        #{snum,jdbcType=INTEGER},
+      </if>
+      <if test="snumbe != null" >
+        #{snumbe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ShopdetailsExample" resultType="java.lang.Integer" >
+    select count(*) from shopdetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shopdetails
+    <set >
+      <if test="record.sdid != null" >
+        sdid = #{record.sdid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.scolor != null" >
+        scolor = #{record.scolor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scc != null" >
+        scc = #{record.scc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snum != null" >
+        snum = #{record.snum,jdbcType=INTEGER},
+      </if>
+      <if test="record.snumbe != null" >
+        sNumbe = #{record.snumbe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shopdetails
+    set sdid = #{record.sdid,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      scolor = #{record.scolor,jdbcType=VARCHAR},
+      scc = #{record.scc,jdbcType=VARCHAR},
+      snum = #{record.snum,jdbcType=INTEGER},
+      sNumbe = #{record.snumbe,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Shopdetails" >
+    update shopdetails
+    <set >
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="scolor != null" >
+        scolor = #{scolor,jdbcType=VARCHAR},
+      </if>
+      <if test="scc != null" >
+        scc = #{scc,jdbcType=VARCHAR},
+      </if>
+      <if test="snum != null" >
+        snum = #{snum,jdbcType=INTEGER},
+      </if>
+      <if test="snumbe != null" >
+        sNumbe = #{snumbe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sdid = #{sdid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Shopdetails" >
+    update shopdetails
+    set sid = #{sid,jdbcType=INTEGER},
+      scolor = #{scolor,jdbcType=VARCHAR},
+      scc = #{scc,jdbcType=VARCHAR},
+      snum = #{snum,jdbcType=INTEGER},
+      sNumbe = #{snumbe,jdbcType=VARCHAR}
+    where sdid = #{sdid,jdbcType=INTEGER}
+  </update>
+</mapper>

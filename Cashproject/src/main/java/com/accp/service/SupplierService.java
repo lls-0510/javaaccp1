@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.accp.domain.Productinfo;
 import com.accp.domain.Supplier;
 import com.accp.mapper.SupplierMapper;
 import com.github.pagehelper.Page;

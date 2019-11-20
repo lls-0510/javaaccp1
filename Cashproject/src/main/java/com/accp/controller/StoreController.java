@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.accp.domain.Productinfo;
 import com.accp.domain.Store;
 import com.accp.service.StoreService;
 import com.github.pagehelper.PageInfo;

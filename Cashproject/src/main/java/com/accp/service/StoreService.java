@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.accp.domain.Productinfo;
 import com.accp.domain.Store;
 import com.accp.mapper.StoreMapper;
 import com.github.pagehelper.Page;
@@ -21,7 +20,7 @@ public class StoreService {
 	private StoreMapper storeMapper;
 	
 	/**
-	 * 店铺信息分页
+	 * 店铺信息分页 
 	 * @return
 	 */
 	public PageInfo<Store> storequeryAll(Integer pageNum, Integer pageSize){
