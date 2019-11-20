@@ -23,9 +23,23 @@ public class Staff {
     
     private String storename;
     
+    private Integer postid;
     
+    
+    
+    
+    
+    
+    
+    public Integer getPostid() {
+		return postid;
+	}
 
-    public Integer getId() {
+	public void setPostid(Integer postid) {
+		this.postid = postid;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 

@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-<div>
+<div id="addstaffvue">
     <div class="modal-header">
         <h3>添加员工</h3>
         <span class="close" data-dismiss="modal">&times;</span>
@@ -39,36 +39,82 @@
     <div class="modal-body">
         <div class="lists">
             <label>店铺：</label>
-            <select name="" id="" class="form-control" style="width: 200px;">
-                <option value="">请选择店铺</option>
+            <select name="store" id="shp" class="form-control" style="width: 200px;">
+                 <option v-for="item,index in storeList" :value="item.id">{{item.storename}}</option>
             </select>
         </div>
         <div class="lists">
             <label>职位：</label>
-            <select name="" id="" class="form-control" style="width: 200px;">
-                <option value="">请选择职位</option>
+            <select name="post" id="post" class="form-control" style="width: 200px;">
+                 <option v-for="items,index in po" :value="items.id">{{items.type}}</option>
             </select>
         </div>
         <div class="lists">
             <label>工号：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="store.cardgo" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="lists">
             <label>姓名：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="store.staffname" type="text" style="width: 200px;" class="form-control">
 
         </div>
         <div class="lists">
             <label>密码：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input v-model="store.staffpwd" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+        <a @click="insertStaff" href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
     </div>
 </div>
 </body>
+<script type="text/javascript">
+	var addstaffvue2=new Vue({
+		el:"#addstaffvue",
+		data:{
+			storeList:[],
+			po:[],
+			store:{}
+	 	},
+		methods:{ 
+			insertStaff:function(){
+				addstaffvue2.store.storeid=$("[name='store']").val();  
+				addstaffvue2.store.storename = $("[name=shop]").find("option:selected").html();
+				addstaffvue2.store.postid = $("[name='post']").val();
+				console.log(addstaffvue2.store);
+				$.ajax({
+					url:"/insertStaff",
+					data:addstaffvue2.store,
+					type:"post",
+					success:function(result){
+						alert(result);
+					}
+				}) 
+			}
+			 
+		},   
+		created:function(){    
+			
+		}
+	})
+$(function(){
+	$.ajax({
+		url:"/queryStore",
+		success:function(result){
+			addstaffvue2.storeList = result;
+		}
+	});
+	})
+	$(function(){
+	$.ajax({
+		url:"/querypost",
+		success:function(result){
+			addstaffvue2.po = result;
+		}
+	});
+})
+</script>
 </html>

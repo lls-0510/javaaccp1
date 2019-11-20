@@ -18,11 +18,17 @@ import com.github.pagehelper.PageInfo;
 public class GoodService {
 	@Autowired
 	private GoodMapper goodMapper;
+<<<<<<< HEAD
 
 	/*
 	 * @Autowired private ProductinfoMapper productinfoMapper;
 	 */
 	/**
+=======
+	@Autowired
+/*	private ProductinfoMapper productinfoMapper;
+*/	/**
+>>>>>>> lls
 	 * 查询商品类型
 	 * @return
 	 */
@@ -39,9 +45,15 @@ public class GoodService {
 		return goodMapper.addGoodType(goodname);
 		
 	}
+<<<<<<< HEAD
 	/*
 	 * public List<Productinfo> query(){ return productinfoMapper.query(); }
 	 */
+=======
+	/*public List<Productinfo> query(){
+		return productinfoMapper.query();
+	}*/
+>>>>>>> lls
 	
 	/**
 	 * 删除商品类型
@@ -64,40 +76,66 @@ public class GoodService {
 	 * 商品信息分页
 	 * @return
 	 */
+<<<<<<< HEAD
 	/*
 	 * public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize){
 	 * Page page = PageHelper.startPage(pageNum, pageSize);
 	 * productinfoMapper.queryAll(); return page.toPageInfo(); }
 	 */
+=======
+	/*public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize){
+		Page page = PageHelper.startPage(pageNum, pageSize);
+		productinfoMapper.queryAll();
+		 return page.toPageInfo();
+	}*/
+>>>>>>> lls
 	
 	/**
 	 * 删除商品信息
 	 * @param proid
 	 * @return
 	 */
+<<<<<<< HEAD
 	/*
 	 * public int deleteproducinfo(Integer proid) { return
 	 * productinfoMapper.deleteproducinfo(proid); }
 	 */
+=======
+	/*public int deleteproducinfo(Integer proid) {
+		return productinfoMapper.deleteproducinfo(proid);
+	}*/
+>>>>>>> lls
 	
 	/**
 	 * 查询商品信息id
 	 * @param proid
 	 * @return
 	 */
+<<<<<<< HEAD
 	/*
 	 * public Productinfo queryproById(Integer proid) { return
 	 * productinfoMapper.queryById(proid); }
 	 */
+=======
+	/*public Productinfo queryproById(Integer proid) {
+		return productinfoMapper.queryById(proid);
+	}*/
+>>>>>>> lls
 	
 	/**
 	 * 查询
 	 * @param proid
 	 * @return
 	 */
+<<<<<<< HEAD
 	/*
 	 * public List<Productinfo> queryprById(Integer proid) { return
 	 * productinfoMapper.queryproById(proid); }
 	 */
+=======
+	/*public  List<Productinfo> queryprById(Integer proid) {
+		return productinfoMapper.queryproById(proid);
+	}*/
+>>>>>>> lls
 
 }

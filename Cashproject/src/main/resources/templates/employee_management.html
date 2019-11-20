@@ -59,8 +59,10 @@
                         <td>{{stu.staffname}}</td>
                         <td>{{stu.staffpwd}}</td>
                         <td>
-                            <span onclick="editmanagement()" data-target="#tanchuan"  data-toggle="modal">编辑</span>
+                            <span @click="editmanagement(stu.staffid)" data-target="#tanchuan"  data-toggle="modal">编辑</span>
+                            <span @click="del(stu.staffid)" data-target="#tanchuan"  data-toggle="modal">删除</span>
                         </td>
+                        
                     </tr>
    
                 </tbody>
@@ -87,15 +89,28 @@ var staffvue=new Vue({
 		}
 	},
 	methods:{
+		 del:function(staffid,index){
+				$.ajax({
+					url:"/deleteStaff",
+					data:"staffid="+staffid,
+					success:function(result){
+							alert("删除成功");
+					}
+				});
+			},
 		getPage:function(currentPage){
 			var staffname=$("[name='staffname']").val();
 			$.ajax({
 				url:"/staffqueryAll",
-				data:{pageNum:currentPage,pageSize:1,staffname:staffname},
+				data:{pageNum:currentPage,pageSize:5,staffname:staffname},
 				success:function(result){
 					staffvue.page=result;
 				}
 			});
+		},
+		editmanagement:function(staffid){
+			 $(".modal-content").attr("staffid",staffid); 
+			 $(".modal-content").load("model/aditemployee.html");
 		}
 	},
 	created:function(){
@@ -110,11 +125,10 @@ var staffvue=new Vue({
 	}
 });
 	$(function(){
-		var th=this;
 		$.ajax({
 			url:"/querypost",
 			success:function(result){
-				th.po = result;
+				staffvue.po = result;
 			}
 		});
 	})
