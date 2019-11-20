@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Good;
-import com.accp.domain.Productinfo;
 import com.accp.service.GoodService;
 import com.github.pagehelper.PageInfo;
 
@@ -71,38 +70,38 @@ public class GoodController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/queryproById")
+	/*@RequestMapping("/queryproById")
 	@ResponseBody
 	public Productinfo queryproById(Integer proid,Model model) {
 		model.addAttribute("proid",proid);
 		System.out.println("商品信息id"+proid);
 		Productinfo clazz=goodService.queryproById(proid);
 		return clazz;
-	}
+	}*/
 	
 	/**
 	 * 查询
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/aa")
+	/*@RequestMapping("/aa")
 	public String index(Model model,Integer proid) {
 		List<Productinfo>list=goodService.queryprById(proid);
 		model.addAttribute("list", list);
 		System.out.println("id为--"+proid);
 		return "add_purchase";
-	}
+	}*/
 	/**
 	 * 修改
 	 * @param Goodname
 	 * @param goodid
 	 * @return
 	 */
-	@RequestMapping("/doupdate")
+	/*@RequestMapping("/doupdate")
 	@ResponseBody
 	public int updateGoodType(String Goodname,Integer goodid) {
 		return goodService.updateGoodType(Goodname, goodid);
-	}
+	}*/
 	
 	/**
 	 * 选中商品
@@ -110,20 +109,20 @@ public class GoodController {
 	 * @param goodid
 	 * @return
 	 */
-	@RequestMapping("/query")
+	/*@RequestMapping("/query")
 	@ResponseBody
 	public List<Productinfo> query() {
 		return goodService.query();
 		 
 	}
-	
+	*/
 	/**
 	 * 分页查询
 	 * @param pageNum
 	 * @param pageSize
 	 * @return
 	 */
-	@RequestMapping("/proqueryAll")
+	/*@RequestMapping("/proqueryAll")
 	@ResponseBody
 	public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize) {
 		
@@ -131,19 +130,19 @@ public class GoodController {
 		System.out.println(page.toString());
 		return page;
 	}
-	
+	*/
 	/**
 	 * 删除商品信息
 	 * @param pageNum
 	 * @param pageSize
 	 * @return
 	 */
-	@RequestMapping("/deleteproducinfo")
+	/*@RequestMapping("/deleteproducinfo")
 	@ResponseBody
 	public int deleteproducinfo(Integer proid) {
 		return goodService.deleteproducinfo(proid);
 	}
-	
+	*/
 	
 
 }

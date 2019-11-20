@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.Good;
-import com.accp.domain.Productinfo;
 import com.accp.domain.Purchase;
 import com.accp.mapper.GoodMapper;
-import com.accp.mapper.ProductinfoMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -21,8 +19,8 @@ public class GoodService {
 	@Autowired
 	private GoodMapper goodMapper;
 	@Autowired
-	private ProductinfoMapper productinfoMapper;
-	/**
+/*	private ProductinfoMapper productinfoMapper;
+*/	/**
 	 * 查询商品类型
 	 * @return
 	 */
@@ -39,9 +37,9 @@ public class GoodService {
 		return goodMapper.addGoodType(goodname);
 		
 	}
-	public List<Productinfo> query(){
+	/*public List<Productinfo> query(){
 		return productinfoMapper.query();
-	}
+	}*/
 	
 	/**
 	 * 删除商品类型
@@ -64,37 +62,37 @@ public class GoodService {
 	 * 商品信息分页
 	 * @return
 	 */
-	public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize){
+	/*public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize){
 		Page page = PageHelper.startPage(pageNum, pageSize);
 		productinfoMapper.queryAll();
 		 return page.toPageInfo();
-	}
+	}*/
 	
 	/**
 	 * 删除商品信息
 	 * @param proid
 	 * @return
 	 */
-	public int deleteproducinfo(Integer proid) {
+	/*public int deleteproducinfo(Integer proid) {
 		return productinfoMapper.deleteproducinfo(proid);
-	}
+	}*/
 	
 	/**
 	 * 查询商品信息id
 	 * @param proid
 	 * @return
 	 */
-	public Productinfo queryproById(Integer proid) {
+	/*public Productinfo queryproById(Integer proid) {
 		return productinfoMapper.queryById(proid);
-	}
+	}*/
 	
 	/**
 	 * 查询
 	 * @param proid
 	 * @return
 	 */
-	public  List<Productinfo> queryprById(Integer proid) {
+	/*public  List<Productinfo> queryprById(Integer proid) {
 		return productinfoMapper.queryproById(proid);
-	}
+	}*/
 
 }

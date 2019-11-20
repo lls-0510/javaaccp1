@@ -20,13 +20,13 @@
                     </div>
                     <div class="username clearfix">
                         <div style="margin-bottom:6px;">店铺简称：</div>
-                        <input v-model="shop.jcname" type="text" name="jcname" class="inputText shopname" id="shopname" value="" maxlength="32">
+                        <input  type="text" name="jcname" class="inputText shopname" id="shopname" value="" maxlength="32">
                         <i>*</i>
                         <div class="ligdiv">
                             3/16
                         </div>
                         <div class="deacripCont">
-                            <textarea v-model="shop.shopname" name="remark" cols="45" rows="5" class="description" id="remark" title="店铺简介" placeholder="店铺简介"></textarea>
+                            <textarea name="remark" cols="45" rows="5" class="description" id="remark" title="店铺简介" placeholder="店铺简介"></textarea>
                         </div>
                         <div class="ligdiv">
                             140/140
@@ -41,6 +41,24 @@
                         <div class="body">
                             <div class="lista list_title">店铺信息</div>
                             <div class="form_edit clearfix">
+                              <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                            <i>*</i>
+                                            账户
+                                        </span>
+                                    </label>
+                                    <input name="card" type="text" class="inputTexts" >
+                                </div>
+                                  <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                            <i>*</i>
+                                            店名
+                                        </span>
+                                    </label>
+                                    <input name="storename" type="text" class="inputTexts" >
+                                </div>
                                 <div class="lista clearfix">
                                     <label for="" class="label">
                                         <span class="rela">
@@ -48,7 +66,7 @@
                                             联系人
                                         </span>
                                     </label>
-                                    <input name="people" v-model="shop.shopname" type="text" class="inputTexts" >
+                                    <input name="people" type="text" class="inputTexts" >
                                 </div>
                                 <div class="lista clearfix">
                                     <label for="" class="label">
@@ -57,7 +75,7 @@
                                             手机
                                         </span>
                                     </label>
-                                    <input name="phone" v-model="shop.shopname" type="text" class="inputTexts" >
+                                    <input name="phone" type="text" class="inputTexts" >
                                 </div>
                                 <div class="lista clearfix ">
                                     <label for="" class="label">
@@ -65,39 +83,39 @@
                                             固话
                                         </span>
                                     </label>
-                                    <input name="telephone" v-model="shop.shopname" type="text" class="inputTexts" >
+                                    <input name="telephone"  type="text" class="inputTexts" >
                                 </div>
-                                <div class="lista clearfix">
+                                <!-- <div class="lista clearfix">
                                     <label for="" class="label">
                                         <span class="rela">
                                           时间
                                         </span>
                                     </label>
-                                    <select v-model="shop.shopname" name="startime" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option selected>2001-1-1</option>
+                                    <select name="startime" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option selected>2001-01-01</option>
                                     </select>
                                     <span style="float:left;margin: 0 5px">-</span>
-                                    <select v-model="shop.shopname" name="endtime" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">2001-2-2</option>
+                                    <select  name="endtime" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option value="">2001-02-02</option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="lista clearfix" style="width: 600px;">
                                     <label for="" class="label">
                                         <span class="rela">
                                           地址
                                         </span>
                                     </label>
-                                    <select v-model="shop.shopname" name="province" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">湖南省</option>
+                                    
+                                    <div id="distpicker1">
+                                    <select  name="province" id="" class="form-control" style="width: 150px;float: left;">
                                     </select>
                                     <span style="float:left;margin: 0 5px">-</span>
-                                    <select v-model="shop.shopname" name="city" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">株洲市</option>
+                                    <select  name="city" id="" class="form-control" style="width: 150px;float: left;">
                                     </select>
                                     <span style="float:left;margin: 0 5px">-</span>
-                                    <select v-model="shop.shopname" name="area" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">石峰区</option>
-                                    </select>
+                                    <select  name="area" id="" class="form-control" style="width: 150px;float: left;">
+                                    </select> 
+                                    </div>
                                 </div>
                                 <div class="lista clearfix">
                                     <label for="" class="label">
@@ -105,7 +123,7 @@
                                           &nbsp;&nbsp;&nbsp;&nbsp;
                                         </span>
                                     </label>
-                                    <input name="ditem" v-model="shop.shopname" type="text" class="inputTexts" placeholder="填写详细地址信息">
+                                    <input name="ditem" type="text" class="inputTexts" placeholder="填写详细地址信息">
                                 </div>
                             </div>
                         </div>
@@ -114,50 +132,32 @@
                 <!--按钮-->
                 <div class="btn_foot">
                     <a href="javascript:;" class="btn btn-default">取消</a>
-                    <a @click="insertshop()" href="javascript:;" class="btn btn-success" style="color: #ffffff !important;">确定</a>
+                    <a id="insertStore" href="javascript:;" class="btn btn-success" style="color: #ffffff !important;">确定</a>
                 </div>
             </div>
     </div>
     </form>
 </div>
 </body>
+		<script th:src="@{js/distpicker.data.js}"></script>
+	    <script th:src="@{js/distpicker.js}"></script>
         <script type="text/javascript">
-        	var storeVue2 = new Vue({
-        		el:"#content2",
-        		data(){
-        			return {
-        				page:{
-        					list:[]
-        				},
-        				shop:{
-        					
-        				}
-        			}
-        		},
-        		methods:{
-        			insertshop:function(){
-        				var formData = new FormData($('form')[0]);
-        				
-        				//console.log(formData.get("detailaddress"));
-        				$.ajax({
-        					url:"/uploadAjax",
-        					data:formData,
-        					type:"post",
-        					processData:false,
-        					contentType:false,
-        					success:function(result){
-        						console.log(result);
-        						$('#myModal').modal('hide');
-        						document.getElementById("insertForm").reset();
-        					}
-        				});
-        			}
-        		},
-        			
-        		created:function(){
-        			
-        		}
+        $("#distpicker1").distpicker();
+        	$(function(){
+        		$("#insertStore").click(function(){
+        			var formData = new FormData($('form')[0]);
+    				$.ajax({
+    					url:"/uploadAjax",
+    					data:formData,
+    					type:"post",
+    					processData:false,
+    					contentType:false,
+    					success:function(result){
+    						alert(result);
+    						console.log(result);        				
+    					}
+    				});
+        		});
         	});
-        	
         </script>
 </html>

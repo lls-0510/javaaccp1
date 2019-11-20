@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Good;
-import com.accp.domain.Productinfo;
 import com.accp.domain.Supplier;
 import com.accp.service.SupplierService;
 import com.github.pagehelper.PageInfo;

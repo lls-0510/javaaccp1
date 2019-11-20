@@ -49,10 +49,10 @@
         </div>
         <div class="lists">
             <label><span style="color: red;"></span>等级：</label>
-            <select name="" id="" class="form-control" style="width: 200px;">
-                <option value="">请选择等级</option>
+            <select name="" id="type" class="form-control" style="width: 200px;">
+                <!-- <option value="">请选择等级</option>
                 <option value="">vip</option>
-                <option value="">会员</option>
+                <option value="">会员</option> -->
             </select>
         </div>
         <div class="lists">
@@ -86,4 +86,27 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url:"/vtypequeryAll",
+	         type: "post",  
+             dataType: "json",  
+             contentType: "application/json",   
+             traditional: true, 
+			success:function(data){
+                $("#type").html("<option value='请选择'  >请选择...</option>"+ optionstring); 
+
+				 for (var i in data) {  
+                     var jsonObj =data[i];  
+                     var optionstring = "";  
+                     
+                   	 optionstring += "<option value=\""  + jsonObj.vtid + "\">" + jsonObj.vtname + "</option>";  
+        
+                   	$("#type").append(optionstring);
+                 }  
+			}
+		});
+	});
+	</script>
 </html>

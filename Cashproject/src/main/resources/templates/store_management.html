@@ -37,10 +37,12 @@
                                     <td>{{stu.people}}</td>
                                     <td>{{stu.phone}}</td>
                                     <td>{{stu.telephone}}</td>
-                                    <td>{{stu.city}}</td>
+                                    <td>{{stu.ditem}}</td>
                                     <td>
-                                        <span onclick="editfcade()">编辑</span>
+                                        <span @click="editfcade(stu.id)">编辑</span>
+                                         <span @click="del(stu.id)">删除</span>
                                     </td>
+                                   
                                 </tr>
                             </tbody>
                         </table>
@@ -66,14 +68,28 @@
         		}
         	},
         	methods:{
+        		 del:function(id,index){
+     				$.ajax({
+     					url:"/deletestore",
+     					data:"id="+id,
+     					success:function(result){
+     							alert("删除成功");
+     					}
+     				});
+     			},
         		getPage:function(currentPage){
         			$.ajax({
         				url:"/storequeryAll",
-        				data:{pageNum:currentPage,pageSize:1},
+        				data:{pageNum:currentPage,pageSize:4},
         				success:function(result){
         					storevue.page=result;
         				}
         			});
+        		},
+        		editfcade:function(id){
+        			$(".modal-content").attr("id",id); 
+        			alert("店铺id"+id);
+        			 go("stores","addfcade");
         		}
         	},
         	created:function(){
@@ -81,7 +97,7 @@
         	}
         });
         function editfcade(){
-            go("stores","editfcade");
+            go("stores","addfcade");
         }
         function addstore() {
             go("stores","editfcade");

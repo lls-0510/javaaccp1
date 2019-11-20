@@ -10,7 +10,7 @@ public interface TurnoverMapper {
 
     int deleteByExample(TurnoverExample example);
 
-    int deleteByPrimaryKey(String orderId);
+    int deleteByPrimaryKey(Integer orderId);
 
     int insert(Turnover record);
 
@@ -18,7 +18,7 @@ public interface TurnoverMapper {
 
     List<Turnover> selectByExample(TurnoverExample example);
 
-    Turnover selectByPrimaryKey(String orderId);
+    Turnover selectByPrimaryKey(Integer orderId);
 
     int updateByExampleSelective(@Param("record") Turnover record, @Param("example") TurnoverExample example);
 

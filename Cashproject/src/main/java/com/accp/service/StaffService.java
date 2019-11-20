@@ -1,5 +1,7 @@
 package com.accp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,24 @@ public class StaffService {
 		Page page = PageHelper.startPage(pageNum, pageSize);
 		staffMapper.staffqueryAll("%"+staffname+"%");
 		 return page.toPageInfo();
+	}
+	
+	public  Staff staffqueryById(Integer staffid){
+		return staffMapper.staffqueryById(staffid);
+	}
+	
+	public int updateStaff(String staffname,String staffpwd,String staffphone,
+	String headportrait,String industry,
+	String cardgo,Integer staffid) {
+		return staffMapper.updateStaff(staffname, staffpwd, staffphone, headportrait, industry, cardgo, staffid);
+	}
+	
+	public int insertStaff(Staff record) {
+		return staffMapper.insert(record);
+	}
+	
+	public int deleteStaff(Integer staffid) {
+		return staffMapper.deleteByPrimaryKey(staffid);
 	}
 	
 

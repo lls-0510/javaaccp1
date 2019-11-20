@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/editfcade.css">
+</head>
+<body>
+<div class="rightarea clearfix" id="addfcade" >
+<form id="insertForm" name="form"  method="post" enctype="multipart/form-data">
+    <div class="mainarea clearfix">
+            <!--编辑页面-->
+            <div class="new_mainarea" id="myModal">
+                <!--左边-->
+                <div class="lefthead clearfix">
+                    <div class="hdimgs">
+                        <div id="pic">
+						<input v-model="lists.img" name="insertFiles" class="avatar-input" id="avatarInput" type="text">
+						</div>
+                    </div>
+                    <div class="username clearfix">
+                        <div style="margin-bottom:6px;">店铺简称：</div>
+                        <input v-model="lists.jcname" type="text" name="jcname" class="inputText shopname" id="shopname" value="" maxlength="32">
+                        <i>*</i>
+                        <div class="ligdiv">
+                            3/16
+                        </div>
+                        <div class="deacripCont">
+                            <textarea v-model="lists.remark" name="remark" cols="45" rows="5" class="description" id="remark" title="店铺简介" placeholder="店铺简介"></textarea>
+                        </div>
+                        <div class="ligdiv">
+                            140/140
+                        </div>
+                    </div>
+                </div>
+                <!--右边-->
+                <div class="right_edit">
+                    <div class="new_eidt">
+                        <em class="bg_icon"></em>
+                        <p class="edit_head">修改门店</p>
+                        <div class="body">
+                            <div class="lista list_title">店铺信息</div>
+                            <div class="form_edit clearfix">
+                              <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                            <i>*</i>
+                                            账户
+                                        </span>
+                                    </label>
+                                    <input v-model="lists.card" name="card" type="text" class="inputTexts" >
+                                </div>
+                                  <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                            <i>*</i>
+                                            店名
+                                        </span>
+                                    </label>
+                                    <input v-model="lists.storename" name="storename" type="text" class="inputTexts" >
+                                </div>
+                                <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                            <i>*</i>
+                                            联系人
+                                        </span>
+                                    </label>
+                                    <input v-model="lists.people" name="people" type="text" class="inputTexts" >
+                                </div>
+                                <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                            <i>*</i>
+                                            手机
+                                        </span>
+                                    </label>
+                                    <input v-model="lists.phone" name="phone" type="text" class="inputTexts" >
+                                </div>
+                                <div class="lista clearfix ">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                            固话
+                                        </span>
+                                    </label>
+                                    <input v-model="lists.telephone" name="telephone"  type="text" class="inputTexts" >
+                                </div>
+             <!--                    <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                          时间
+                                        </span>
+                                    </label>
+                                    <select v-model="lists.startime" name="startime" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option selected>{{lists.startime}}</option>
+                                    </select>
+                                    <span style="float:left;margin: 0 5px">-</span>
+                                    <select  name="endtime" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option value="">2001-02-02</option>
+                                    </select>
+                                </div> -->
+                                <div class="lista clearfix" style="width: 600px;">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                          地址
+                                        </span>
+                                    </label>
+                                    <select disabled="false" v-model="lists.province" name="province" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option>{{lists.province}}</option>
+                                    </select>
+                                    <span style="float:left;margin: 0 5px">-</span>
+                                    <select disabled="false" v-model="lists.city" name="city" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option>{{lists.city}}</option>
+                                    </select>
+                                    <span style="float:left;margin: 0 5px">-</span>
+                                    <select disabled="false" v-model="lists.area" name="area" id="" class="form-control" style="width: 150px;float: left;">
+                                        <option>{{lists.area}}</option>
+                                    </select>
+                                </div>
+                                <div class="lista clearfix">
+                                    <label for="" class="label">
+                                        <span class="rela">
+                                          &nbsp;&nbsp;&nbsp;&nbsp;
+                                        </span>
+                                    </label>
+                                    <input v-model="lists.ditem" name="ditem" type="text" class="inputTexts" placeholder="填写详细地址信息">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--按钮-->
+                <div class="btn_foot">
+                    <a href="javascript:;" class="btn btn-default">取消</a>
+                    <a @click="updateshop()" href="javascript:;" class="btn btn-success" style="color: #ffffff !important;">确定</a>
+                </div>
+            </div>
+    </div>
+    </form>
+</div>
+</body>
+        <script type="text/javascript">
+        var addfacadevue=new Vue({
+        	el:"#addfcade",
+        	data:{
+        		lists:[]
+         	},
+        	methods:{
+        		updateshop:function(){
+        			alert("进来了店铺修改");
+        			$.ajax({
+        				url:"/updatestore",
+        				data:{
+        					"people":addfacadevue.lists.people,
+        					"phone":addfacadevue.lists.phone,
+        					"telephone":addfacadevue.lists.telephone,
+        					"starTime":addfacadevue.lists.starTime,
+        					"endTime":addfacadevue.lists.endTime,
+        					"province":addfacadevue.lists.province,
+        					"city":addfacadevue.lists.city,
+        					"area":addfacadevue.lists.area,
+        					"ditem":addfacadevue.lists.ditem,
+        					"storename":addfacadevue.lists.storename,
+        					"card":addfacadevue.lists.card,
+        					"remark":addfacadevue.lists.remark,
+        					"jcname":addfacadevue.lists.jcname,
+        					"id":addfacadevue.lists.id
+        					
+        					},
+        				success:function(result){
+        					alert(result);
+        					
+        				}
+        			});
+        		} 
+        	},   
+        	created:function(){    
+        		let id =$(".modal-content").attr("id");
+        		$.ajax({
+        			url:"/upqueryById",
+        			data:{"id":id},
+        			success:function(res){
+        				$("[name='insertFiles']").attr("src","/"+res.img);
+        				addfacadevue.lists = res;
+        			}
+        		});
+        	}
+        });
+        </script>
+</html>

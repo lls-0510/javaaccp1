@@ -4,6 +4,7 @@ import com.accp.domain.Post;
 import com.accp.domain.PostExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface PostMapper {
     int countByExample(PostExample example);
@@ -17,6 +18,8 @@ public interface PostMapper {
     int insertSelective(Post record);
 
     List<Post> selectByExample(PostExample example);
+    @Select("select * from post")
+    List<Post> queryAll();
 
     Post selectByPrimaryKey(Integer id);
 
