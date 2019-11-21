@@ -93,7 +93,7 @@
     			type:"post",
     			success:function(result){
     					$("[name=username]").html(result.staffname);
-    					$("[name=headx]").attr("src",result.headPortrait);
+    					$("[name=headx]").attr("src","/"+result.headportrait);
     				}
         	});
     	 }
