@@ -7,7 +7,7 @@ public class User {
 
     private String userpwd;
 
-    private Integer userphone;
+    private String userphone;
 
     public Integer getUserid() {
         return userid;
@@ -33,11 +33,11 @@ public class User {
         this.userpwd = userpwd;
     }
 
-    public Integer getUserphone() {
+    public String getUserphone() {
         return userphone;
     }
 
-    public void setUserphone(Integer userphone) {
+    public void setUserphone(String userphone) {
         this.userphone = userphone;
     }
 }

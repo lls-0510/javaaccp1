@@ -5,6 +5,7 @@ import com.accp.domain.StaffExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface StaffMapper {
     int countByExample(StaffExample example);
@@ -34,5 +35,11 @@ public interface StaffMapper {
     
     @Select("select * from staff where staffname = #{name}")  
     Staff queryByName(String name);
+   
+    @Update(" UPDATE staff set staffName = #{staffname},staffpwd = #{staffpwd},staffPhone = #{staffphone}, industry = #{industry}where staffId = #{staffid}")
+    int update(Staff sf);
+    
+    @Update(" UPDATE staff set headPortrait = #{headPortrait} where staffId = #{staffid}")
+    int updateHead(@Param("staffid")String staffid,@Param("headPortrait")String headPortrait);
 
 }
