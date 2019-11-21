@@ -104,7 +104,7 @@
     	 $(".btn").click(function(){
     		let obj = {staffid:$("[name=staffid]").val(),industry:$(".form-control").val(),staffname: $("[name=userid]").val(),staffphone:$("[name=phone]").val(),staffpwd:$("[name=pwd]").val()};
     	 	$.ajax({
-    			url:"/updateStaff",
+    			url:"/updateStaffOxw",
     			data:JSON.stringify(obj),
     			type:"post",
     			dataType:"json",
