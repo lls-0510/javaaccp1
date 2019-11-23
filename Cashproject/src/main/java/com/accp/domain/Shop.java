@@ -19,14 +19,39 @@ public class Shop {
 
     private String goodtext;
 
-    private List<Shopdetails> shopd;
-    
-    public List<Shopdetails> getShopd() {
+    private String scolor;
+
+    private String scc;
+
+    private String bz1;
+
+    private String bz2;
+    private int kc; 
+    private List<Shopdetails> shopd;  
+    private Good good ;
+
+    public int getKc() {
+		return kc;
+	}
+
+	public void setKc(int kc) {
+		this.kc = kc;
+	}
+
+	public List<Shopdetails> getShopd() {
 		return shopd;
 	}
 
 	public void setShopd(List<Shopdetails> shopd) {
 		this.shopd = shopd;
+	}
+
+	public Good getGood() {
+		return good;
+	}
+
+	public void setGood(Good good) {
+		this.good = good;
 	}
 
 	public Integer getSid() {
@@ -91,5 +116,37 @@ public class Shop {
 
     public void setGoodtext(String goodtext) {
         this.goodtext = goodtext;
+    }
+
+    public String getScolor() {
+        return scolor;
+    }
+
+    public void setScolor(String scolor) {
+        this.scolor = scolor;
+    }
+
+    public String getScc() {
+        return scc;
+    }
+
+    public void setScc(String scc) {
+        this.scc = scc;
+    }
+
+    public String getBz1() {
+        return bz1;
+    }
+
+    public void setBz1(String bz1) {
+        this.bz1 = bz1;
+    }
+
+    public String getBz2() {
+        return bz2;
+    }
+
+    public void setBz2(String bz2) {
+        this.bz2 = bz2;
     }
 }

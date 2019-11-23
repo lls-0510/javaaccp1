@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.Good;
-import com.accp.domain.Purchase;
 import com.accp.mapper.GoodMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;

@@ -93,11 +93,13 @@
  	var suvuexxx=new Vue({
 		el:"#contentTypexxx",
 		data:{
-			stu:[]
+			stu:[],
+			lists:{
+				suname:""
+			}
 	 	},
 		methods:{
 			update:function(){
-				alert("进来了供应商修改");
 				$.ajax({
 					url:"/sudoupdate",
 					data:{
@@ -114,7 +116,6 @@
 						},
 					success:function(result){
 						alert(result);
-						/* location.href="/index" */
 					}
 				});
 			}

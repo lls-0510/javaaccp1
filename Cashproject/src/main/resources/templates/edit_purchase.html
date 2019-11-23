@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,12 +8,12 @@
 </head>
 <body>
     <!--新建采购单-->
-    <div class="rightarea clearfix" id="su">
+    <div class="rightarea clearfix" id="susssss">
         <div class="mainarea clearfix">
             <div class="mainhead">
                 <span class="title">编辑采购单</span>
                 <div class="list search">
-                    <input class="inputtext" type="text" placeholder="查找">
+                   <!-- <input class="inputtext" type="text" placeholder="查找">-->
                     <a href="javascript:;" class="search-btn"></a>
                 </div>
             </div>
@@ -22,15 +22,22 @@
                 <div class="otherinput clearfix">
                     <div class="listDivs">
                         <label for="">单号</label>
-                        <input v-model="lists.odd" name="odd" type="text" class="inputTextss form-control" >
+                        <input   type="text" v-model="pro.purno" name="dd" class="inputTextss form-control" >
                     </div>
                     <div class="listDivs">
                         <label for="">交期</label>
-                        <input v-model="lists.time"  name="deliverytime" type="date" class="form-control" style="width: 204px;float: left;margin-right: 16px;">
+                        <input   type="date"   v-model="pro.purdata" onchange="water(this)" style="width: 204px;float: left;margin-right: 16px;">
                     </div>
                     <div class="listDivs">
-                         <select type="date" class="form-control" style="width: 180px;float: left;">
-                            <option v-for="item,inedx in name">{{item.suname}}</option>
+                         <select type="date" id="gys" class="form-control" style="width: 180px;float: left;">
+                             <template v-for="item,inedx in lists" >
+                                 <template v-if="pro.gysid == item.suid">
+                                    <option :value="item.suid" selected>{{item.suname}}</option>
+                                 </template>
+                                 <template v-if="pro.gysid != item.suid">
+                                     <option :value="item.suid" >{{item.suname}}</option>
+                                 </template>
+                             </template>
                         </select>
                     </div>
                     <div class="listDivs">
@@ -41,7 +48,7 @@
                     </div>
                     <div class="listDivs" style="margin-top: 10px;">
                         <label for="">备注</label>
-                        <input v-model="lists.remarks" type="text" class="form-control" style="width:971px !important; float:left;">
+                        <input v-model="pro.purtext" type="text" class="form-control" style="width:971px !important; float:left;">
                     </div>
                 </div>
                 <!--end-->
@@ -59,35 +66,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="stu,index in lists">
-                            <td>
-                                {{stu.ltemno}}
-                            </td>
-                            <td>{{stu.shapecode}}
-                            </td>
-                            <td>{{stu.goodsname}}
-                            </td>
-                            <td >{{stu.specification}}
-                            </td>
-                            <td>{{stu.odd}}</td>
-                            <td>
-                                <input v-model="lists.number" type="text" style="width: 80px;text-align: center;" class="form-control">
-                            </td>
-                            <td>{{stu.costprice}}</td>
+                        <tr v-for="stu,index in pro.prd">
+                            <td>{{stu.shh}}</td>
+                            <td>{{stu.snumbe}}</td>
+                            <td>{{stu.sname}}</td>
+                            <td>{{stu.sgg}}</td>
+                            <td>{{stu.scbprice}}</td>
+                            <td><input v-model="stu.snum" @change="js(index)" name="snum" type="text" style="width: 80px;text-align: center;" class="form-control"></td>
+
+                            <td name="price">{{stu.sprice}}</td>
                         </tr>
                         </tbody>
                         <tfoot>
                         <tr class="">
                             <td colspan="7">
-
                                 <div class="amoutDiv">
                                     <span>金额</span>
-                                    <em class="">0.00</em>
+                                    <em class="">{{pro.bz2}}</em>
                                 </div>
 
                                 <div class="totalNumDiv">
                                     <span>合计</span>
-                                    <em class="">1</em>
+                                    <em class="">{{pro.bz1}}</em>
                                     <span>件</span>
                                 </div>
 
@@ -100,79 +100,94 @@
                 <div class="btnarear" style="margin-top: 25px;">
                     <span style="float: left;color:#44b549;" data-target="#tanchuan"  data-toggle="modal" onclick="addShop()">+添加商品</span>
                     <a id="kong" href="javascript:;" class="btn btn-default" style="width: 100px;">清空</a>
-                    <a href="javascript:;" class="btn btn-success" style="width: 100px;color:#ffffff !important;">提交</a>
+                    <a href="javascript:;" class="btn btn-success" @click="tj" style="width: 100px;color:#ffffff !important;">提交</a>
                 </div>
             </div>
         </div>
     </div>
 <script type="text/javascript">
-	var editsu=new Vue({
-	el:"#su",
+	var editsuxxx = new Vue({
+	el:"#susssss",
 	data:{
-		lists:[],
-		name:[]
+        lists:[],
+		pro:{
+            purid:"",
+            purno:"",
+            purdata:"",
+            gysid:"",
+            purtext:"",
+            bz1:"",
+            prd:[]
+        }
  	},
 	methods:{
-		/* update:function(){
-			alert("进来了供应商修改");
-			$.ajax({
-				url:"/sudoupdate",
-				data:{
-					"suname":editsu.lists.suname,
-					
-					},
-				success:function(result){
-					alert(result);
-					
-				}
-			});
-		} */
-	},   
-	created:function(){    
-		let purchaseid =$(".modal-content").attr("purchaseid");
-		$.ajax({
-			url:"/purchasequeryAllById",
-			data:{"purchaseid":purchaseid},
-			success:function(res){
-				editsu.lists = res;
-			}
-		});
+        getspur:function(prid) {
+            $.ajax({
+                url:"/querypru",
+                type:"post",  
+                data:{
+                    prid:prid
+                },success:function (res) {
+                    editsuxxx.pro = res;
+                }
+            })
+        },getlist:function(){
+            $.ajax({
+                url:"/queryByName",
+                type:"post",
+                success:function(result){
+                    editsuxxx.lists = result;
+                }
+            });
+        },tj:function () {
+            editsuxxx.pro.gysid = $("#gys").val();
+            editsuxxx.pro.staffid = "0";
+            $.ajax({
+                url:"/addpur",
+                type:"post",
+                data:JSON.stringify(editsuxxx.pro),
+                contentType:"application/json;charset=utf-8",
+                success:function (res) {
+                    go("shops","purchase_list");
+                }
+            })
+        },js:function (index){
+            editsuxxx.pro.prd[index].sprice = editsuxxx.pro.prd[index].snum * editsuxxx.pro.prd[index].scbprice;
+            var totalnum = 0 ;
+            editsuxxx.pro.prd.forEach(function (i) {
+                 totalnum += parseInt(i.snum);
+            });
+            editsuxxx.pro.bz1 = totalnum;
+            var totalMoney = 0 ;
+            editsuxxx.pro.prd.forEach(function (i) {
+                  totalMoney += parseInt(i.sprice);
+            });
+            editsuxxx.pro.bz2 = totalMoney;
+        }
+	},
+	created:function(){
+	    var prid  = $(".modal-content").attr("purid");
+	    if(prid != null && prid != "" && !isNaN(prid)){  //修改
+            this.getspur(prid);
+            $(".modal-content").attr("purid","");
+        }
+        this.getlist();
 	}
 }) 
-	/* 查询 */
-	$(function(){
-		$.ajax({
-			url:"/queryByName",
-			success:function(result){
-				editsu.name = result;
-			}
-		});
-	});
-	//清空
-	$(function(){
-		$("#kong").click(function(){
-			$("input").each(function(){
-				$(this).val("");
-			})
-		})
-		//流水号
-    	$("[name='deliverytime']").change(function(){
-    		let deliverytime=$(this).val();
-    		$.ajax({
-    			url:"/findMax",
-    			data:{deliverytime:deliverytime},
-    			success:function(res){
-    				$("[name='odd']").val(res);
-    			}
-    		});
-    	});
-	})
+
+    function water(th){
+        $.ajax({
+            url:"/findMax",
+            data:{"date":$(th).val()},
+            success:function(res){
+                $("[name=\"dd\"]").val(res);
+                editsuxxx.pro.purno = res;
+            }
+        });
+    }
     function addShop() {
         $(".modal-content").load("model/choiceShop.html");
-    } 
-    $(function(){ 
-    	console.log($(".modal-content").attr("purchaseid"))
-    });
+    }
 </script>
 </body>
 </html>

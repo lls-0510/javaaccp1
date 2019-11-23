@@ -61,9 +61,9 @@
 			<table schema="vote" tableName="vote"></table>-->
 			<!-- <table schema="integral" tableName="integral"></table>
 			<table schema="post" tableName="post"></table> -->
-			<table schema="shop" tableName="shop"></table>
-			<table schema="shopdetails" tableName="shopdetails"></table>
-			
+			<!--  <table schema="shop" tableName="shop"></table>  -->
+			<table schema="pruchasedetails" tableName="pruchasedetails"></table>
+			 
 <!-- 		<table schema="Sys_permissions" tableName="sys_permissions"></table> -->
 <!-- 		<table schema="Sys_roles" tableName="sys_roles"></table> -->
 <!-- 		<table schema="Sys_roles_permissions" tableName="sys_roles_permissions"></table> -->

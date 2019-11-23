@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .close{
+            position: relative;
+            top: -34px;
+        }
+        .lists{
+            margin: 0 auto;
+            float: left !important;
+            margin-bottom: 14px;
+            width: 550px;
+            margin-left: 0px!important;
+            margin-right: 0px !important;
+        }
+        .lists label{
+            float: left;
+            /*width: 76px;*/
+            padding-top: 10px;
+            position: relative;
+        }
+
+        .checkboxlist label{
+            padding-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="loadvue">
+    <div class="modal-header">
+        <h3>批量导入</h3>
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="lists">
+            <label>请选择店铺</label>
+            <select name="" id="store" class="form-control">
+                <template v-for="store in stores">
+                    <option :value="store.id">{{store.jcname}}</option>
+                </template>
+            </select>
+        </div>
+        <div class="clearfix"></div>
+        <form action="" method="post" disabled="disabled"  onsubmit="false" enctype="multipart/form-data">
+            <input name="file" type="file" >
+            <input type="button" @click="dr" value="导入Excel">
+        </form>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer" style="text-align: center;">
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var loadexvue = new Vue({
+        el:"#loadvue",
+        data:{
+            stores:[]
+        },methods:{
+            getstroe:function () {
+                $.ajax({
+                    url: "/getstore",
+                    type: 'post',
+                    success: function (res) {
+                        loadexvue.stores = res;
+                    }
+                })
+            },dr:function () {
+                var formData = new FormData($("form")[0]);
+                $.ajax({
+                    url:"/uploadExcel",
+                    data:formData,
+                    type:"post",
+                    processData:false,
+                    contentType:false,
+                    success:function(result){
+                        go("shops","shop_managerment");
+                    }
+                });
+            }
+        },created:function () {
+            this.getstroe();
+        }
+    });
+</script>
+</body>
+</html>

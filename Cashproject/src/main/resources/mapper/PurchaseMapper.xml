@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.PurchaseMapper" >
   <resultMap id="BaseResultMap" type="com.accp.domain.Purchase" >
-    <id column="purchaseid" property="purchaseid" jdbcType="INTEGER" />
-    <result column="Userid" property="userid" jdbcType="INTEGER" />
-    <result column="odd" property="odd" jdbcType="VARCHAR" />
-    <result column="delivery time" property="deliveryTime" jdbcType="DATE" />
-    <result column="SuId" property="suid" jdbcType="INTEGER" />
-    <result column="Number" property="number" jdbcType="INTEGER" />
-    <result column="Price" property="price" jdbcType="REAL" />
-    <result column="shop" property="shop" jdbcType="VARCHAR" />
+    <id column="purid" property="purid" jdbcType="INTEGER" />
+    <result column="purno" property="purno" jdbcType="VARCHAR" />
+    <result column="purdata" property="purdata" jdbcType="DATE" />
+    <result column="gysid" property="gysid" jdbcType="INTEGER" />
+    <result column="staffid" property="staffid" jdbcType="INTEGER" />
+    <result column="purtext" property="purtext" jdbcType="VARCHAR" />
+    <result column="bz1" property="bz1" jdbcType="VARCHAR" />
+    <result column="bz2" property="bz2" jdbcType="VARCHAR" />
+    <result column="bz3" property="bz3" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    purchaseid, Userid, odd, "delivery time", SuId, Number, Price, shop
+    purid, purno, purdata, gysid, staffid, purtext, bz1, bz2, bz3
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.PurchaseExample" >
     select
@@ -78,7 +79,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from "purchase"
+    from purchase
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,114 +90,123 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from "purchase"
-    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+    from purchase
+    where purid = #{purid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from "purchase"
-    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+    delete from purchase
+    where purid = #{purid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.accp.domain.PurchaseExample" >
-    delete from "purchase"
+    delete from purchase
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Purchase" >
-    insert into "purchase" (purchaseid, Userid, odd, 
-      "delivery time", SuId, Number, 
-      Price, shop)
-    values (#{purchaseid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{odd,jdbcType=VARCHAR}, 
-      #{deliveryTime,jdbcType=DATE}, #{suid,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, 
-      #{price,jdbcType=REAL}, #{shop,jdbcType=VARCHAR})
+  <insert id="insert" useGeneratedKeys="true" keyProperty="purid" keyColumn="purid" parameterType="com.accp.domain.Purchase" >
+    insert into purchase (purid, purno, purdata, 
+      gysid, staffid, purtext, 
+      bz1, bz2, bz3)
+    values (#{purid,jdbcType=INTEGER}, #{purno,jdbcType=VARCHAR}, #{purdata,jdbcType=DATE}, 
+      #{gysid,jdbcType=INTEGER}, #{staffid,jdbcType=INTEGER}, #{purtext,jdbcType=VARCHAR}, 
+      #{bz1,jdbcType=VARCHAR}, #{bz2,jdbcType=VARCHAR}, #{bz3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Purchase" >
-    insert into "purchase"
+    insert into purchase
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="purchaseid != null" >
-        purchaseid,
+      <if test="purid != null" >
+        purid,
       </if>
-      <if test="userid != null" >
-        Userid,
+      <if test="purno != null" >
+        purno,
       </if>
-      <if test="odd != null" >
-        odd,
+      <if test="purdata != null" >
+        purdata,
       </if>
-      <if test="deliveryTime != null" >
-        "delivery time",
+      <if test="gysid != null" >
+        gysid,
       </if>
-      <if test="suid != null" >
-        SuId,
+      <if test="staffid != null" >
+        staffid,
       </if>
-      <if test="number != null" >
-        Number,
+      <if test="purtext != null" >
+        purtext,
       </if>
-      <if test="price != null" >
-        Price,
+      <if test="bz1 != null" >
+        bz1,
       </if>
-      <if test="shop != null" >
-        shop,
+      <if test="bz2 != null" >
+        bz2,
+      </if>
+      <if test="bz3 != null" >
+        bz3,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="purchaseid != null" >
-        #{purchaseid,jdbcType=INTEGER},
+      <if test="purid != null" >
+        #{purid,jdbcType=INTEGER},
       </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+      <if test="purno != null" >
+        #{purno,jdbcType=VARCHAR},
       </if>
-      <if test="odd != null" >
-        #{odd,jdbcType=VARCHAR},
+      <if test="purdata != null" >
+        #{purdata,jdbcType=DATE},
       </if>
-      <if test="deliveryTime != null" >
-        #{deliveryTime,jdbcType=DATE},
+      <if test="gysid != null" >
+        #{gysid,jdbcType=INTEGER},
       </if>
-      <if test="suid != null" >
-        #{suid,jdbcType=INTEGER},
+      <if test="staffid != null" >
+        #{staffid,jdbcType=INTEGER},
       </if>
-      <if test="number != null" >
-        #{number,jdbcType=INTEGER},
+      <if test="purtext != null" >
+        #{purtext,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        #{price,jdbcType=REAL},
+      <if test="bz1 != null" >
+        #{bz1,jdbcType=VARCHAR},
       </if>
-      <if test="shop != null" >
-        #{shop,jdbcType=VARCHAR},
+      <if test="bz2 != null" >
+        #{bz2,jdbcType=VARCHAR},
+      </if>
+      <if test="bz3 != null" >
+        #{bz3,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.accp.domain.PurchaseExample" resultType="java.lang.Integer" >
-    select count(*) from "purchase"
+    select count(*) from purchase
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update "purchase"
+    update purchase
     <set >
-      <if test="record.purchaseid != null" >
-        purchaseid = #{record.purchaseid,jdbcType=INTEGER},
+      <if test="record.purid != null" >
+        purid = #{record.purid,jdbcType=INTEGER},
       </if>
-      <if test="record.userid != null" >
-        Userid = #{record.userid,jdbcType=INTEGER},
+      <if test="record.purno != null" >
+        purno = #{record.purno,jdbcType=VARCHAR},
       </if>
-      <if test="record.odd != null" >
-        odd = #{record.odd,jdbcType=VARCHAR},
+      <if test="record.purdata != null" >
+        purdata = #{record.purdata,jdbcType=DATE},
       </if>
-      <if test="record.deliveryTime != null" >
-        "delivery time" = #{record.deliveryTime,jdbcType=DATE},
+      <if test="record.gysid != null" >
+        gysid = #{record.gysid,jdbcType=INTEGER},
       </if>
-      <if test="record.suid != null" >
-        SuId = #{record.suid,jdbcType=INTEGER},
+      <if test="record.staffid != null" >
+        staffid = #{record.staffid,jdbcType=INTEGER},
       </if>
-      <if test="record.number != null" >
-        Number = #{record.number,jdbcType=INTEGER},
+      <if test="record.purtext != null" >
+        purtext = #{record.purtext,jdbcType=VARCHAR},
       </if>
-      <if test="record.price != null" >
-        Price = #{record.price,jdbcType=REAL},
+      <if test="record.bz1 != null" >
+        bz1 = #{record.bz1,jdbcType=VARCHAR},
       </if>
-      <if test="record.shop != null" >
-        shop = #{record.shop,jdbcType=VARCHAR},
+      <if test="record.bz2 != null" >
+        bz2 = #{record.bz2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bz3 != null" >
+        bz3 = #{record.bz3,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -204,55 +214,60 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update "purchase"
-    set purchaseid = #{record.purchaseid,jdbcType=INTEGER},
-      Userid = #{record.userid,jdbcType=INTEGER},
-      odd = #{record.odd,jdbcType=VARCHAR},
-      "delivery time" = #{record.deliveryTime,jdbcType=DATE},
-      SuId = #{record.suid,jdbcType=INTEGER},
-      Number = #{record.number,jdbcType=INTEGER},
-      Price = #{record.price,jdbcType=REAL},
-      shop = #{record.shop,jdbcType=VARCHAR}
+    update purchase
+    set purid = #{record.purid,jdbcType=INTEGER},
+      purno = #{record.purno,jdbcType=VARCHAR},
+      purdata = #{record.purdata,jdbcType=DATE},
+      gysid = #{record.gysid,jdbcType=INTEGER},
+      staffid = #{record.staffid,jdbcType=INTEGER},
+      purtext = #{record.purtext,jdbcType=VARCHAR},
+      bz1 = #{record.bz1,jdbcType=VARCHAR},
+      bz2 = #{record.bz2,jdbcType=VARCHAR},
+      bz3 = #{record.bz3,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Purchase" >
-    update "purchase"
+    update purchase
     <set >
-      <if test="userid != null" >
-        Userid = #{userid,jdbcType=INTEGER},
+      <if test="purno != null" >
+        purno = #{purno,jdbcType=VARCHAR},
       </if>
-      <if test="odd != null" >
-        odd = #{odd,jdbcType=VARCHAR},
+      <if test="purdata != null" >
+        purdata = #{purdata,jdbcType=DATE},
       </if>
-      <if test="deliveryTime != null" >
-        "delivery time" = #{deliveryTime,jdbcType=DATE},
+      <if test="gysid != null" >
+        gysid = #{gysid,jdbcType=INTEGER},
       </if>
-      <if test="suid != null" >
-        SuId = #{suid,jdbcType=INTEGER},
+      <if test="staffid != null" >
+        staffid = #{staffid,jdbcType=INTEGER},
       </if>
-      <if test="number != null" >
-        Number = #{number,jdbcType=INTEGER},
+      <if test="purtext != null" >
+        purtext = #{purtext,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        Price = #{price,jdbcType=REAL},
+      <if test="bz1 != null" >
+        bz1 = #{bz1,jdbcType=VARCHAR},
       </if>
-      <if test="shop != null" >
-        shop = #{shop,jdbcType=VARCHAR},
+      <if test="bz2 != null" >
+        bz2 = #{bz2,jdbcType=VARCHAR},
+      </if>
+      <if test="bz3 != null" >
+        bz3 = #{bz3,jdbcType=VARCHAR},
       </if>
     </set>
-    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+    where purid = #{purid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.accp.domain.Purchase" >
-    update "purchase"
-    set Userid = #{userid,jdbcType=INTEGER},
-      odd = #{odd,jdbcType=VARCHAR},
-      "delivery time" = #{deliveryTime,jdbcType=DATE},
-      SuId = #{suid,jdbcType=INTEGER},
-      Number = #{number,jdbcType=INTEGER},
-      Price = #{price,jdbcType=REAL},
-      shop = #{shop,jdbcType=VARCHAR}
-    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+    update purchase
+    set purno = #{purno,jdbcType=VARCHAR},
+      purdata = #{purdata,jdbcType=DATE},
+      gysid = #{gysid,jdbcType=INTEGER},
+      staffid = #{staffid,jdbcType=INTEGER},
+      purtext = #{purtext,jdbcType=VARCHAR},
+      bz1 = #{bz1,jdbcType=VARCHAR},
+      bz2 = #{bz2,jdbcType=VARCHAR},
+      bz3 = #{bz3,jdbcType=VARCHAR}
+    where purid = #{purid,jdbcType=INTEGER}
   </update>
 </mapper>

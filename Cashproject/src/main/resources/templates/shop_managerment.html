@@ -18,25 +18,31 @@
                 </div>
             </div>
             <div class="list">
-                <a href="javascript:;" class="btn btn-default">导出商品</a>
-                <a href="javascript:;" class="btn btn-default">批量导入</a>
+                <a href="javascript:;" class="btn btn-default" @click="dcsp">导出商品</a>
+                <span class="btn btn-default"  data-target="#tanchuan"  data-toggle="modal" onclick="ue()">
+                    批量导入
+                </span>
             </div>
             <div class="list search">
-                <input class="inputtext" type="text" placeholder="查找">
-                <a href="javascript:;" class="search-btn"></a>
+                <input class="inputtext" type="text" placeholder="查找"  id="nbcx">
+                <a href="javascript:;" class="search-btn" @click="getPage(1)"></a>
             </div>
             <div class="list">
-                <select name="" id="" class="form-control">
-                    <option value="全部职位">类别</option>
+                <select name="" id="type" class="form-control">
+                     <option value="0">请选择商品类型</option>
+                	<template v-for="type in types"> 
+                    	<option :value="type.goodid">{{type.goodname}}</option>
+                    </template>  
                 </select>
-
             </div>
             <div class="list">
-                <select name="" id="" class="form-control">
-                    <option value="全部店铺">员工</option>
+                <select name="" id="store" class="form-control">
+                    <template v-for="store in stores">
+                        <option :value="store.id">{{store.jcname}}</option>
+                    </template>
                 </select>
             </div>
-        </div>
+        </div> 
         <div class="mainbody">
             <table class="settable table table-striped">
                 <thead>
@@ -55,31 +61,33 @@
                 </tr>
                 </thead>
                 <tbody id="tb">
-                    <tr v-for="stu,index in page.list">
+                    <tr v-for="shop,index in page.list">
                         <td>
-                            <input type="checkbox" v-model="stu.checked">
+                            <input type="checkbox" v-model="shop.checked">
                         </td>
                         <td>
                             {{index+1}}
                         </td>
                         <td>
-                            {{stu.proname}}
+                            {{shop.good.goodname}}
                         </td>	
                         <td class="nametd">
                             <div class="namediv">
-                                <img src="/images/home/1.jpeg" alt="图片" style="width: 30px;height: 30px;">
-                                <p>{{stu.goodname}}</p>
+                                <img :src="shop.goodimg"  alt="图片" style="width: 30px;height: 30px;">
+                                <p>{{shop.sname}}</p>
                             </div>
                         </td>
-                        <td>{{stu.pronumber}}</td>
-                        <td>{{stu.color}},{{stu.size}}</td>
-                        <td>{{stu.prostock}}</td>
-                        <td>{{stu.sellingprice}}</td>
-                       <td>{{stu.costprice}}</td>
-                        <td>1</td>
+                        <td>{{shop.shh}}</td>
                         <td>
-                            <a @click="del(stu.proid)" href="javascript:;">删除</a>
-                            <span onclick="editshop_management()" class="tb">编辑</span>
+                        	-
+                        </td>
+                        <td>{{shop.kc}}</td>
+                        <td>{{shop.sdpprice}}</td>
+                       <td>{{shop.scbprice}}</td>
+                        <td>-</td>
+                        <td>
+                            <a @click="del(shop.sid)" href="javascript:;">删除</a>
+                            <span @click="editshop_management(shop.sid)" class="tb">编辑</span>
                         </td>
                     </tr>
                 </tbody>
@@ -101,40 +109,73 @@ var provue=new Vue({
 	data:{
 		page:{
 			list:[]
-		}
+		},
+		types:[],
+        dp:[],
+        stores:[]
 	},
 	methods:{
-		 del:function(proid,index){
-				$.ajax({
-					url:"/deleteproducinfo",
-					data:"proid="+proid,
-					success:function(result){
-							alert("删除成功");
-							provue.list.splice(index,1);
-					}
-				});
+		 del:function(sid){
+			 	if(confirm("您确定要删除当前商品吗？")){
+			 		$.ajax({
+						url:"/deleteproducinfo",
+						data:{sid:sid},
+						success:function(result){
+								provue.getPage();
+						}
+					});
+			 	}
 			},
 		getPage:function(currentPage){
+			let goodid = $("#type").val();  
+			let  sname = $("#nbcx").val();
+			let storeid = $("#store").val();
 			$.ajax({
-				url:"/proqueryAll",
-				data:{pageNum:currentPage,pageSize:1},
+				url:"/getshops",
+				type:"post",
+				data:{pagenum:currentPage,goodid:goodid,sname:sname,storeid:storeid},
 				success:function(result){
-					provue.page=result;
+					provue.page = result;
 				}
 			});
-		},
+		},getType:function(){ 
+			$.post("/getgType",{},function(res){
+				provue.types = res;
+			});
+		},editshop_management:function(sid){
+	        $(".modal-content").attr("sid",sid);
+			go("shops","shop_upload");
+		},dcsp:function () {
+            window.location.href="/exportExcel";
+        },getstroe:function () {
+            $.ajax({
+                url:"/getstore",
+                type:'post',
+                success:function (res) {
+                    provue.stores = res;
+                }
+            })
+        }
 	},
 	created:function(){
-		this.getPage(1);
+		this.getType();  
+		this.getPage();
+		this.getstroe();
 	}
 });
     function addshop_management() {
-        /*$(".modal-content").attr("id",id);*/
+        $(".modal-content").attr("stoid",$("#store").val());
         go("shops","shop_upload");
     }
-    function editshop_management() {
-        go("shops","shop_upload");
+    function ue() {
+        $(".modal-content").load("model/uploadExcel.html");
+        console.log($(".modal-content"));
     }
+    
+    
+   
+    
+  
 </script>
 </body>
 </html>
