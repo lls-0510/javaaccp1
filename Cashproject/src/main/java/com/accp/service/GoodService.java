@@ -22,6 +22,11 @@ public class GoodService {
 	 * @Autowired private ProductinfoMapper productinfoMapper;
 	 */
 	/**
+
+	@Autowired
+/*	private ProductinfoMapper productinfoMapper;
+*/	/**
+
 	 * 查询商品类型
 	 * @return
 	 */
@@ -38,10 +43,7 @@ public class GoodService {
 		return goodMapper.addGoodType(goodname);
 		
 	}
-	/*
-	 * public List<Productinfo> query(){ return productinfoMapper.query(); }
-	 */
-	
+
 	/**
 	 * 删除商品类型
 	 * @param goodname
@@ -63,40 +65,27 @@ public class GoodService {
 	 * 商品信息分页
 	 * @return
 	 */
-	/*
-	 * public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize){
-	 * Page page = PageHelper.startPage(pageNum, pageSize);
-	 * productinfoMapper.queryAll(); return page.toPageInfo(); }
-	 */
+
 	
 	/**
 	 * 删除商品信息
 	 * @param proid
 	 * @return
 	 */
-	/*
-	 * public int deleteproducinfo(Integer proid) { return
-	 * productinfoMapper.deleteproducinfo(proid); }
-	 */
+
 	
 	/**
 	 * 查询商品信息id
 	 * @param proid
 	 * @return
 	 */
-	/*
-	 * public Productinfo queryproById(Integer proid) { return
-	 * productinfoMapper.queryById(proid); }
-	 */
+
 	
 	/**
 	 * 查询
 	 * @param proid
 	 * @return
 	 */
-	/*
-	 * public List<Productinfo> queryprById(Integer proid) { return
-	 * productinfoMapper.queryproById(proid); }
-	 */
+
 
 }

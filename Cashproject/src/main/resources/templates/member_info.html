@@ -9,7 +9,7 @@
 </head>
 <body>
     <!--会员信息-->
-    <div class="rightarea clearfix">
+    <div class="rightarea clearfix" id="vcontents">
         <div class="mainarea clearfix">
             <div class="mainhead">
                 <span class="title">会员信息</span>
@@ -25,12 +25,12 @@
                     <a href="javascript:;" class="btn btn-default">批量导入</a>
                 </div>
                 <div class="list search">
-                    <input class="inputtext" type="text" placeholder="查找">
-                    <a href="javascript:;" class="search-btn"></a>
+                    <input class="inputtext" type="text" placeholder="查找" name="vname">
+                    <a href="javascript:;" class="search-btn" @click="getPage()"></a>
                 </div>
                 <div class="list">
                     <select name="" id="" class="form-control">
-                        <option value="全部等级">全部等级</option>
+                        <option v-for="item in viplist.list">{{item.vtname}}</option>
                     </select>
 
                 </div>
@@ -52,22 +52,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr v-for="stu,index in page.list">
                         <td>
                             <input type="checkbox">
                         </td>
                         <td>
-                            1
+                            {{stu.vname}}
                         </td>
                         <td class="nametd">
-                           1
+                          {{stu.vphone}}
                         </td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                        <td>{{stu.vtname}}</td>
+                        <td>{{stu.countsum}}</td>
+                        <td>{{stu.countprice}}</td>
+                        <td>{{stu.countprice}}</td>
+                        <td>{{stu.integral}}</td>
+                        <td>{{stu.orderDate}}</td>
                         <td>
                             <span onclick="editmember()" data-target="#tanchuan"  data-toggle="modal" >编辑</span>
                         </td>
@@ -84,8 +84,16 @@
                     </tr>
                     </tfoot>
                 </table>
+                <div class="pageMenu">
+			<span v-on:click="getPage(page.prePage)">上一页</span>
+			<span v-for="numPage in page.pages">
+				<span v-on:click="getPage(numPage)">{{numPage}}</span>
+			</span>
+			<span v-on:click="getPage(page.nextPage)">下一页</span>
+			
+		</div>
                 <!--分页按钮-->
-                <div class="pagebar">
+          <!--       <div class="pagebar">
                     <div class="pagetion">
                        <div class="page">
                                <ul class="pagination">
@@ -124,12 +132,45 @@
                        </div>
                     </div>
 
-                </div>
+                </div> -->
 
             </div>
         </div>
     </div>
         <script type="text/javascript">
+        var vipvue=new Vue({
+        	el:"#vcontents",
+        	data:{
+        		page:{
+        			list:[]
+        		},
+        		viplist:{
+        			list:[]
+        		}
+        	},
+        	methods:{
+        		getPage:function(currentPage){
+        			var vname=$("[name='vname']").val();
+        			$.ajax({
+        				url:"/Vipcount",
+        				data:{pageNum:currentPage,pageSize:1,vname:vname},
+        				success:function(result){
+        					vipvue.page=result;
+        				}
+        			});
+        		}
+        	},
+        	created:function(){
+        		this.getPage(1);
+        		$.ajax({
+    				url:"/Vipcount",
+    				data:{pageNum:1,pageSize:1000,vname:null},
+    				success:function(result){
+    					vipvue.viplist=result;
+    				}
+    			});
+        	}
+        });
             function addmember() {
                 /*$(".modal-content").attr("id",id);*/
                 $(".modal-content").load("model/addmember.html");

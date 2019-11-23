@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Store {
     private Integer id;
 
@@ -12,10 +14,11 @@ public class Store {
     private String phone;
 
     private String telephone;
+  /*  @JsonFormat(pattern="yyyy-MM-dd")*/
+    private String startime;
 
-    private Date startime;
-
-    private Date endtime;
+    /*@JsonFormat(pattern="yyyy-MM-dd")*/
+    private String endtime;
 
     private String province;
 
@@ -56,10 +59,112 @@ public class Store {
     private String coummt1;
 
     private String count2;
-    
-    
 
-    public Integer getStaffid() {
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getDid() {
+		return did;
+	}
+
+	public void setDid(Integer did) {
+		this.did = did;
+	}
+
+	public String getPeople() {
+		return people;
+	}
+
+	public void setPeople(String people) {
+		this.people = people;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getStartime() {
+		return startime;
+	}
+
+	public void setStartime(String startime) {
+		this.startime = startime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getDitem() {
+		return ditem;
+	}
+
+	public void setDitem(String ditem) {
+		this.ditem = ditem;
+	}
+
+	public String getStorename() {
+		return storename;
+	}
+
+	public void setStorename(String storename) {
+		this.storename = storename;
+	}
+
+	public String getCard() {
+		return card;
+	}
+
+	public void setCard(String card) {
+		this.card = card;
+	}
+
+	public Integer getStaffid() {
 		return staffid;
 	}
 
@@ -131,110 +236,6 @@ public class Store {
 		this.staffcount = staffcount;
 	}
 
-	public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getDid() {
-        return did;
-    }
-
-    public void setDid(Integer did) {
-        this.did = did;
-    }
-
-    public String getPeople() {
-        return people;
-    }
-
-    public void setPeople(String people) {
-        this.people = people;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public Date getStartime() {
-        return startime;
-    }
-
-    public void setStartime(Date startime) {
-        this.startime = startime;
-    }
-
-    public Date getEndtime() {
-        return endtime;
-    }
-
-    public void setEndtime(Date endtime) {
-        this.endtime = endtime;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getDitem() {
-        return ditem;
-    }
-
-    public void setDitem(String ditem) {
-        this.ditem = ditem;
-    }
-
-    public String getStorename() {
-        return storename;
-    }
-
-    public void setStorename(String storename) {
-        this.storename = storename;
-    }
-
-    public String getCard() {
-        return card;
-    }
-
-    public void setCard(String card) {
-        this.card = card;
-    }
-
 	public String getImg() {
 		return img;
 	}
@@ -275,4 +276,6 @@ public class Store {
 		this.count2 = count2;
 	}
     
+    
+
 }

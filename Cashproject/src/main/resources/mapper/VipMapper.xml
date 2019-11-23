@@ -8,6 +8,18 @@
     <result column="Userid" property="userid" jdbcType="INTEGER" />
     <result column="Integral" property="integral" jdbcType="VARCHAR" />
     <result column="Transaction" property="transaction" jdbcType="INTEGER" />
+    <result column="vname" property="vname" jdbcType="VARCHAR" />
+    <result column="vphone" property="vphone" jdbcType="VARCHAR" />
+    <result column="vprice" property="vprice" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="commt1" property="commt1" jdbcType="VARCHAR" />
+    <result column="commt2" property="commt2" jdbcType="VARCHAR" />
+    <result column="commt3" property="commt3" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="street" property="street" jdbcType="VARCHAR" />
+    <result column="vpwd" property="vpwd" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    VID, Vtypeid, code, Userid, Integral, Transaction
+    VID, Vtypeid, code, Userid, Integral, Transaction, vname, vphone, vprice, order_id, 
+    commt1, commt2, commt3, province, city, area, street, vpwd
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.VipExample" >
     select
@@ -76,7 +89,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from "vip"
+    from vip
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,29 +100,35 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from "vip"
+    from vip
     where VID = #{vid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from "vip"
+    delete from vip
     where VID = #{vid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.accp.domain.VipExample" >
-    delete from "vip"
+    delete from vip
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.accp.domain.Vip" >
-    insert into "vip" (VID, Vtypeid, code, 
-      Userid, Integral, Transaction
-      )
+    insert into vip (VID, Vtypeid, code, 
+      Userid, Integral, Transaction, 
+      vname, vphone, vprice, 
+      order_id, commt1, commt2, 
+      commt3, province, city, 
+      area, street, vpwd)
     values (#{vid,jdbcType=INTEGER}, #{vtypeid,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
-      #{userid,jdbcType=INTEGER}, #{integral,jdbcType=VARCHAR}, #{transaction,jdbcType=INTEGER}
-      )
+      #{userid,jdbcType=INTEGER}, #{integral,jdbcType=VARCHAR}, #{transaction,jdbcType=INTEGER}, 
+      #{vname,jdbcType=VARCHAR}, #{vphone,jdbcType=VARCHAR}, #{vprice,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=INTEGER}, #{commt1,jdbcType=VARCHAR}, #{commt2,jdbcType=VARCHAR}, 
+      #{commt3,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{vpwd,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Vip" >
-    insert into "vip"
+    insert into vip
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="vid != null" >
         VID,
@@ -128,6 +147,42 @@
       </if>
       <if test="transaction != null" >
         Transaction,
+      </if>
+      <if test="vname != null" >
+        vname,
+      </if>
+      <if test="vphone != null" >
+        vphone,
+      </if>
+      <if test="vprice != null" >
+        vprice,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="commt1 != null" >
+        commt1,
+      </if>
+      <if test="commt2 != null" >
+        commt2,
+      </if>
+      <if test="commt3 != null" >
+        commt3,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="street != null" >
+        street,
+      </if>
+      <if test="vpwd != null" >
+        vpwd,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -149,16 +204,52 @@
       <if test="transaction != null" >
         #{transaction,jdbcType=INTEGER},
       </if>
+      <if test="vname != null" >
+        #{vname,jdbcType=VARCHAR},
+      </if>
+      <if test="vphone != null" >
+        #{vphone,jdbcType=VARCHAR},
+      </if>
+      <if test="vprice != null" >
+        #{vprice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="commt1 != null" >
+        #{commt1,jdbcType=VARCHAR},
+      </if>
+      <if test="commt2 != null" >
+        #{commt2,jdbcType=VARCHAR},
+      </if>
+      <if test="commt3 != null" >
+        #{commt3,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="vpwd != null" >
+        #{vpwd,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.accp.domain.VipExample" resultType="java.lang.Integer" >
-    select count(*) from "vip"
+    select count(*) from vip
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update "vip"
+    update vip
     <set >
       <if test="record.vid != null" >
         VID = #{record.vid,jdbcType=INTEGER},
@@ -178,25 +269,73 @@
       <if test="record.transaction != null" >
         Transaction = #{record.transaction,jdbcType=INTEGER},
       </if>
+      <if test="record.vname != null" >
+        vname = #{record.vname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vphone != null" >
+        vphone = #{record.vphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vprice != null" >
+        vprice = #{record.vprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commt1 != null" >
+        commt1 = #{record.commt1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commt2 != null" >
+        commt2 = #{record.commt2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commt3 != null" >
+        commt3 = #{record.commt3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.street != null" >
+        street = #{record.street,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vpwd != null" >
+        vpwd = #{record.vpwd,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update "vip"
+    update vip
     set VID = #{record.vid,jdbcType=INTEGER},
       Vtypeid = #{record.vtypeid,jdbcType=INTEGER},
       code = #{record.code,jdbcType=VARCHAR},
       Userid = #{record.userid,jdbcType=INTEGER},
       Integral = #{record.integral,jdbcType=VARCHAR},
-      Transaction = #{record.transaction,jdbcType=INTEGER}
+      Transaction = #{record.transaction,jdbcType=INTEGER},
+      vname = #{record.vname,jdbcType=VARCHAR},
+      vphone = #{record.vphone,jdbcType=VARCHAR},
+      vprice = #{record.vprice,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      commt1 = #{record.commt1,jdbcType=VARCHAR},
+      commt2 = #{record.commt2,jdbcType=VARCHAR},
+      commt3 = #{record.commt3,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      street = #{record.street,jdbcType=VARCHAR},
+      vpwd = #{record.vpwd,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Vip" >
-    update "vip"
+    update vip
     <set >
       <if test="vtypeid != null" >
         Vtypeid = #{vtypeid,jdbcType=INTEGER},
@@ -213,16 +352,64 @@
       <if test="transaction != null" >
         Transaction = #{transaction,jdbcType=INTEGER},
       </if>
+      <if test="vname != null" >
+        vname = #{vname,jdbcType=VARCHAR},
+      </if>
+      <if test="vphone != null" >
+        vphone = #{vphone,jdbcType=VARCHAR},
+      </if>
+      <if test="vprice != null" >
+        vprice = #{vprice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="commt1 != null" >
+        commt1 = #{commt1,jdbcType=VARCHAR},
+      </if>
+      <if test="commt2 != null" >
+        commt2 = #{commt2,jdbcType=VARCHAR},
+      </if>
+      <if test="commt3 != null" >
+        commt3 = #{commt3,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        street = #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="vpwd != null" >
+        vpwd = #{vpwd,jdbcType=VARCHAR},
+      </if>
     </set>
     where VID = #{vid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.accp.domain.Vip" >
-    update "vip"
+    update vip
     set Vtypeid = #{vtypeid,jdbcType=INTEGER},
       code = #{code,jdbcType=VARCHAR},
       Userid = #{userid,jdbcType=INTEGER},
       Integral = #{integral,jdbcType=VARCHAR},
-      Transaction = #{transaction,jdbcType=INTEGER}
+      Transaction = #{transaction,jdbcType=INTEGER},
+      vname = #{vname,jdbcType=VARCHAR},
+      vphone = #{vphone,jdbcType=VARCHAR},
+      vprice = #{vprice,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=INTEGER},
+      commt1 = #{commt1,jdbcType=VARCHAR},
+      commt2 = #{commt2,jdbcType=VARCHAR},
+      commt3 = #{commt3,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      street = #{street,jdbcType=VARCHAR},
+      vpwd = #{vpwd,jdbcType=VARCHAR}
     where VID = #{vid,jdbcType=INTEGER}
   </update>
 </mapper>

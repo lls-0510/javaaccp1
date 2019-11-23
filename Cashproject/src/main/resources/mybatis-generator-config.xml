@@ -14,7 +14,7 @@
     	c.andNameLike("%"+name+"%");
     	c.andParentidEqualTo(parentId); -->
 	<classPathEntry
-		location="D:\mvn-jar\mysql\mysql-connector-java\5.1.4\mysql-connector-java-5.1.4.jar" />
+		location="D:\mvn-repo-java29\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
 	<context id="context1">
 		<!-- 注释 -->
 		<commentGenerator>
@@ -22,7 +22,7 @@
 			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳 -->
 		</commentGenerator>
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/project?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMutilQueries=true"
-			driverClass="com.mysql.jdbc.Driver" password="1234" userId="root" />
+			driverClass="com.mysql.jdbc.Driver" password="sasa" userId="root" />
 		<!-- 实体生成位置 -->
 		<javaModelGenerator targetPackage="com.accp.domain"
 			targetProject="src/main/java" />
@@ -59,11 +59,26 @@
 			<table schema="user" tableName="user"></table>
 			<table schema="vip" tableName="vip "></table>
 			<table schema="vote" tableName="vote"></table>-->
+<<<<<<< HEAD
 			<!-- <table schema="integral" tableName="integral"></table>
 			<table schema="post" tableName="post"></table> -->
+<<<<<<< HEAD
 			<!--  <table schema="shop" tableName="shop"></table>  -->
 			<table schema="pruchasedetails" tableName="pruchasedetails"></table>
 			 
+=======
+			<table schema="shop" tableName="shop"></table>
+			<table schema="shopdetails" tableName="shopdetails"></table>
+=======
+			<!-- <table schema="integral" tableName="integral"></table> -->
+			 <table schema="turnover" tableName="turnover"></table>
+			<table schema="turnoverdetails" tableName="turnoverdetails"></table>
+			<table schema="vip" tableName="vip"></table> 
+			<table schema="vtype" tableName="vtype"></table>
+			
+>>>>>>> lls
+			
+>>>>>>> f971b44eab3fede7588194f39c2444526ae31864
 <!-- 		<table schema="Sys_permissions" tableName="sys_permissions"></table> -->
 <!-- 		<table schema="Sys_roles" tableName="sys_roles"></table> -->
 <!-- 		<table schema="Sys_roles_permissions" tableName="sys_roles_permissions"></table> -->

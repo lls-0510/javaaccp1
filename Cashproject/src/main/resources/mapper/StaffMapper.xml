@@ -107,11 +107,11 @@
   <insert id="insert" parameterType="com.accp.domain.Staff" >
     insert into staff (staffId, staffName, staffpwd, 
       staffPhone, staffTime, headPortrait, 
-      industry, storeid, CardGo
+      industry, storeid, CardGo,postid,storename
       )
     values (#{staffid,jdbcType=INTEGER}, #{staffname,jdbcType=VARCHAR}, #{staffpwd,jdbcType=VARCHAR}, 
       #{staffphone,jdbcType=VARCHAR}, #{stafftime,jdbcType=VARCHAR}, #{headportrait,jdbcType=VARCHAR}, 
-      #{industry,jdbcType=VARCHAR}, #{storeid,jdbcType=INTEGER}, #{cardgo,jdbcType=VARCHAR}
+      #{industry,jdbcType=VARCHAR}, #{storeid,jdbcType=INTEGER}, #{cardgo,jdbcType=VARCHAR},#{postid,jdbcType=INTEGER},#{storename,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Staff" >

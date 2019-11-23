@@ -69,25 +69,7 @@ public class GoodController {
 		return clazz;
 	}
 
-	/**
-	 * 查询商品信息id
-	 * 
-	 * @param proid
-	 * @param model
-	 * @return
-	 *//*
-		 * @RequestMapping("/queryproById")
-		 * 
-		 * @ResponseBody public Productinfo queryproById(Integer proid,Model model) {
-		 * model.addAttribute("proid",proid); System.out.println("商品信息id"+proid);
-		 * Productinfo clazz=goodService.queryproById(proid); return clazz; }
-		 */
-	/**
-	 * 查询
-	 * 
-	 * @param model
-	 * @return
-	 */
+
 
 	/*
 	 * @RequestMapping("/aa") public String index(Model model, Integer proid) {
@@ -95,6 +77,7 @@ public class GoodController {
 	 * model.addAttribute("list", list); System.out.println("id为--" + proid); return
 	 * "add_purchase"; }
 	 */
+
 	/**
 	 * 修改
 	 * 
@@ -102,11 +85,6 @@ public class GoodController {
 	 * @param goodid
 	 * @return
 	 */
-	@RequestMapping("/doupdate")
-	@ResponseBody
-	public int updateGoodType(String Goodname, Integer goodid) {
-		return goodService.updateGoodType(Goodname, goodid);
-	}
 
 	/**
 	 * 选中商品
@@ -115,13 +93,7 @@ public class GoodController {
 	 * @param goodid
 	 * @return
 	 */
-	/*
-	 * @RequestMapping("/query")
-	 * 
-	 * @ResponseBody public List<Productinfo> query() { return goodService.query();
-	 * 
-	 * }
-	 */
+
 
 	/**
 	 * 分页查询
@@ -130,15 +102,7 @@ public class GoodController {
 	 * @param pageSize
 	 * @return 
 	 */
-	/*
-	 * @RequestMapping("/proqueryAll")
-	 * 
-	 * @ResponseBody public PageInfo<Productinfo> proqueryAll(Integer pageNum,
-	 * Integer pageSize) {
-	 *  
-	 * PageInfo<Productinfo> page = goodService.proqueryAll(pageNum, pageSize);
-	 * System.out.println(page.toString()); return page; }
-	 */
+
 
 	/**
 	 * 删除商品信息
@@ -147,11 +111,7 @@ public class GoodController {
 	 * @param pageSize
 	 * @return
 	 */
-	/*
-	 * @RequestMapping("/deleteproducinfo")
-	 * 
-	 * @ResponseBody public int deleteproducinfo(Integer proid) { return
-	 * goodService.deleteproducinfo(proid); }
-	 */
+
+
 
 }

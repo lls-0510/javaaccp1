@@ -3,7 +3,7 @@ package com.accp.domain;
 import java.util.Date;
 
 public class Turnover {
-    private String orderId;
+    private Integer orderId;
 
     private Integer userId;
 
@@ -19,11 +19,13 @@ public class Turnover {
 
     private String phone;
 
-    public String getOrderId() {
+    private Integer vid;
+
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -81,5 +83,13 @@ public class Turnover {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Integer getVid() {
+        return vid;
+    }
+
+    public void setVid(Integer vid) {
+        this.vid = vid;
     }
 }
