@@ -2,12 +2,8 @@ package com.accp.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
-import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Purchase;
-import com.accp.service.purchaseService;
+import com.accp.service.PurchaseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -23,7 +19,7 @@ import com.github.pagehelper.PageInfo;
 public class purchaseController {
 	
 	@Autowired 
-	purchaseService purchaseService ; 
+	PurchaseService purchaseService ; 
 	
 	@RequestMapping("/getpurs")
 	@ResponseBody 
