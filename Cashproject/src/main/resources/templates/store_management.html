@@ -73,7 +73,7 @@
      					url:"/deletestore",
      					data:"id="+id,
      					success:function(result){
-     							alert("删除成功");
+     						go("stores","store_management");
      					}
      				});
      			},
@@ -88,7 +88,6 @@
         		},
         		editfcade:function(id){
         			$(".modal-content").attr("id",id); 
-        			alert("店铺id"+id);
         			 go("stores","addfcade");
         		}
         	},

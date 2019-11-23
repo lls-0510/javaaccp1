@@ -6,6 +6,7 @@ import com.accp.domain.VipExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface VipMapper {
     int countByExample(VipExample example);
@@ -30,6 +31,20 @@ public interface VipMapper {
 
     int updateByPrimaryKey(Vip record);
     
+    @Update("UPDATE\r\n" + 
+    		"  vip\r\n" + 
+    		"SET\r\n" + 
+    		"  vtypeid = #{vtypeid},\r\n" + 
+    		"  vname = #{vname},\r\n" + 
+    		"  vphone = #{vphone},\r\n" + 
+    		"  province = #{province},\r\n" + 
+    		"  city= #{city},\r\n" + 
+    		"  area = #{area},\r\n" + 
+    		"  street = #{street},\r\n" + 
+    		"  vpwd = #{vpwd}\r\n" + 
+    		"where vid = #{vid}")
+    int updatevip(Vip record);
+    
     @Select("SELECT * FROM `vip`\r\n" + 
     		"LEFT JOIN vtype ON vip.`Vtypeid`=vtype.`VTid`\r\n" + 
     		"LEFT JOIN (\r\n" + 
@@ -38,5 +53,14 @@ public interface VipMapper {
     		"ORDER BY turnover.`order_date`) AS ss\r\n" + 
     		") ON vip.`VID`=ss.id WHERE vip.`vname` LIKE #{vname}")
     List<VipCount>Vipcount(String vname);
+    
+    @Select("SELECT * FROM `vip`\r\n" + 
+    		"LEFT JOIN vtype ON vip.`Vtypeid`=vtype.`VTid`\r\n" + 
+    		"LEFT JOIN (\r\n" + 
+    		" (SELECT turnover.`vid` AS id,COUNT(*) AS countsum,SUM(order_totalMoney)AS countprice,turnover.`order_date` FROM `turnover`\r\n" + 
+    		"GROUP BY turnover.`vid`\r\n" + 
+    		"ORDER BY turnover.`order_date`) AS ss\r\n" + 
+    		") ON vip.`VID`=ss.id")
+    List<VipCount>find();
     
 }

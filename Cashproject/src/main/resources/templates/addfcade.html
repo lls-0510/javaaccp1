@@ -15,7 +15,7 @@
                 <div class="lefthead clearfix">
                     <div class="hdimgs">
                         <div id="pic">
-						<input v-model="lists.img" name="insertFiles" class="avatar-input" id="avatarInput" type="text">
+						<img v-bind:src="lists.img" name="insertFiles" class="avatar-input" id="avatarInput">
 						</div>
                     </div>
                     <div class="username clearfix">
@@ -168,7 +168,7 @@
         					
         					},
         				success:function(result){
-        					alert(result);
+        					 go("stores","store_management");
         					
         				}
         			});

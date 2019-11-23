@@ -21,19 +21,29 @@
                     </div>
                 </div>
                 <div class="list">
-                    <a href="javascript:;" class="btn btn-default">导出会员</a>
-                    <a href="javascript:;" class="btn btn-default">批量导入</a>
-                </div>
+                    <a @click="exportExcel()" href="javascript:;" class="btn btn-default">导出会员</a>
+                    <a th:href="@{/download}" class="btn btn-default">下载模板</a>
+                      </div>
+                <div class="list">
+                   <form id="from" th:action="@{/excelUpload}" method="post" enctype="multipart/form-data">
+                   <div class="row">
+                       <input  name="file" type="file" class="btn btn-default col-md-5" style="width: 100px">
+						<input type="submit" value="上传excel" class="btn btn-default col-md-5">
+                   </div>
+					
+				</form>
+				</div>
+               
                 <div class="list search">
-                    <input class="inputtext" type="text" placeholder="查找" name="vname">
+                    <input v-model = "vname" class="inputtext" type="text" placeholder="查找" name="vname">
                     <a href="javascript:;" class="search-btn" @click="getPage()"></a>
                 </div>
-                <div class="list">
+                <!-- <div class="list">
                     <select name="" id="" class="form-control">
                         <option v-for="item in viplist.list">{{item.vtname}}</option>
                     </select>
 
-                </div>
+                </div> -->
             </div>
             <div class="mainbody">
                 <table class="settable table table-striped">
@@ -45,16 +55,15 @@
                             <th width="14%">等级</th>
                             <th width="10%">成交次数</th>
                             <th width="10%">成交金额</th>
-                            <th width="10%">余额</th>
                             <th width="10%">积分</th>
-                            <th width="10%">最近成交</th>
+                            <th width="20%">最近成交</th>
                             <th width="6%">操作</th>
                         </tr>
                     </thead>
                     <tbody>
                     <tr v-for="stu,index in page.list">
                         <td>
-                            <input type="checkbox">
+                            <input type="checkbox" v-model="stu.checked">
                         </td>
                         <td>
                             {{stu.vname}}
@@ -65,11 +74,13 @@
                         <td>{{stu.vtname}}</td>
                         <td>{{stu.countsum}}</td>
                         <td>{{stu.countprice}}</td>
-                        <td>{{stu.countprice}}</td>
                         <td>{{stu.integral}}</td>
                         <td>{{stu.orderDate}}</td>
                         <td>
-                            <span onclick="editmember()" data-target="#tanchuan"  data-toggle="modal" >编辑</span>
+                            <span @click="editmember(stu.vid)" data-target="#tanchuan"  data-toggle="modal" >编辑</span>
+                        </td>
+                        <td>
+                            <span @click="del(stu.vid)" >删除</span>
                         </td>
                     </tr>
                     </tbody>
@@ -146,19 +157,36 @@
         		},
         		viplist:{
         			list:[]
-        		}
+        		},
+        		vname:""
         	},
         	methods:{
+        		 del:function(vid,index){
+     				$.ajax({
+     					url:"/deleteVip",
+     					data:"vid="+vid,
+     					success:function(result){
+     						go("members","member_info");
+     					}
+     				});
+     			},
         		getPage:function(currentPage){
         			var vname=$("[name='vname']").val();
         			$.ajax({
         				url:"/Vipcount",
-        				data:{pageNum:currentPage,pageSize:1,vname:vname},
+        				data:{pageNum:currentPage,pageSize:5,vname:vname},
         				success:function(result){
         					vipvue.page=result;
         				}
         			});
-        		}
+        		},
+        		editmember:function(vid){
+        			 $(".modal-content").attr("vid",vid);
+        			 $(".modal-content").load("model/aditmember.html");
+        		},
+        		exportExcel:function(){
+ 					window.location.href="/exportExcel?vname="+this.vname;
+ 				}
         	},
         	created:function(){
         		this.getPage(1);
@@ -179,6 +207,13 @@
                 /*$(".modal-content").attr("id",id);*/
                 $(".modal-content").load("model/aditmember.html");
             }
+         /*   $(function(){
+        	   $("#from").hide();
+        	    $("#upitem").click(function(){
+        	    	alert(111)
+            	$("#from").show();
+            })
+           }) */
     </script>
 </body>
 </html>

@@ -9,14 +9,15 @@
 </head>
 <body>
 <!--成交记录-->
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="turncontents">
     <div class="mainarea clearfix">
         <div class="mainhead">
             <span class="title">成交记录</span>
 
             <div class="list search">
-                <input class="inputtext" type="text" placeholder="查找">
-                <a href="javascript:;" class="search-btn"></a>
+                <input class="inputtext" type="text" placeholder="查找" name="ordername">
+                <a href="javascript:;" class="search-btn" @click="getPage()"></a>
+                <a href="javascript:;" class="search-btn" @click="getPage()"></a>
             </div>
             <div class="list">
                 <input type="date" class="form-control">
@@ -28,42 +29,37 @@
                 <input type="date" class="form-control">
             </div>
             <div class="list">
-                <input type="checkbox">按商品
+                <input type="checkbox" @click="b" name="sp">按商品
             </div>
             <div class="list">
-                <input type="checkbox">按订单
+                <input type="checkbox" @click="a" name="dd">按订单
             </div>
         </div>
-        <div class="mainbody">
+        
+            <div class="mainbody" v-if="view==1">
             <table class="settable table table-striped">
                 <thead>
                     <tr>
                         <th width="8%">序号</th>
-                        <th width="18%">订单号</th>
-                        <th width="12%">姓名</th>
-                        <th width="12%">手机</th>
+                        <th width="50%">商品名称</th>
                         <th width="10%">数量</th>
-                        <th width="12%">金额</th>
-                        <th width="10%">支付方式</th>
+                        <th width="14%">金额</th>
                         <th width="18%">日期</th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr v-for="ite,index2 in page.list" name="sp1">
                     <td>
-                        1
+                        {{index2+1}}
                     </td>
                     <td>
-                        1
+                        {{ite.shopname}}
                     </td>
                     <td >
-                        1
+                        {{ite.order_count}}
                     </td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
+                    <td>{{ite.goods_price}}</td>
+                    <td>{{ite.order_date}}</td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -78,50 +74,151 @@
                 </tr>
                 </tfoot>
             </table>
-            <!--分页按钮-->
-            <div class="pagebar">
-                <div class="pagetion">
-                    <div class="page">
-                        <ul class="pagination">
-                            <li>
-                                <a href="javascript:;">
-                                    首页
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">
-                                    &laquo;
-                                </a>
-                            </li>
-                            <li>
-                                <span style="font-size: 14px;">1/5</span>
-                            </li>
-                            <li>
-                                <a href="javascript:;">
-                                    &raquo;
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">
-                                    尾页
-                                </a>
-                            </li>
-                            <li style="margin-left: 20px; float:left;">
-                                <input type="text" class="form-control" style="width: 100px;">
-                            </li>
-                            <li style="margin-left: 15px; float:left;">
-                                <a href="javascript:;" class="btn btn-default">
-                                    跳转
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-
+			<div class="pageMenu">
+			<span v-on:click="getPage2(page2.prePage)">上一页</span>
+			<span v-for="numPage in page2.pages">
+				<span v-on:click="getPage2(numPage)">{{numPage}}</span>
+			</span>
+			<span v-on:click="getPage2(page2.nextPage)">下一页</span>
+			
+		</div>
+        </div>
+        
+        
+        
+        
+        <div class="mainbody" v-if="view==2">
+            <table class="settable table table-striped">
+                <thead>
+                    <tr>
+                        <th width="8%">序号</th>
+                        <th width="18%">订单号</th>
+                        <th width="12%">姓名</th>
+                        <th width="12%">手机</th>
+                        <th width="10%">数量</th>
+                        <th width="12%">金额</th>
+                        <th width="10%">支付方式</th>
+                        <th width="18%">日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr v-for="stu,index in page.list" name="dd1">
+                    <td>
+                        {{index+1}}
+                    </td>
+                    <td>
+                        {{stu.order_id}}
+                    </td>
+                    <td >
+                         {{stu.ordername}}
+                    </td>
+                    <td>{{stu.phone}}</td>
+                    <td>{{stu.order_count}}</td>
+                    <td>{{stu.goods_price}}</td>
+                    <td>{{stu.order_payment}}</td>
+                    <td>{{stu.order_date}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5">成交量</td>
+                    <td class="order_nums" v-for="num in numList">{{num.tusum}}</td>
+                    <td colspan="5">成交总金额</td>
+                    <td class="order_amounts"  v-for="price in priceList">{{price.tuPrice}}</td>
+                    <td>-</td>
+<!--
+                    <td>-</td>
+-->
+                </tr>
+                </tfoot>
+            </table>
+			<!-- <div class="pageMenu">
+			<span v-on:click="getPage(page.prePage)">上一页</span>
+			<span v-for="numPage in page.pages">
+				<span v-on:click="getPage(numPage)">{{numPage}}</span>
+			</span>
+			<span v-on:click="getPage(page.nextPage)">下一页</span>
+			
+		</div> -->
         </div>
     </div>
 </div>
+<script type="text/javascript">
+var turnvue=new Vue({
+	el:"#turncontents",
+	data:{
+		page:{
+			list:[]
+		},
+		page2:{
+			list:[]
+		},
+		numList:[],
+		priceList:[],
+		view:2
+	},
+	methods:{
+		getPage:function(currentPage){
+			var ordername=$("[name='ordername']").val();
+			$.ajax({
+				url:"/queryTurnover",
+				data:{pageNum:currentPage,pageSize:20,ordername:ordername},
+				success:function(result){
+					turnvue.page=result;
+				}
+			});
+		},
+		cz:function(){
+			this.getPage(1)
+		},
+		cz2:function(){
+			this.getPage2(1)
+		},
+		a:function(){
+			turnvue.view=2
+		},
+		b:function(){
+			turnvue.view=1
+		}
+	},
+	created:function(){
+		this.getPage(1);
+	}
+});
+$(function(){
+	$.ajax({
+		url:"/queryNum",
+		success:function(result){
+			turnvue.numList = result;
+		}
+	});
+	})
+	$(function(){
+	$.ajax({
+		url:"/queryprice",
+		success:function(result){
+			turnvue.priceList = result;
+		}
+	});
+})
+$("[name=dd]").attr("checked",true);
+	var name="dd";
+	$("[name=sp1]").hide();
+	$(':checkbox').each(function(){ //遍历页面中所有的checkbox
+	$(this).click(function(){//为页面中每一个checkbox设置点击事件
+		if($(this).attr("name")==name){
+			$(this).prop("checked",true);
+			return;
+		}
+		if($(this).is(':checked')){ //如果有checkbox状态为选中
+			$(':checkbox').removeAttr('checked'); //移除checked属性，改变checkbox状态为未选中(为页面中所有checkbox复选框添加设置)
+			//$(':checkbox').attr('disabled','disabled'); //或者直接设置checkbox复选框为禁用(为页面中所有checkbox复选框添加设置)
+			$(this).prop("checked",true); //为当前点击选中的checkbox复选框添加checked属性
+			name=$(this).attr("name");
+		}
+	});
+});
+		
+</script>
 </body>
 </html>

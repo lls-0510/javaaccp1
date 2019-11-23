@@ -85,20 +85,6 @@
                                     </label>
                                     <input name="telephone"  type="text" class="inputTexts" >
                                 </div>
-                                <!-- <div class="lista clearfix">
-                                    <label for="" class="label">
-                                        <span class="rela">
-                                          时间
-                                        </span>
-                                    </label>
-                                    <select name="startime" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option selected>2001-01-01</option>
-                                    </select>
-                                    <span style="float:left;margin: 0 5px">-</span>
-                                    <select  name="endtime" id="" class="form-control" style="width: 150px;float: left;">
-                                        <option value="">2001-02-02</option>
-                                    </select>
-                                </div> -->
                                 <div class="lista clearfix" style="width: 600px;">
                                     <label for="" class="label">
                                         <span class="rela">
@@ -153,7 +139,7 @@
     					processData:false,
     					contentType:false,
     					success:function(result){
-    						alert(result);
+    						 go("stores","store_management");
     						console.log(result);        				
     					}
     				});

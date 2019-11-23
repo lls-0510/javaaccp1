@@ -56,14 +56,14 @@ public class shopUploadController {
 	   @RequestMapping("/uploadsimg") 
 		@ResponseBody
 		public String uploadAjax(MultipartFile [] files) {
-			File directory = new File("D:\\staticSource");
+			File directory = new File("D:\\images");
 			if(!directory.exists()) {
 				directory.mkdirs();
 			} 
 			String urls  = "";
 			try {
 				for(MultipartFile l : files) {
-					String url = "D:\\staticSource";
+					String url = "D:\\images";
 					url = url+"/"+l.getOriginalFilename();
 					if(urls.equals("")) {
 						urls = url ; 

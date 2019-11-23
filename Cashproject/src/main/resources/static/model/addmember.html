@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -40,54 +40,67 @@
 
         <div class="lists">
             <label><span style="color: red;">*</span>手机：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input name="vphone" type="text" style="width: 200px;" class="form-control">
 
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>名称：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input name="vname" type="text" style="width: 200px;" class="form-control">
         </div>
         <div class="lists">
             <label><span style="color: red;"></span>等级：</label>
-            <select name="" id="type" class="form-control" style="width: 200px;">
-                <!-- <option value="">请选择等级</option>
-                <option value="">vip</option>
-                <option value="">会员</option> -->
+            <select name="vtid" id="type" class="form-control" style="width: 200px;">
+               
             </select>
         </div>
         <div class="lists">
             <label><span style="color: red;">*</span>密码：</label>
-            <input type="text" style="width: 200px;" class="form-control">
+            <input name="vpwd" type="text" style="width: 200px;" class="form-control">
         </div>
-        <div class="lists" style="width: 100%;">
-            <label style="margin-right:10px;">地址:</label>
-            <select name="" id="" class="form-control" style="width: 120px;float: left;">
-                <option value="">请选择省份</option>
-            </select>
-            <span style="float:left;margin: 0 15px 0 15px">-</span>
-            <select name="" id="" class="form-control" style="width: 120px;float: left;">
-                <option value="">请选择城市</option>
-            </select>
-            <span style="float:left;margin: 0 15px 0 15px">-</span>
-            <select name="" id="" class="form-control" style="width: 120px; float: left;">
-            <option value="">请选择地区</option>
-        </select>
-        </div>
+        <div id="distpicker1">
+           <select  name="province" id="" class="form-control" style="width: 150px;float: left;">
+           </select>
+          <span style="float:left;margin: 0 5px">-</span>
+           <select  name="city" id="" class="form-control" style="width: 150px;float: left;">
+           </select>
+           <span style="float:left;margin: 0 5px">-</span>
+           <select  name="area" id="" class="form-control" style="width: 150px;float: left;">
+           </select> 
+           </div>
         <div class="lists" style="width: 100%;">
             <label>街道：</label>
-            <input type="text" style="width: 350px;" class="form-control">
+            <input name="street" type="text" style="width: 350px;" class="form-control">
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+        <a id="insertvip" href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
     </div>
 </div>
 </body>
+<script src="/js/distpicker.data.js"></script>
+<script src="/js/distpicker.js"></script>
 <script type="text/javascript">
+$("#distpicker1").distpicker();
 	$(function(){
+		$("#insertvip").click(function(){
+			var record={};
+			record["vphone"]=$.trim($("[name='vphone']").val());
+			record["vname"]=$.trim($("[name='vname']").val());
+			record["vtypeid"]=$.trim($("[name='vtid']").val());
+			record["vpwd"]=$.trim($("[name='vpwd']").val());
+			record["province"]=$.trim($("[name='province']").val());
+			record["city"]=$.trim($("[name='city']").val());
+			record["area"]=$.trim($("[name='area']").val());
+			record["street"]=$.trim($("[name='street']").val());
+			console.log(record);
+			$.post("/insertvip",record,function(data){
+				go("members","member_info");
+			},"json");
+		});
+		//渲染下拉框等级
 		$.ajax({
 			url:"/vtypequeryAll",
 	         type: "post",  
@@ -96,13 +109,10 @@
              traditional: true, 
 			success:function(data){
                 $("#type").html("<option value='请选择'  >请选择...</option>"+ optionstring); 
-
 				 for (var i in data) {  
                      var jsonObj =data[i];  
                      var optionstring = "";  
-                     
                    	 optionstring += "<option value=\""  + jsonObj.vtid + "\">" + jsonObj.vtname + "</option>";  
-        
                    	$("#type").append(optionstring);
                  }  
 			}

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.accp.controller;
 
 import javax.servlet.http.HttpSession;
@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Staff;
+import com.accp.domain.StaffCount;
 import com.accp.service.StaffService;
 import com.github.pagehelper.PageInfo;
 
 @Controller
 public class StaffController {
-	
+	 
 	@Autowired
 	private StaffService service;
 	/**
@@ -24,15 +25,15 @@ public class StaffController {
 	 * @return
 	 */
 	@RequestMapping("/staffqueryAll")
-	@ResponseBody
-	public PageInfo<Staff> staffqueryAll(Integer pageNum, Integer pageSize,String staffname) {
+	@ResponseBody 
+	public PageInfo<StaffCount> staffqueryAll(Integer pageNum, Integer pageSize,String staffname) {
 		if(pageNum   == null) {
 			pageNum = 1 ;   
 		}
 		if(pageSize   == null) {
 			pageSize = 1 ; 
 		}
-		PageInfo<Staff> page = service.staffqueryAll(pageNum, pageSize,staffname);
+		PageInfo<StaffCount> page = service.staffqueryAll(pageNum, pageSize,staffname);
 		System.out.println(page.toString());
 		return page;
 	}
@@ -62,48 +63,10 @@ public class StaffController {
 	 */
 	
 	//修改账户
-	
-}
-
-=======
-package com.accp.controller;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.accp.domain.Staff;
-import com.accp.domain.Store;
-import com.accp.service.StaffService;
-import com.github.pagehelper.PageInfo;
-
-@Controller
-public class StaffController {
 	@Autowired
 	StaffService staffService;
 	
-	/**
-	 * 员工分页查询
-	 * @param pageNum
-	 * @param pageSize
-	 * @return
-	 */
-	@RequestMapping("/staffqueryAll")
-	@ResponseBody
-	public PageInfo<Staff> staffqueryAll(Integer pageNum, Integer pageSize,String staffname) {
-		if(pageNum   == null) {
-			pageNum = 1 ;   
-		}
-		if(pageSize   == null) {
-			pageSize = 1 ; 
-		}
-		PageInfo<Staff> page = staffService.staffqueryAll(pageNum, pageSize,staffname);
-		System.out.println(page.toString());
-		return page;
-	}
+	
 	/**
 	 * 员工信息修改id
 	 * @param staffid
@@ -152,10 +115,10 @@ public class StaffController {
 	 * @returns
 	 */
 	@RequestMapping("/deleteStaff")
-	@ResponseBody
+	@ResponseBody 
 	public int deleteStaff(Integer staffid) {
 		return staffService.deleteStaff(staffid);
 	}
-
+	
 }
->>>>>>> lls
+

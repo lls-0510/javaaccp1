@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.accp.domain.Supplier;
 import com.accp.domain.Vip;
 import com.accp.domain.VipCount;
+import com.accp.domain.VipExample;
 import com.accp.mapper.VipMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -32,5 +33,24 @@ public class VipService {
 	public int insertvip(Vip record) {
 		return vipMapper.insert(record);
 	}
+	
+	public Vip queryVipid(Integer vid) {
+		return vipMapper.selectByPrimaryKey(vid);
+	}
+	
+	public int updatetvip(Vip record) {
+		return vipMapper.updatevip(record);
+	}
+	
+	public int deleteVip(Integer vid) {
+		return vipMapper.deleteByPrimaryKey(vid);
+	}
+	
+	public List<VipCount>find(String vname){
+		System.out.println(vname);
+		return vipMapper.Vipcount("%"+vname+"%");
+	}
+	
+	
 
 }

@@ -54,7 +54,7 @@
                     <tr v-for="stu,index in page.list">
                         <td>{{index+1}}</td>
                         <td>{{stu.storename}}</td>
-                        <td>{{stu.industry}}</td>
+                        <td>{{stu.type}}</td>
                         <td>{{stu.cardgo}}</td>
                         <td>{{stu.staffname}}</td>
                         <td>{{stu.staffpwd}}</td>
@@ -94,7 +94,7 @@ var staffvue=new Vue({
 					url:"/deleteStaff",
 					data:"staffid="+staffid,
 					success:function(result){
-							alert("删除成功");
+						go("stores","employee_management");
 					}
 				});
 			},
