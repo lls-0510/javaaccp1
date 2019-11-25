@@ -197,7 +197,8 @@ public class shopUploadController {
 	   }
 	   @RequestMapping("/uploadExcel")
 	   @ResponseBody
-	  public String uploadExcel(MultipartFile file){
+	  public String uploadExcel(MultipartFile file,String stoid){
+
 		   try {
 			   //将传入的文件转换成excel
 			   Workbook wb = new XSSFWorkbook(file.getInputStream());
@@ -222,7 +223,7 @@ public class shopUploadController {
 					   Cell c9 = row.getCell(8);
 
 					   Shop sh = new Shop();
-
+					   sh.setBz1(""+stoid);
 					   sh.setGoodid((int) c1.getNumericCellValue());
 					   sh.setShh(c2.getStringCellValue());
 					   sh.setSname(c3.getStringCellValue());

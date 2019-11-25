@@ -15,7 +15,7 @@ public class VtypeController {
 	@Autowired
 	VtypeService vtypeService;
 	
-	@RequestMapping("vtypequeryAll")
+	@RequestMapping("/vtypequeryAll")
 	@ResponseBody
 	public List<Vtype> vtypequeryAll(){
 		return vtypeService.queryAll();

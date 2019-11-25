@@ -78,4 +78,11 @@ public class purchaseController {
 		purchaseService.addpur(purchase);
 		return "success";
 	}
+
+	@RequestMapping("/updatepur")
+	@ResponseBody
+	public  String updatepur(@RequestBody Purchase purchase){
+		this.purchaseService.updatepur(purchase);
+		return "success";
+	}
 }

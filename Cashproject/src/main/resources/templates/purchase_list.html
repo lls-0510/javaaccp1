@@ -47,6 +47,7 @@
                 <thead>
                     <tr>
                         <th width="6%">序号</th>
+                        <th width="6%">状态(谨慎操作)</th>
                         <th width="14%">采购单号</th>
                         <th width="10%">交货期</th>
                         <th width="16%">供应商</th>
@@ -61,6 +62,20 @@
                     <td>
                         {{index+1}}
                     </td>
+                     <td>
+                        <template v-if="stu.bz3 == 1">
+                            <select name="" id="bz3" @change="sh(stu,index)">
+                                <option value="1">已提交</option>
+                                <option value="0">重置</option>
+                            </select>
+                        </template>
+                         <template v-if="stu.bz3 == 0">
+                             <select name="" id="bz3" @change="sh(stu,index)">
+                                 <option value="0">审核中</option>
+                                 <option value="1">提交</option>
+                             </select>
+                         </template>
+                     </td>
                     <td>{{stu.purno}}
                     </td>
                     <td >{{stu.purdata}}
@@ -70,8 +85,15 @@
                     <td>{{stu.bz2}}</td>
                     <td>{{stu.purtext}}</td>
                     <td>
-                        <a href="javascript:;" v-on:click="delpur(stu.purid)">删除</a>
-                        <a href="javascript:;" v-on:click="editpurchase(stu.purid)">查看</a>
+                        <template v-if="stu.bz3 == 1">
+                            <a href="javascript:;" v-on:click="delpur(stu.purid)">删除</a>
+                            <a href="javascript:;" v-on:click="goeditpurchase(stu.purid,stu.bz3)">查看</a>
+                        </template>
+                        <template v-if="stu.bz3 == 0">
+                            <a href="javascript:;" v-on:click="delpur(stu.purid)">删除</a>
+                            <a href="javascript:;" v-on:click="editpurchase(stu.purid)">修改</a>
+                            <a href="javascript:;" v-on:click="goeditpurchase(stu.purid,stu.bz3)">查看</a>
+                        </template>
                     </td>
                 </tr>
                 </tbody>
@@ -82,7 +104,6 @@
 				<span v-on:click="getpurs(numPage)">{{numPage}}</span>
 			</span>
 			<span v-on:click="getpurs(page.nextPage)">下一页</span>
-			
 		</div>
         </div>
     </div>
@@ -114,11 +135,15 @@ var puichppvue=new Vue({
 /* 					alert(JSON.stringify(puichppvue.page.list))
  */				}
 			});
-			
 		},editpurchase:function(prid){
 			$(".modal-content").attr("purid",prid);
-			go("shops","edit_purchase");
-		},delpur:function (prid){
+            $(".modal-content").attr("bz3","");
+            go("shops","edit_purchase");
+		},goeditpurchase:function (prid,bz3) {
+            $(".modal-content").attr("purid",prid);
+            $(".modal-content").attr("bz3",bz3);
+            go("shops","edit_purchase");
+        },delpur:function (prid){
             if(confirm("您是否要执行删除操作？")){
                 $.ajax({
                     url:"/delpur",
@@ -129,7 +154,18 @@ var puichppvue=new Vue({
                     }
                 })
             }
-        }
+        },sh:function (item,index) {
+            puichppvue.page.list[index].bz3 = $("#bz3").val();
+            $.ajax({
+                url:"/updatepur",
+                type:"post",
+                data:JSON.stringify(item),
+                contentType:"application/json;charset=utf-8",
+                success:function () {
+                    go("shops","purchase_list");
+                }
+            })
+		}
 	},
 	created:function(){
 		this.getpurs();
@@ -142,6 +178,7 @@ var puichppvue=new Vue({
 	}
 });
     function addpurchase() {
+        $(".modal-content").attr("bz3","");
         go("shops","edit_purchase");
     }
     function queryHang() {
