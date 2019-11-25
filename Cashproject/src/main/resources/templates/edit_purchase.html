@@ -98,9 +98,12 @@
                 </div>
                 <!--end-->
                 <div class="btnarear" style="margin-top: 25px;">
-                    <span style="float: left;color:#44b549;" data-target="#tanchuan"  data-toggle="modal" onclick="addShop()">+添加商品</span>
-                    <a id="kong" href="javascript:;" class="btn btn-default" style="width: 100px;">清空</a>
-                    <a href="javascript:;" class="btn btn-success" @click="tj" style="width: 100px;color:#ffffff !important;">提交</a>
+
+                        <span id="tc">
+                        <a style="float: left;color:#44b549;" data-target="#tanchuan"  data-toggle="modal" onclick="addShop()">+添加商品</a>
+                        </span>
+                        <a id="kong" href="javascript:;" class="btn btn-default" style="width: 100px;">清空</a>
+                        <a href="javascript:;" class="btn btn-success" @click="tj" style="width: 100px;color:#ffffff !important;">提交</a>
                 </div>
             </div>
         </div>
@@ -118,7 +121,7 @@
             purtext:"",
             bz1:"",
             prd:[]
-        }
+        },bz3:""
  	},
 	methods:{
         getspur:function(prid) {
@@ -166,12 +169,20 @@
         }
 	},
 	created:function(){
+
 	    var prid  = $(".modal-content").attr("purid");
 	    if(prid != null && prid != "" && !isNaN(prid)){  //修改
             this.getspur(prid);
             $(".modal-content").attr("purid","");
         }
         this.getlist();
+        var bz3 = $(".modal-content").attr("bz3");
+        if(bz3 != ""){
+            $("select").attr("disabled","disabled");
+            $("#tc").remove();
+            $("span").attr("disabled","disabled");
+            $("input").attr("disabled","disabled");
+        }
 	}
 }) 
 

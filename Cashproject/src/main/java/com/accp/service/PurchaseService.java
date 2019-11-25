@@ -128,4 +128,9 @@ public class purchaseService {
 	}
 
 
+	public  boolean updatepur(Purchase purchase){
+		purchaseMapper.updateByPrimaryKey(purchase);
+		return true ;
+	}
+
 }

@@ -30,9 +30,10 @@
                 </div>
                 <div class="list">
                     <select name="" id="" class="form-control">
-                        <option v-for="item in viplist.list">{{item.vtname}}</option>
+                        <templete v-for="item in viplist">
+                            <option :value="item.vtid">{{item.vtname}}</option>
+                        </templete>
                     </select>
-
                 </div>
             </div>
             <div class="mainbody">
@@ -144,9 +145,11 @@
         		page:{
         			list:[]
         		},
-        		viplist:{
-        			list:[]
-        		}
+        		viplist:[
+                    {
+                        "vtid":"","vtname":"","vtdiscount":""
+                    }
+                ]
         	},
         	methods:{
         		getPage:function(currentPage){
@@ -163,10 +166,10 @@
         	created:function(){
         		this.getPage(1);
         		$.ajax({
-    				url:"/Vipcount",
-    				data:{pageNum:1,pageSize:1000,vname:null},
+    				url:"/vtypequeryAll",
     				success:function(result){
     					vipvue.viplist=result;
+    					alert(JSON.stringify(vipvue.viplist))
     				}
     			});
         	}

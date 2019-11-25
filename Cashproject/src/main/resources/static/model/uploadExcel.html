@@ -46,8 +46,8 @@
         </div>
         <div class="clearfix"></div>
         <form action="" method="post" disabled="disabled"  onsubmit="false" enctype="multipart/form-data">
-            <input name="file" type="file" >
-            <input type="button" @click="dr" value="导入Excel">
+            <input name="file" type="file" > 
+            <input type="button" @click="dr"  name="55" value="导入Excel">
         </form>
         <div class="clearfix"></div>
     </div>
@@ -72,7 +72,8 @@
                     }
                 })
             },dr:function () {
-                var formData = new FormData($("form")[0]);
+                var formData = new FormData($("[name=\"file\"]")[0]);
+                formData.append("stoid",$("#store").val());
                 $.ajax({
                     url:"/uploadExcel",
                     data:formData,

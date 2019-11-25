@@ -8,6 +8,7 @@ import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -16,9 +17,8 @@ public class mvcConfig extends WebMvcConfigurationSupport {
 	
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").
-		addResourceLocations("file:D:/staticSource/");   
-
+		ResourceHandlerRegistration resourceHandlerRegistration = registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").
+				addResourceLocations("file:D:/staticSource/");
 		super.addResourceHandlers(registry);
 	}
 	  
