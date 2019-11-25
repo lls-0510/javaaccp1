@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -35,6 +35,7 @@
     </style>
 </head>
 <body>
+	<div id = "content">
     <div class="rightarea clearfix">
         <div class="title clearfix" style="margin-left: 20px;margin-top: -10px;margin-right: 20px;">
             <h3 class="fl" >收银结算</h3>
@@ -48,22 +49,20 @@
                     总金额： <span class="fr">￥</span>
                     <input type="text" class="form-control" style="float: right;width: 100px;" disabled>
                 </div>
-                <ul class="clearfix" style="margin-top: 50px;padding: 10px 10px;width: 100%; border: 1px solid #666666; border-radius: 5px;">
+                <ul  class="clearfix" style="margin-top: 50px;padding: 10px 10px;width: 100%; border: 1px solid #666666; border-radius: 5px;">
                     <li class="onlist clearfix row">
-                        <div class="onname col-md-4"><a href="javascript:;">名称</a></div>
-                        <div class="col-md-4"><input type="text" class="form-control" style="width: 100%    ;"></div>
-                        <div class="col-md-4">小计
-                            <span style="color: red">0</span>
-                            ￥
+                        <div class="onname col-md-4"><a href="javascript:;" >商品名称</a></div>
+                        <div class="col-md-4">商品数量</div>
+                        <div class="col-md-4">商品小计
                         </div>
                         <div class="clearfix"></div>
                     </li>
-                    <li class="onlist clearfix row">
-                        <div class="onname col-md-4"><a href="javascript:;">名称</a></div>
-                        <div class="col-md-4"><input type="text" class="form-control" style="width: 100%    ;"></div>
-                        <div class="col-md-4">小计
-                            <span style="color: red">0</span>
-                            ￥
+                    <li class="onlist clearfix row" v-for="shops in list2">
+                        <div class="onname col-md-4"><a href="javascript:;" >{{shops.sname}}</a></div>
+                        <div class="col-md-4"><input type="text" class="form-control" style="width: 50% ; margin-left: 50px;" v-model="shops.num"></div>
+                        <div class="col-md-4">
+                            ￥<input disabled="false" style="color: red;border: none;text-align:center;width: 70px;background-color: white;" v-model = "shops.xj" name="xj"></input>
+                          
                         </div>
                         <div class="clearfix"></div>
                     </li>
@@ -90,23 +89,23 @@
                             </tr>
                     </thead>
                     <tbody>
-                            <tr>
+                            <tr v-for="shop,index in list" @click="xz(shop)">
                                 <td width="20%">
                                     <span style="cursor: pointer;color: skyblue"><</span>
                                 </td>
                                 <td width="10%">
-                                    <span style="display: block;width: 40px;">1</span>
+                                    <span style="display: block;width: 40px;">{{index+1}}</span>
                                 </td>
                                 <td width="80%">
                                     <div style="width: 279px;">
-                                    <img src="" alt="图片" style="width: 30px;height: 30px;">
-                                    11111111111111111
+                                    <img  v-bind:src="shop.goodimg" alt="" style="width: 30px;height: 30px;" id="img">
+                                    {{shop.sname}}
                                     </div>
                                 </td>
                             </tr>
                     </tbody>
                 </table>
-
+			</div>
             </div>
         </div>
         <!--按钮-->
@@ -116,5 +115,58 @@
             <a href="javascript:;" class="btn btn-success" style="width: 120px;color: #ffffff !important">结算</a>
         </div>
     </div>
+    
+    <script type="text/javascript">
+    	var vueOxw = new Vue({
+    		el:"#content",
+    		data(){
+    			return{
+    				list:[],
+    				list2:[]
+    			}
+    		},
+    		methods:{
+    			xz:function(shop){
+    				let flag = false;
+    				var that = this;
+    				shop.xj = shop.sdpprice;
+    				this.list2.forEach((item,index)=>{
+    					if(item.sid==shop.sid){
+    						that.$set(that.list2[index],"num",++item.num);
+    						that.$set(that.list2[index],"xj",item.num*item.sdpprice);
+    						flag = true;
+    						return false;
+    					}
+    				});
+    				/*  shop.zje = 0;
+    				this.list2.forEach((items,index)=>{
+    					items.zje += items.zj;
+    					alert(items.zje);
+    					return;
+    				}) */
+    				if(!flag){
+    					shop.num = 1;
+    					this.list2.push(shop);
+    				}else{
+    					var temJon = JSON.stringify(this.list2);
+    					this.list2 = JSON.parse(temJon);
+    				}
+    				loadZje();
+    			},
+    			changeSl:function(){
+    			}
+    			
+    		}
+    	});
+    	$(function(){
+    		$.ajax({
+    			url:"[[@{queryAllOxw}]]",
+    			success:function(result){
+    				vueOxw.list = result;
+    			}
+    		});
+    	});
+    	
+    </script>
 </body>
 </html>
