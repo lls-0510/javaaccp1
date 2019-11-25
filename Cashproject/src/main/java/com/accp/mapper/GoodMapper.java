@@ -32,7 +32,7 @@ public interface GoodMapper {
     int updateByPrimaryKeySelective(Good record);
 
     int updateByPrimaryKey(Good record);
-   
+    
     @Insert("insert into good(Goodname)value(#{Goodname})")
     int addGoodType(String Goodname);
     

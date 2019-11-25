@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.Good;
-import com.accp.domain.Purchase;
 import com.accp.mapper.GoodMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -24,6 +23,12 @@ public class GoodService {
 	 * @Autowired private ProductinfoMapper productinfoMapper;
 	 */
 	/*
+	/**
+
+	@Autowired
+/*	private ProductinfoMapper productinfoMapper;
+*/	/**
+
 	 * 查询商品类型
 	 * @return
 	 */
@@ -41,11 +46,6 @@ public class GoodService {
 		
 	}
 
-	/*
-	 * public List<Productinfo> query(){ return productinfoMapper.query(); }
-	 */
-
-	
 	/**
 	 * 删除商品类型
 	 * @param goodname
@@ -97,12 +97,14 @@ public class GoodService {
 	 * productinfoMapper.queryById(proid); }
 	 */
 
+
 	
 	/**
 	 * 查询
 	 * @param proid
 	 * @return
 	 */
+
 
 	/*
 	 * public List<Productinfo> queryprById(Integer proid) { return

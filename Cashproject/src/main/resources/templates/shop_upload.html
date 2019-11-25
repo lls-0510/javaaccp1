@@ -490,7 +490,7 @@
                                     <i>*</i>
                                     库存总数
                                 </span>
-                                <input type="text" class="inputtext totalnum"  style="width: 124px;">
+                                <input type="text" class="inputtext totalnum"  style="width: 124px;" v-model="shop.kc">
                                 <label style="color: rgb(240, 91, 35); float: left; padding-left: 8px; line-height: 36px;">请勿随意修改库存，以免影响库存准确性</label>
                                 <table class="colorstable" id="xztable">
                                     <colgroup>
@@ -506,11 +506,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    	<template v-for="shopd in shop.shopd">
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>
+                                            	<template v-if="shopd.scolor != null">
+                                            		{{shopd.scolor}}
+                                            	</template>
+                                            	/
+                                            	<template v-if="shopd.scc != null">
+                                            		{{shopd.scc}}
+                                            	</template>
+                                            </td>
+                                            <td><input @change="jskc" style="width:101px;text-align:center;" type='text' v-model='shopd.snum'></td>
+                                            <td><input style="width:203px;text-align:center;" type='text' v-model='shopd.snumbe'></td>
+                       
                                         </tr>
+                                        </template>
                                     </tbody>
                                 </table>
                             </div>
@@ -531,14 +542,19 @@
 						                </div>
 						                <!-- 图片 -->
 						                <div class="mediumContainer" id="mediumContainer">
-						                    <img src="">	
+						                    <img :src="imgs[0]">	
 						                </div>
 						                <div id="zhezhao"></div>
 						            </div>
 						
 						            <!-- 缩略图 -->
 						            <ul class="img_x thumb" id="img_x">
-
+										<input type="hidden" v-model="shop.goodimg">
+										<template v-for="img in imgs">
+											<li onmouseenter="mouse(this)">
+												<img alt="图片"  :src="img">
+											</li>
+										</template> 
 						                <li id="addimg"> 
                                             <input type="file" class="uploadimg">
                                             <a  class="imgd" href="javascript:;">
@@ -550,7 +566,7 @@
 						        <div class="imgRight">
 						            <!-- 大图 -->
 						            <div class="img_u" id="img_u">
-						                <img src="">
+						                <img :src="imgs[0]">
 						            </div>
 						        </div>
 						    </div>
@@ -562,7 +578,7 @@
                         <div id="editwang"></div>
                         <!--按钮-->
                         <div class="btn-close-insert">
-                            <a href="javascript:;" class="btn btn-default" >取消发布</a>
+                            <a href="javascript:;" class="btn btn-default" @click="qxfbsp">取消发布</a>
                             <a href="javascript:;" class="btn btn-success" style="color: #ffffff !important;" @click="fbsp">发布商品</a>
                         </div>
                     </div>
@@ -580,7 +596,8 @@
 				shop:{   //商品主表   Q:两个不同的数组，指向同一个引用地址 造成了影响
 					shopd:[]  //商品从表
 				}, 
-				types:[]
+				types:[],  
+				imgs:[]
 		},methods:{  
 			getSize:function(){  //获取尺寸
 				$.post("/getSize",{},function(res){
@@ -622,37 +639,54 @@
 					type:"post",  
 					contentType:"application/json;charset=utf-8", 
 					success:function(res){
-						shoploadVue.getSize();
-						
+						shoploadVue.getSize();    
 					} 
 				});
 			},getType:function(){
 				$.post("/getgType",{},function(res){
 					shoploadVue.types = res;
 				});
+			},jskc:function(){
+				let total = 0 ; 
+		   		$("#xztable tr:not(tr:first)").each((i,e)=>{
+		   			total = total + parseInt($(e).find("td").eq(1).find("input").val()); 
+		   		});  
+		   		$(".totalnum").val(total); 
 			},fbsp:function(){
-				
-				shoploadVue.shop.goodid = $("#splx").val();
-				shoploadVue.shop.goodimg = urls ;
-				/* 
-					获取颜色 尺寸 数量 条形码  
-				*/ 
-				shoploadVue.shop.goodtext =$(".w-e-text").text(); 
-				$("#xztable tbody tr").each((i,e)=>{
-					let shopd ={};
-					let gg = $(e).find("td:first").text().split("/");  
-					shopd.scolor = gg[0];
-					if(gg.length <= 1){
-						shopd.scc = gg[0];  
+				let im = ""; 
+				shoploadVue.imgs.forEach(i=>{
+					if(im == ""){
+						im = i ;
 					}else{
-						shopd.scc = gg[1];  
+						im = im +","+i;
 					}
-					shopd.snum = $(e).find("td").eq(1).find("input").val();
-					shopd.snumbe = $(e).find("td").eq(2).find("input").val() 
-
-					shoploadVue.shop.shopd.push(shopd); 
-					
-				}); 
+				});
+				shoploadVue.shop.goodid = $("#splx").val();
+				shoploadVue.shop.goodimg = im ;
+                shoploadVue.shop.bz1 = $(".modal-content").attr("stoid");
+				let scolor = "";  
+				$("#colorstable tr:not(tr:first)").each((i,e)=>{
+					if(scolor == ""){
+						scolor = $(e).find("td input").val(); 
+					}else{
+						scolor = scolor+","+$(e).find("td input").val(); 
+					}
+				})
+				shoploadVue.shop.scolor = scolor;  
+				let ccss =""; 
+				let ccs = $("#cm li a").filter((i,e) => {  //得到选中的尺寸
+		            if($(e).attr("on")   === "1"){
+		                return e;
+		            }
+		        });
+				ccs.each((i,e)=>{
+					if(ccss == ""){
+						ccss = $(e).text(); 
+					}else{
+						ccss = ccss+","+$(e).text(); 
+					}
+				});
+				shoploadVue.shop.scc = ccss;  
 				//传送  
 				$.ajax({
 					url:"/addshop", 
@@ -661,15 +695,64 @@
 					data:JSON.stringify(shoploadVue.shop),  
 					success:function(res){
 						alert("商品发布成功！");
+						$(".modal-content").removeAttr("sid");
+						go("shops","shop_managerment");
 					}
-
 				});
+			},getDshop:function(sid){ 
+				$.ajax({
+					url:"/getDshop", 
+					data:{sid:sid},  
+					success:function(res){
+						shoploadVue.shop = res;  
+						$("#splx option").each((i,e)=>{
+							if($(e).attr("value") == shoploadVue.shop.good.goodid){
+								$(e).attr("selected","true");
+							}
+						});  //绑定商品类型 
+						//创建选中颜色table  
+						let colors = shoploadVue.shop.scolor.split(","); 
+						$("#colorstable").show();
+						colors.forEach((i,e)=>{
+							let tr = $(`<tr >
+			                        <td>
+			                            <span style="width: 25px;">1</span>
+			                            <span class="color_object" style="background: #fff;"></span>
+			                            <input type="text" class="fl srys" placeholder="请输入颜色" onchange="changeTable()" style="" value="${i}">
+			                            <a href="javascript:;" class ="clo"  onclick="clo(this)" style="">X</a>
+			                        </td>
+			                        
+			                </tr>`);
+			        		$("#colorstable tbody").append(tr);
+						});
+						let c = shoploadVue.shop.scc.split(","); 
+						c.forEach(i=>{ 
+							$("#cm li").each((ie,e)=>{
+								if($(e).attr("cc") == i){
+									 $(e).find("a").css("border","1px solid orange");
+							         $(e).find("a").attr("on","1"); 
+								}
+							}) 
+						});  
+						shoploadVue.imgs = shoploadVue.shop.goodimg.split(",");
+					}
+				});
+			},qxfbsp:function(){
+				$(".modal-content").removeAttr("sid");
+				go("shops","shop_managerment");
 			}
 		},created:function(){
 			this.getSize();  //获取尺寸 
 			this.getType();  //获取商品类别 
+			//商品单个查询 
+			let sid = $(".modal-content").attr("sid");
+			if(!isNaN(sid)){
+				/* 商品查询 */
+				this.getDshop(sid);
+			}
 		}
 	});
+	
 	 /*删除元素*/ 
     function clo(th) {
         let c = $(th).attr("color");
@@ -688,7 +771,7 @@
             $(th).css("border","1px solid #e2e1e3");
             $(th).attr("on","0")
         }
-        changeTable();
+        changeTable(); 
     }
     /*点击编辑尺码*/
     $(".editSizeBtn").click(function () {
@@ -696,10 +779,9 @@
             $(".editcolor").show();
     });
    
-    
+     
     
     function changeTable() {
-        $("#xztable tbody").html("");
         /**
          * 1. 得到选中的颜色   得到选中的尺寸
          * 2.  循环 颜色 再内循环 尺寸
@@ -708,50 +790,54 @@
         let colors = $("#colorstable tbody tr:not(tr:first)");   //得到选中的颜色
         let ccs = $("#cm li a").filter((i,e) => {  //得到选中的尺寸
             if($(e).attr("on")   === "1"){
-                return e;
-            }
+                return e; 
+            }  
         });
-        let now = new Date();
+         let now = new Date(); 
         /*循环*/
+        let sho = [];
         if(colors.length>0){
             colors.each((i,e)=>{   //循环颜色
                 let colorname = ($(e).find("td:first").find("input").val());
-                if(ccs.length > 0){  //如果颜色也选中了
+                if(ccs.length > 0){  //如果尺寸也选中了
                     ccs.each((i1,e1)=>{   //循环尺寸
-                        let ccname = $(e1).text();
-                        let tr = $("<tr>");
-                        let td1 = $("<td>").text(colorname+"/"+ccname);
-                        let td2 = $("<td>").append(`<input onchange="jskc()" style="width:101px;text-align:center;" type='text' value='0'>`);
-                        let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();
-                        let td3 = $("<td>").append(`<input style="width:203px;text-align:center;" type='text' value='${txNumber}'>`);
-                        tr.append(td1).append(td2).append(td3);
-                        $("#xztable tbody").append(tr);
+                    	let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();
+                    	let ccname = $(e1).text();    
+                        			console.log("不輸出就不改vue变量")
+                        			sho.push({scolor:colorname,scc:ccname,snum:0,snumbe:txNumber});
+                        		
                     })
                 }else{
-                    let tr = $("<tr>");
-                    let td1 = $("<td>").text(colorname);
-                    let td2 = $("<td>").append(`<input onchange="jskc()" style="width:101px;text-align:center;" type='text' value='0'>`);
-                    let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();;
-                    let td3 = $("<td>").append(`<input style="width:203px;text-align:center;" type='text' value='${txNumber}'>`);
-                    tr.append(td1).append(td2).append(td3);
-                    $("#xztable tbody").append(tr);
+               	 	let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();
+                    		console.log("不輸出就不改vue变量")
+                    		sho.push({scolor:colorname,snum:0,snumbe:txNumber});
                 }
             })
         }else{ 
-        	if(ccs.length > 0){  //如果颜色也选中了
-                ccs.each((i1,e1)=>{   //循环尺寸
+        	if(ccs.length > 0){  
+        		ccs.each((i1,e1)=>{
                     let ccname = $(e1).text();
-                    let tr = $("<tr>");
-                    let td1 = $("<td>").text(ccname);
-                    let td2 = $("<td>").append(`<input onchange="jskc()" style="width:101px;text-align:center;" type='text' value='0'>`);
                     let txNumber = now.getFullYear().toString()+(now.getMonth()+1).toString()+now.getDate().toString() + (Math.round(Math.random()*899999999999-100000000000)).toString();
-                    let td3 = $("<td>").append(`<input style="width:203px;text-align:center;" type='text' value='${txNumber}'>`);
-                    tr.append(td1).append(td2).append(td3);
-                    $("#xztable tbody").append(tr);
-                })
-            }
-        } 
-        jskc();
+                    			console.log("不輸出就不改vue变量");
+                    			sho.push({scc:ccname,snum:0,snumbe:txNumber});
+                    		
+        		})
+        		
+           	 	
+            } 
+        }  
+        
+       
+        let newsho =[];  //存储原有数组
+        shoploadVue.shop.shopd.forEach(ee=>{   //更新原有数据 
+        	sho.forEach((i,e)=>{
+        		if(ee.scolor == i.scolor && ee.scc == i.scc){ 
+        			newsho.push(ee);
+        			sho.splice(e,1);  //同时删除新数据中的旧数据 
+        		}
+        	})
+    	});
+        shoploadVue.shop.shopd = newsho.concat(sho);  //赋值旧数据  + 新数据  
     }
     /*创建富文本编辑器*/
     var E = window.wangEditor;
@@ -763,7 +849,6 @@
     	/* 先进行图片的上传 */
 		var formData = new FormData();
 		var files = $(".uploadimg")[0].files;
-		alert(JSON.stringify(files))
 		for(var i=0;i<files.length;i++){
 			formData.append("files",files[i]);
 		} 
@@ -774,34 +859,12 @@
 			processData:false,
 			contentType:false,
 			success:function(result){
-				if(urls == ""){
-					urls = result ; 
-				}else{
-					urls = urls + ","+result;
-				}
-				alert(urls)
+				shoploadVue.imgs.push(result); 
 			}
 		});
-            var imgBox = e.target;
-            createliimg(imgBox);
+           
    });
-   function createliimg(tag) {
-            var file = tag.files[0];
-            var imgSrc;
-            if (!/image\/\w+/.test(file.type)) {
-                alert("请选择图片格式！");
-                return false;
-            }
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function() {
-                imgSrc = this.result;
-                var imgs = $("<img src=\"\" name=\"simgs\">")
-                let img = $(imgs).attr("src", imgSrc);
-                //
-               	$("#addimg").before($("<li onmouseenter=\"mouse(this)\"></li>").append(img));   
-            };
-    }
+   
     
     $('#img_x li').eq(0).css('border', '2px solid coral');
     $('#zhezhao').mousemove(function(e){
@@ -884,14 +947,6 @@
         changeTable();
     });
    
-   	function jskc(){
-   		let total = 0 ; 
-   		$("#xztable tr:not(tr:first)").each((i,e)=>{
-   			total = total + parseInt($(e).find("td").eq(1).find("input").val()); 
-   		});  
-   		$(".totalnum").val(total); 
-   	}
-    
     
 </script>
 </body>

@@ -4,6 +4,12 @@
   <resultMap id="BaseResultMap" type="com.accp.domain.Powerone" >
     <id column="Jid" property="jid" jdbcType="INTEGER" />
     <result column="JurisdictionName" property="jurisdictionname" jdbcType="VARCHAR" />
+    <result column="fatherid" property="fatherid" jdbcType="INTEGER" />
+    <result column="menuid" property="menuid" jdbcType="INTEGER" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="coummt1" property="coummt1" jdbcType="VARCHAR" />
+    <result column="coummt2" property="coummt2" jdbcType="VARCHAR" />
+    <result column="coummt3" property="coummt3" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    Jid, JurisdictionName
+    Jid, JurisdictionName, fatherid, menuid, path, coummt1, coummt2, coummt3
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.PoweroneExample" >
     select
@@ -97,8 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.accp.domain.Powerone" >
-    insert into powerone (Jid, JurisdictionName)
-    values (#{jid,jdbcType=INTEGER}, #{jurisdictionname,jdbcType=VARCHAR})
+    insert into powerone (Jid, JurisdictionName, fatherid, 
+      menuid, path, coummt1, 
+      coummt2, coummt3)
+    values (#{jid,jdbcType=INTEGER}, #{jurisdictionname,jdbcType=VARCHAR}, #{fatherid,jdbcType=INTEGER}, 
+      #{menuid,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{coummt1,jdbcType=VARCHAR}, 
+      #{coummt2,jdbcType=VARCHAR}, #{coummt3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Powerone" >
     insert into powerone
@@ -109,6 +119,24 @@
       <if test="jurisdictionname != null" >
         JurisdictionName,
       </if>
+      <if test="fatherid != null" >
+        fatherid,
+      </if>
+      <if test="menuid != null" >
+        menuid,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="coummt1 != null" >
+        coummt1,
+      </if>
+      <if test="coummt2 != null" >
+        coummt2,
+      </if>
+      <if test="coummt3 != null" >
+        coummt3,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="jid != null" >
@@ -116,6 +144,24 @@
       </if>
       <if test="jurisdictionname != null" >
         #{jurisdictionname,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherid != null" >
+        #{fatherid,jdbcType=INTEGER},
+      </if>
+      <if test="menuid != null" >
+        #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="coummt1 != null" >
+        #{coummt1,jdbcType=VARCHAR},
+      </if>
+      <if test="coummt2 != null" >
+        #{coummt2,jdbcType=VARCHAR},
+      </if>
+      <if test="coummt3 != null" >
+        #{coummt3,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -134,6 +180,24 @@
       <if test="record.jurisdictionname != null" >
         JurisdictionName = #{record.jurisdictionname,jdbcType=VARCHAR},
       </if>
+      <if test="record.fatherid != null" >
+        fatherid = #{record.fatherid,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuid != null" >
+        menuid = #{record.menuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.path != null" >
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coummt1 != null" >
+        coummt1 = #{record.coummt1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coummt2 != null" >
+        coummt2 = #{record.coummt2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coummt3 != null" >
+        coummt3 = #{record.coummt3,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -142,7 +206,13 @@
   <update id="updateByExample" parameterType="map" >
     update powerone
     set Jid = #{record.jid,jdbcType=INTEGER},
-      JurisdictionName = #{record.jurisdictionname,jdbcType=VARCHAR}
+      JurisdictionName = #{record.jurisdictionname,jdbcType=VARCHAR},
+      fatherid = #{record.fatherid,jdbcType=INTEGER},
+      menuid = #{record.menuid,jdbcType=INTEGER},
+      path = #{record.path,jdbcType=VARCHAR},
+      coummt1 = #{record.coummt1,jdbcType=VARCHAR},
+      coummt2 = #{record.coummt2,jdbcType=VARCHAR},
+      coummt3 = #{record.coummt3,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -153,12 +223,36 @@
       <if test="jurisdictionname != null" >
         JurisdictionName = #{jurisdictionname,jdbcType=VARCHAR},
       </if>
+      <if test="fatherid != null" >
+        fatherid = #{fatherid,jdbcType=INTEGER},
+      </if>
+      <if test="menuid != null" >
+        menuid = #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="coummt1 != null" >
+        coummt1 = #{coummt1,jdbcType=VARCHAR},
+      </if>
+      <if test="coummt2 != null" >
+        coummt2 = #{coummt2,jdbcType=VARCHAR},
+      </if>
+      <if test="coummt3 != null" >
+        coummt3 = #{coummt3,jdbcType=VARCHAR},
+      </if>
     </set>
     where Jid = #{jid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.accp.domain.Powerone" >
     update powerone
-    set JurisdictionName = #{jurisdictionname,jdbcType=VARCHAR}
+    set JurisdictionName = #{jurisdictionname,jdbcType=VARCHAR},
+      fatherid = #{fatherid,jdbcType=INTEGER},
+      menuid = #{menuid,jdbcType=INTEGER},
+      path = #{path,jdbcType=VARCHAR},
+      coummt1 = #{coummt1,jdbcType=VARCHAR},
+      coummt2 = #{coummt2,jdbcType=VARCHAR},
+      coummt3 = #{coummt3,jdbcType=VARCHAR}
     where Jid = #{jid,jdbcType=INTEGER}
   </update>
 </mapper>

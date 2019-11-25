@@ -3,6 +3,8 @@ package com.accp.mapper;
 import com.accp.domain.Post;
 import com.accp.domain.PostExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -30,4 +32,9 @@ public interface PostMapper {
     int updateByPrimaryKeySelective(Post record);
 
     int updateByPrimaryKey(Post record);
+    
+    @Insert("insert into post(type)values(#{type})")
+    int insertpost(String type);
+    @Select("select * from post where type=#{type}")
+    Post selectpositionBytype(String type);
 }

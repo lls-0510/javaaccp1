@@ -22,7 +22,7 @@
                     <div class="userimg">
                             <div class="hdimg">
                                 <div class="imgd">
-                                    <img src="" alt="" style="background:#666;" id="img">
+                                    <img src="" alt="" style="background:#666;" id="img" height="200px" width="200px">
                                 </div>
                                 <form action="/file/upload" method="post" enctype="multipart/form-data">
                                 <a href="javascript:;" class="upload">上传头像</a>  <!--上传头像按钮-->
@@ -43,6 +43,7 @@
                                 <option value="其他">其他</option>
                             </select>
                         </div> 
+                        <input type="hidden" name="staffid">
                         <div class="list">
                             <label>账号:</label>
                             <input type="text" class="input-text" name="userid">
@@ -66,40 +67,53 @@
     <script type="text/javascript">
     	 function load(){
     		$.ajax({
-    			url:"/queryByName",
+    			url:"/queryByNames",
     			type:"post",
     			success:function(result){
-    				//$("select").attr("value",result.industry);
+    				$("#img").attr("src","/"+result.headportrait);
+    				$("select").attr("selected",result.industry);
+    				$("[name=staffid]").val(result.staffid);
     				$("[name=userid]").val(result.staffname);
-    				if(result.staffphone == ""){
+    				if(result.staffphone == "" || result.staffphone == null){
     					$("#spans").html("未绑定");
     				}else{
     					$("[name=phone]").val(result.staffphone);
     					$("#spans").html("已绑定");
     				}
     				$("[name=pwd]").val(result.staffpwd);
-    				$("#img").attr("src",result.headPortrait);
+    				
     			}
     		});
     	} 
     	
-    	 /* $("[name=files]").click(function(){
-    		 var forMData = new FormData($("form")[0]);
+    	$("[name=files]").change(function(){
+    		 var formData = new FormData($("form")[0]);
     		 	$.ajax({
-					url:"/uploadAjax",
+					url:"/uploadAjaxOxw",
 					data:formData,
 					type:"post",
 					processData:false,
-					contentType:false, 3
-						alert(result);
+					contentType:false, 
+					success:function(result){
+						check();
+						load();
 					}
 				});
-    	 })  */
+    	 }) 
     	 
     	 $(".btn").click(function(){
-    		var industry =  $(".form-control").val();
-    		 var staffname = $("[name=userid]").val();  
-    		  
+    		let obj = {staffid:$("[name=staffid]").val(),industry:$(".form-control").val(),staffname: $("[name=userid]").val(),staffphone:$("[name=phone]").val(),staffpwd:$("[name=pwd]").val()};
+    	 	$.ajax({
+    			url:"/updateStaffOxw",
+    			data:JSON.stringify(obj),
+    			type:"post",
+    			dataType:"json",
+    			contentType:"application/json;charset=utf-8",
+    			success:function(result){
+    				load();
+    				check();
+    			}
+    		}); 
     	 });
     	 
     	load(); 

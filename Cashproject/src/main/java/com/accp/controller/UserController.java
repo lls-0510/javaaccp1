@@ -20,7 +20,9 @@ public class UserController {
 	@ResponseBody
 	public User login(String username,String userpwd,HttpSession hs) {
 		hs.setAttribute("username", username);
-		return service.login(username, userpwd);
+		User u = service.login(username, userpwd);
+		hs.setAttribute("user", u);
+		return u;
 	
 	}
 }

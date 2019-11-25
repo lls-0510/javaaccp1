@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-<div>
+<div id="choiceshop">
     <div class="modal-header">
         <h3>选择商品</h3>
         <span class="close" data-dismiss="modal">&times;</span>
@@ -60,17 +60,33 @@
             <thead>
                 <tr>
                     <th width="4%">选择</th>
-                     
+                    <th width="8%">编号</th>
                     <th width="18%">货号/条码</th>
                     <th width="*">商品</th>
                     <th width="16%">规格</th>
                     <th width="12%">单价</th>
                     <th width="12%">库存</th>
-                    <th width="8%">编号</th>
                 </tr>
             </thead>
             <tbody style="" id="tb">
-                
+                <template v-for="shop,index in shops">
+                    <template v-for="shopd,index2 in shop.shopd">
+                        <tr>
+                            <td>
+                                    <input type="checkbox" :value="index+'/'+ index2" name="xxx" v-model="checklist" >
+                            </td>
+                            <td>{{index}}/{{index2}}</td>
+                            <td>{{shopd.snumbe}}</td>
+                            <td>{{shop.sname}}</td>
+                            <td>
+                                {{shopd.scolor}} /
+                                {{shopd.scc}}
+                            </td>
+                            <td>{{shop.sdpprice}}</td>
+                            <td>{{shopd.snum}}</td>
+                        </tr>
+                    </template>
+                </template>
             </tbody>
         </table>
         <div class="clearfix"></div>
@@ -78,60 +94,76 @@
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <div class="choiceAll">
-            <input type="checkbox" id="checkAll" value="" onclick="sb()">全选
+            <input type="checkbox" @click="qx" id="qx" >全选
         </div>
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+        <a href="javascript:;" class="btn btn-success" @click="bc" style="width: 100px;color: #ffffff !important;">确定</a>
     </div>
 </div>
 
 <script type="text/javascript">
-		$(function(){
-			$.ajax({
-				url:"/query",
-				type:"post",
- 				dataType:"json",  
-				success:function(result){	
-					result.forEach(function(i){
- 						var td1=$("<td><input type='checkbox' id='box' name='box' onclick='checkBox()'>").html();
- 						var td2=$("<td>");
-						var td3=$("<td>").html(i.proname);
-						var td4=$("<td>").html(i.color);
-						var td5=$("<td>").html(i.sellingpric);
-						var td6=$("<td>").html(i.prostock);
-						var td7=$("<td>").html(i.proid);
-						var tr=$("<tr>");
-						 var a=$("<a th:href='/aa?proid="+i.proid+">").html(i.procargo);
-						td2.append(a); 
-						tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7);
-						$("#tb").append(tr);
-						
-					});
-				}
-			});
-		});
-		/* function sb(){
-			var ischeck=document.getElementById("checkAll").checked;
-			if(ischeck){
-				checkBox();
-			}else{
-				discheckBox();
-			}
-		}
-		//选中
-		function checkBox(){
-			var boxarry=document.getElementsByName("box");
-			for(var i=0; i<boxarry.length; i++){
-				boxarry[i].checked=true;
-			}
-		}
-		//取消
-		function discheckBox(){
-			var boxarry=document.getElementsByName("box");
-			for(var i=0; i<boxarry.length; i++){
-				boxarry[i].checked=false;
-			}
-		} */
+    var choiceshopvue = new Vue({
+        el:"#choiceshop", 
+        data:{
+            checklist:[],
+            shops:[
+
+            ]
+        },methods:{
+            getshops:function () {
+                $.ajax({
+                    url:"/getshops",
+                    type:"post",
+                    data:{
+                        pagesize:9999
+                    },success:function (res) {
+                        choiceshopvue.shops = res.list;
+                    }
+                })
+            },qx:function () {
+                        choiceshopvue.checklist=[];
+                        if($("#qx").attr("checked") === undefined ||$("#qx").attr("checked") === ""){
+                            choiceshopvue.shops.forEach(function (i,e) {
+                                i.shopd.forEach(function (ie,ee) {
+                                    choiceshopvue.checklist.push(e+"/"+ee);
+                                })
+                            });
+                            $("#qx").attr("checked","checked");
+                        }else{
+                            $("#qx").removeAttr("checked");
+                        }
+
+            },bc:function () {
+                var newprds = [];
+                choiceshopvue.checklist.forEach(function (i,e) {
+                    var shops = choiceshopvue.shops;
+                    var index = i.split("/");
+                    var index1 = index[0];
+                    var index2 = index[1];
+                    var  prd = {};
+                    prd.shh = shops[index1].shh;
+                    prd.snumbe = shops[index1].shopd[index2].snumbe;
+                    prd.sname = shops[index1].sname;
+                    prd.sgg = shops[index1].shopd[index2].scolor+"/"+shops[index1].shopd[index2].scc;
+                    prd.scbprice = shops[index1].scbprice;
+                    prd.snum  = 0;  //默认0
+                    prd.sprice = 0 ; //默认0
+                    var flag = 0 ;
+                    editsuxxx.pro.prd.forEach(function (i) {
+                        if(prd.snumbe === i.snumbe){
+                            flag = 1 ;
+                        }
+                    })
+                    if(flag != 1){
+                        editsuxxx.pro.prd.push(prd);
+                    }
+                });
+            }
+        },created:function () {
+            this.getshops();
+        }
+    });
+
 </script>
 </body>
 </html>

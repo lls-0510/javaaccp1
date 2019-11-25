@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -22,11 +22,13 @@
 
             <div class="list search">
                 <input class="inputtext" type="text" placeholder="查找" name="suname">
-                <a href="javascript:;" class="search-btn" @click="getPage()"></a>
+                <a href="javascript:;" class="search-btn" @click="getpurs()"></a>
             </div>
             <div class="list">
-                <select name="" id="" class="form-control" >
-                    <option v-for="item,index in lists">{{item.suname}}</option>
+                <select name="" id="gys" class="form-control" > 
+                	<template v-for="item,index in lists">
+                    	<option  :value="item.suid">{{item.suname}}</option>
+                    </template>
                 </select>
             </div>
 
@@ -44,8 +46,7 @@
             <table class="settable table table-striped">
                 <thead>
                     <tr>
-                        <th width="4%">序号</th>
-                        <th width="6%">审核</th>
+                        <th width="6%">序号</th>
                         <th width="14%">采购单号</th>
                         <th width="10%">交货期</th>
                         <th width="16%">供应商</th>
@@ -60,29 +61,27 @@
                     <td>
                         {{index+1}}
                     </td>
-                    <td>待审核
+                    <td>{{stu.purno}}
                     </td>
-                    <td>{{stu.odd}}
+                    <td >{{stu.purdata}}
                     </td>
-                    <td >{{stu.deliveryTime}}
-                    </td>
-                    <td>{{stu.suname}}</td>
-                    <td>{{stu.number}}</td>
-                    <td>{{stu.price}}</td>
-                    <td>{{stu.odd}}</td>
+                    <td>{{stu.sp.suname}}</td>
+                    <td>{{stu.bz1}}</td>
+                    <td>{{stu.bz2}}</td>
+                    <td>{{stu.purtext}}</td>
                     <td>
-                        <a href="javascript:;" @click=del(stu.purchaseid)>删除</a>
-                        <a href="javascript:;" @click="editpurchase(stu.purchaseid)">查看</a>
+                        <a href="javascript:;" v-on:click="delpur(stu.purid)">删除</a>
+                        <a href="javascript:;" v-on:click="editpurchase(stu.purid)">查看</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
             <div class="pageMenu">
-			<span v-on:click="getPage(page.prePage)">上一页</span>
+			<span v-on:click="getpurs(page.prePage)">上一页</span>
 			<span v-for="numPage in page.pages">
-				<span v-on:click="getPage(numPage)">{{numPage}}</span>
+				<span v-on:click="getpurs(numPage)">{{numPage}}</span>
 			</span>
-			<span v-on:click="getPage(page.nextPage)">下一页</span>
+			<span v-on:click="getpurs(page.nextPage)">下一页</span>
 			
 		</div>
         </div>
@@ -93,53 +92,56 @@ var puichppvue=new Vue({
 	el:"#contents",
 	data:{
 		lists:[],
-		page:{
+		page:{ 
 			list:[]
-			
 		}
 	},
 	methods:{
-		 del:function(purchaseid,index){
-				$.ajax({
-					url:"/deletePushase",
-					data:"purchaseid="+purchaseid,
-					success:function(result){
-							alert("删除成功");
-							puichppvue.page.splice(index,1);
-					}
-				});
-			},
-		getPage:function(currentPage){
-			var suname=$("[name='suname']").val();
+		getpurs:function(pagenum){
 			$.ajax({
-				url:"/purchppqueryAll",
-				data:{pageNum:currentPage,pageSize:1,suname:suname},
-				success:function(result){
-					puichppvue.page=result;
-				}
+				url:"/getpurs", 
+				type:"post",
+				data:{
+					pagenum:pagenum,
+					"startDate":$("[type=\"date\"]").eq(0).val(),
+					"endDate":$("[type=\"date\"]").eq(1).val(),
+					"gysid":$("#gys").val(),
+					"bz":$("[name=\"suname\"]").val()
+				},
+
+				success:function(res){
+					puichppvue.page = res; 
+/* 					alert(JSON.stringify(puichppvue.page.list))
+ */				}
 			});
-		},
-		editpurchase:function(purchaseid){
-			$(".modal-content").attr("purchaseid",purchaseid); 
-			alert(purchaseid);
+			
+		},editpurchase:function(prid){
+			$(".modal-content").attr("purid",prid);
 			go("shops","edit_purchase");
-		}
+		},delpur:function (prid){
+            if(confirm("您是否要执行删除操作？")){
+                $.ajax({
+                    url:"/delpur",
+                    data:{prid:prid},
+                    type:"post",
+                    success:function(res){
+                        go("shops","purchase_list");
+                    }
+                })
+            }
+        }
 	},
 	created:function(){
-		this.getPage(1);
-		var that=this;
+		this.getpurs();
 		$.ajax({
 			url:"/queryByName",
 			success:function(result){
-				that.lists = result;
-			}
+				puichppvue.lists = result;
+			} 
 		});
 	}
 });
     function addpurchase() {
-        go("shops","add_purchase");
-    }
-    function editpurchase() {
         go("shops","edit_purchase");
     }
     function queryHang() {

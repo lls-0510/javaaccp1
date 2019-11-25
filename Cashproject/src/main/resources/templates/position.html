@@ -30,13 +30,13 @@
                             <th width="40%">操作</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="tb">
+                       <!--  <tr>
                             <td>1</td>
                             <td>职位</td>
                             <td>
                                 <span onclick="editposition()" data-target="#tanchuan"  data-toggle="modal">编辑</span>
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -45,6 +45,24 @@
     </div>
 
 <script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url:"/querypost",
+			type:"post",
+			dataType:"json",
+			success:function(result){
+				result.forEach(i=>{
+					var td1=$("<td>").html(i.id);
+					var td2=$("<td>").html(i.type);
+					var td3=$("<td><span onclick='editposition()' data-target='#tanchuan'  data-toggle='modal'>").html("编辑");
+					var tr=$("<tr>");
+					tr.append(td1).append(td2).append(td3);
+					$("#tb").append(tr);
+				})
+			}
+		});
+		
+	});
     function addposition() {
         /*$(".modal-content").attr("id",id);*/
         $(".modal-content").load("model/addposition.html");

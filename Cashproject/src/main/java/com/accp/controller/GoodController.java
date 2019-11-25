@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Good;
 import com.accp.service.GoodService;
-import com.github.pagehelper.PageInfo;
 
 @Controller
 public class GoodController {
@@ -62,7 +61,7 @@ public class GoodController {
 	 */
 	@RequestMapping("/queryById")
 	@ResponseBody
-	public Good doupate(Integer goodid, Model model) {
+	public Good doupate(Integer goodid, Model model) { 
 		model.addAttribute("goodid", goodid);
 		System.out.println(goodid);
 		Good clazz = goodService.queryById(goodid);
@@ -90,6 +89,7 @@ public class GoodController {
 	 * @return
 	 */
 
+
 	/*
 	 * @RequestMapping("/aa") public String index(Model model, Integer proid) {
 	 * List<Productinfo> list = goodService.queryprById(proid);
@@ -104,6 +104,7 @@ public class GoodController {
 	 * @param goodid
 	 * @return
 	 */
+
 	/*@RequestMapping("/doupdate")
 	@ResponseBody
 	public int updateGoodType(String Goodname, Integer goodid) {
@@ -112,6 +113,7 @@ public class GoodController {
 
 	}*/
 	
+
 	/**
 	 * 选中商品
 	 * 
@@ -119,6 +121,7 @@ public class GoodController {
 	 * @param goodid
 	 * @return
 	 */
+
 	/*
 	 * @RequestMapping("/query")
 	 * 
@@ -126,6 +129,7 @@ public class GoodController {
 	 * 
 	 * }
 	 */
+
 
 
 	/**
@@ -136,6 +140,7 @@ public class GoodController {
 	 * @return 
 	 */
 
+
 	/*@RequestMapping("/proqueryAll")
 	@ResponseBody
 	public PageInfo<Productinfo> proqueryAll(Integer pageNum, Integer pageSize) {
@@ -145,6 +150,7 @@ public class GoodController {
 		return page;
 	}
 	*/
+
 	/**
 	 * 删除商品信息
 	 * 
@@ -159,6 +165,6 @@ public class GoodController {
 		return goodService.deleteproducinfo(proid);
 	}
 	*/
-	
+
 
 }

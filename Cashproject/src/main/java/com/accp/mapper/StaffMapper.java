@@ -33,9 +33,19 @@ public interface StaffMapper {
     
     @Select("SELECT * FROM store a INNER JOIN staff b ON a.id =b.storeid INNER JOIN post c ON b.postid=c.id WHERE b.staffName LIKE #{staffName}")
     List<StaffCount> staffqueryAll(String staffname);
-    
+
+  /*  @Select("SELECT * FROM staff a INNER JOIN store b ON a.`storeid`=b.`id` WHERE a.`staffName` LIKE #{staffName}")
+    	List<Staff> staffqueryAll(String staffname);
+    */
     @Select("select * from staff where staffname = #{name}")  
     Staff queryByName(String name);
+   
+    @Update(" UPDATE staff set staffName = #{staffname},staffpwd = #{staffpwd},staffPhone = #{staffphone}, industry = #{industry}where staffId = #{staffid}")
+    int update(Staff sf);
+    
+    @Update(" UPDATE staff set headPortrait = #{headPortrait} where staffId = #{staffid}")
+    int updateHead(@Param("staffid")String staffid,@Param("headPortrait")String headPortrait);
+
 
     
     @Select("SELECT * FROM staff a INNER JOIN store b ON a.`storeid`=b.`id` WHERE a.staffid=#{staffid}")

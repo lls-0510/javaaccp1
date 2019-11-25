@@ -5,6 +5,7 @@ import com.accp.domain.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface UserMapper {
     int countByExample(UserExample example);
@@ -31,4 +32,7 @@ public interface UserMapper {
     
     @Select("SELECT * FROM `user` WHERE Username =#{username} AND Userpwd =#{userpwd}")
     User Login(@Param("username")String username,@Param("userpwd")String userpwd);
+    
+    @Update("UPDATE user set username = #{username},userpwd = #{userpwd},userphone = #{userphone} where userid = #{userid}")
+    int updateUser(User u);
 }

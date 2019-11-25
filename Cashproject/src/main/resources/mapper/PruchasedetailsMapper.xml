@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.mapper.ShopMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.Shop" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
+<mapper namespace="com.accp.mapper.PruchasedetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Pruchasedetails" >
+    <id column="prdid" property="prdid" jdbcType="INTEGER" />
     <result column="shh" property="shh" jdbcType="VARCHAR" />
+    <result column="snumbe" property="snumbe" jdbcType="VARCHAR" />
     <result column="sname" property="sname" jdbcType="VARCHAR" />
-    <result column="sdpprice" property="sdpprice" jdbcType="DOUBLE" />
-    <result column="scbprice" property="scbprice" jdbcType="DOUBLE" />
-    <result column="goodid" property="goodid" jdbcType="INTEGER" />
-    <result column="goodimg" property="goodimg" jdbcType="VARCHAR" />
-    <result column="goodText" property="goodtext" jdbcType="VARCHAR" />
-    <result column="scolor" property="scolor" jdbcType="VARCHAR" />
-    <result column="scc" property="scc" jdbcType="VARCHAR" />
-    <result column="bz1" property="bz1" jdbcType="VARCHAR" />
+    <result column="sgg" property="sgg" jdbcType="VARCHAR" />
+    <result column="scbprice" property="scbprice" jdbcType="REAL" />
+    <result column="snum" property="snum" jdbcType="INTEGER" />
+    <result column="sprice" property="sprice" jdbcType="REAL" />
+    <result column="bz1" property="bz1" jdbcType="INTEGER" />
     <result column="bz2" property="bz2" jdbcType="VARCHAR" />
+    <result column="bz3" property="bz3" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,16 +73,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sid, shh, sname, sdpprice, scbprice, goodid, goodimg, goodText, scolor, scc, bz1, 
-    bz2
+    prdid, shh, snumbe, sname, sgg, scbprice, snum, sprice, bz1, bz2, bz3
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ShopExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.PruchasedetailsExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from shop
+    from pruchasedetails
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,61 +92,55 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from shop
-    where sid = #{sid,jdbcType=INTEGER}
+    from pruchasedetails
+    where prdid = #{prdid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from shop
-    where sid = #{sid,jdbcType=INTEGER}
+    delete from pruchasedetails
+    where prdid = #{prdid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.ShopExample" >
-    delete from shop
+  <delete id="deleteByExample" parameterType="com.accp.domain.PruchasedetailsExample" >
+    delete from pruchasedetails
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyColumn="sid" keyProperty="sid" parameterType="com.accp.domain.Shop" >
-    insert into shop (sid, shh, sname, 
-      sdpprice, scbprice, goodid, 
-      goodimg, goodText, scolor, 
-      scc, bz1, bz2)
-    values (#{sid,jdbcType=INTEGER}, #{shh,jdbcType=VARCHAR}, #{sname,jdbcType=VARCHAR}, 
-      #{sdpprice,jdbcType=DOUBLE}, #{scbprice,jdbcType=DOUBLE}, #{goodid,jdbcType=INTEGER}, 
-      #{goodimg,jdbcType=VARCHAR}, #{goodtext,jdbcType=VARCHAR}, #{scolor,jdbcType=VARCHAR}, 
-      #{scc,jdbcType=VARCHAR}, #{bz1,jdbcType=VARCHAR}, #{bz2,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.accp.domain.Pruchasedetails" >
+    insert into pruchasedetails (prdid, shh, snumbe, 
+      sname, sgg, scbprice, 
+      snum, sprice, bz1, bz2, 
+      bz3)
+    values (#{prdid,jdbcType=INTEGER}, #{shh,jdbcType=VARCHAR}, #{snumbe,jdbcType=VARCHAR}, 
+      #{sname,jdbcType=VARCHAR}, #{sgg,jdbcType=VARCHAR}, #{scbprice,jdbcType=REAL}, 
+      #{snum,jdbcType=INTEGER}, #{sprice,jdbcType=REAL}, #{bz1,jdbcType=INTEGER}, #{bz2,jdbcType=VARCHAR}, 
+      #{bz3,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.Shop" >
-    insert into shop
+  <insert id="insertSelective" parameterType="com.accp.domain.Pruchasedetails" >
+    insert into pruchasedetails
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        sid,
+      <if test="prdid != null" >
+        prdid,
       </if>
       <if test="shh != null" >
         shh,
       </if>
+      <if test="snumbe != null" >
+        snumbe,
+      </if>
       <if test="sname != null" >
         sname,
       </if>
-      <if test="sdpprice != null" >
-        sdpprice,
+      <if test="sgg != null" >
+        sgg,
       </if>
       <if test="scbprice != null" >
         scbprice,
       </if>
-      <if test="goodid != null" >
-        goodid,
+      <if test="snum != null" >
+        snum,
       </if>
-      <if test="goodimg != null" >
-        goodimg,
-      </if>
-      <if test="goodtext != null" >
-        goodText,
-      </if>
-      <if test="scolor != null" >
-        scolor,
-      </if>
-      <if test="scc != null" >
-        scc,
+      <if test="sprice != null" >
+        sprice,
       </if>
       <if test="bz1 != null" >
         bz1,
@@ -156,90 +148,87 @@
       <if test="bz2 != null" >
         bz2,
       </if>
+      <if test="bz3 != null" >
+        bz3,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
+      <if test="prdid != null" >
+        #{prdid,jdbcType=INTEGER},
       </if>
       <if test="shh != null" >
         #{shh,jdbcType=VARCHAR},
       </if>
+      <if test="snumbe != null" >
+        #{snumbe,jdbcType=VARCHAR},
+      </if>
       <if test="sname != null" >
         #{sname,jdbcType=VARCHAR},
       </if>
-      <if test="sdpprice != null" >
-        #{sdpprice,jdbcType=DOUBLE},
+      <if test="sgg != null" >
+        #{sgg,jdbcType=VARCHAR},
       </if>
       <if test="scbprice != null" >
-        #{scbprice,jdbcType=DOUBLE},
+        #{scbprice,jdbcType=REAL},
       </if>
-      <if test="goodid != null" >
-        #{goodid,jdbcType=INTEGER},
+      <if test="snum != null" >
+        #{snum,jdbcType=INTEGER},
       </if>
-      <if test="goodimg != null" >
-        #{goodimg,jdbcType=VARCHAR},
-      </if>
-      <if test="goodtext != null" >
-        #{goodtext,jdbcType=VARCHAR},
-      </if>
-      <if test="scolor != null" >
-        #{scolor,jdbcType=VARCHAR},
-      </if>
-      <if test="scc != null" >
-        #{scc,jdbcType=VARCHAR},
+      <if test="sprice != null" >
+        #{sprice,jdbcType=REAL},
       </if>
       <if test="bz1 != null" >
-        #{bz1,jdbcType=VARCHAR},
+        #{bz1,jdbcType=INTEGER},
       </if>
       <if test="bz2 != null" >
         #{bz2,jdbcType=VARCHAR},
       </if>
+      <if test="bz3 != null" >
+        #{bz3,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.ShopExample" resultType="java.lang.Integer" >
-    select count(*) from shop
+  <select id="countByExample" parameterType="com.accp.domain.PruchasedetailsExample" resultType="java.lang.Integer" >
+    select count(*) from pruchasedetails
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update shop
+    update pruchasedetails
     <set >
-      <if test="record.sid != null" >
-        sid = #{record.sid,jdbcType=INTEGER},
+      <if test="record.prdid != null" >
+        prdid = #{record.prdid,jdbcType=INTEGER},
       </if>
       <if test="record.shh != null" >
         shh = #{record.shh,jdbcType=VARCHAR},
       </if>
+      <if test="record.snumbe != null" >
+        snumbe = #{record.snumbe,jdbcType=VARCHAR},
+      </if>
       <if test="record.sname != null" >
         sname = #{record.sname,jdbcType=VARCHAR},
       </if>
-      <if test="record.sdpprice != null" >
-        sdpprice = #{record.sdpprice,jdbcType=DOUBLE},
+      <if test="record.sgg != null" >
+        sgg = #{record.sgg,jdbcType=VARCHAR},
       </if>
       <if test="record.scbprice != null" >
-        scbprice = #{record.scbprice,jdbcType=DOUBLE},
+        scbprice = #{record.scbprice,jdbcType=REAL},
       </if>
-      <if test="record.goodid != null" >
-        goodid = #{record.goodid,jdbcType=INTEGER},
+      <if test="record.snum != null" >
+        snum = #{record.snum,jdbcType=INTEGER},
       </if>
-      <if test="record.goodimg != null" >
-        goodimg = #{record.goodimg,jdbcType=VARCHAR},
-      </if>
-      <if test="record.goodtext != null" >
-        goodText = #{record.goodtext,jdbcType=VARCHAR},
-      </if>
-      <if test="record.scolor != null" >
-        scolor = #{record.scolor,jdbcType=VARCHAR},
-      </if>
-      <if test="record.scc != null" >
-        scc = #{record.scc,jdbcType=VARCHAR},
+      <if test="record.sprice != null" >
+        sprice = #{record.sprice,jdbcType=REAL},
       </if>
       <if test="record.bz1 != null" >
-        bz1 = #{record.bz1,jdbcType=VARCHAR},
+        bz1 = #{record.bz1,jdbcType=INTEGER},
       </if>
       <if test="record.bz2 != null" >
         bz2 = #{record.bz2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bz3 != null" >
+        bz3 = #{record.bz3,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -247,75 +236,70 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update shop
-    set sid = #{record.sid,jdbcType=INTEGER},
+    update pruchasedetails
+    set prdid = #{record.prdid,jdbcType=INTEGER},
       shh = #{record.shh,jdbcType=VARCHAR},
+      snumbe = #{record.snumbe,jdbcType=VARCHAR},
       sname = #{record.sname,jdbcType=VARCHAR},
-      sdpprice = #{record.sdpprice,jdbcType=DOUBLE},
-      scbprice = #{record.scbprice,jdbcType=DOUBLE},
-      goodid = #{record.goodid,jdbcType=INTEGER},
-      goodimg = #{record.goodimg,jdbcType=VARCHAR},
-      goodText = #{record.goodtext,jdbcType=VARCHAR},
-      scolor = #{record.scolor,jdbcType=VARCHAR},
-      scc = #{record.scc,jdbcType=VARCHAR},
-      bz1 = #{record.bz1,jdbcType=VARCHAR},
-      bz2 = #{record.bz2,jdbcType=VARCHAR}
+      sgg = #{record.sgg,jdbcType=VARCHAR},
+      scbprice = #{record.scbprice,jdbcType=REAL},
+      snum = #{record.snum,jdbcType=INTEGER},
+      sprice = #{record.sprice,jdbcType=REAL},
+      bz1 = #{record.bz1,jdbcType=INTEGER},
+      bz2 = #{record.bz2,jdbcType=VARCHAR},
+      bz3 = #{record.bz3,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Shop" >
-    update shop
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Pruchasedetails" >
+    update pruchasedetails
     <set >
       <if test="shh != null" >
         shh = #{shh,jdbcType=VARCHAR},
       </if>
+      <if test="snumbe != null" >
+        snumbe = #{snumbe,jdbcType=VARCHAR},
+      </if>
       <if test="sname != null" >
         sname = #{sname,jdbcType=VARCHAR},
       </if>
-      <if test="sdpprice != null" >
-        sdpprice = #{sdpprice,jdbcType=DOUBLE},
+      <if test="sgg != null" >
+        sgg = #{sgg,jdbcType=VARCHAR},
       </if>
       <if test="scbprice != null" >
-        scbprice = #{scbprice,jdbcType=DOUBLE},
+        scbprice = #{scbprice,jdbcType=REAL},
       </if>
-      <if test="goodid != null" >
-        goodid = #{goodid,jdbcType=INTEGER},
+      <if test="snum != null" >
+        snum = #{snum,jdbcType=INTEGER},
       </if>
-      <if test="goodimg != null" >
-        goodimg = #{goodimg,jdbcType=VARCHAR},
-      </if>
-      <if test="goodtext != null" >
-        goodText = #{goodtext,jdbcType=VARCHAR},
-      </if>
-      <if test="scolor != null" >
-        scolor = #{scolor,jdbcType=VARCHAR},
-      </if>
-      <if test="scc != null" >
-        scc = #{scc,jdbcType=VARCHAR},
+      <if test="sprice != null" >
+        sprice = #{sprice,jdbcType=REAL},
       </if>
       <if test="bz1 != null" >
-        bz1 = #{bz1,jdbcType=VARCHAR},
+        bz1 = #{bz1,jdbcType=INTEGER},
       </if>
       <if test="bz2 != null" >
         bz2 = #{bz2,jdbcType=VARCHAR},
       </if>
+      <if test="bz3 != null" >
+        bz3 = #{bz3,jdbcType=VARCHAR},
+      </if>
     </set>
-    where sid = #{sid,jdbcType=INTEGER}
+    where prdid = #{prdid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Shop" >
-    update shop
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Pruchasedetails" >
+    update pruchasedetails
     set shh = #{shh,jdbcType=VARCHAR},
+      snumbe = #{snumbe,jdbcType=VARCHAR},
       sname = #{sname,jdbcType=VARCHAR},
-      sdpprice = #{sdpprice,jdbcType=DOUBLE},
-      scbprice = #{scbprice,jdbcType=DOUBLE},
-      goodid = #{goodid,jdbcType=INTEGER},
-      goodimg = #{goodimg,jdbcType=VARCHAR},
-      goodText = #{goodtext,jdbcType=VARCHAR},
-      scolor = #{scolor,jdbcType=VARCHAR},
-      scc = #{scc,jdbcType=VARCHAR},
-      bz1 = #{bz1,jdbcType=VARCHAR},
-      bz2 = #{bz2,jdbcType=VARCHAR}
-    where sid = #{sid,jdbcType=INTEGER}
+      sgg = #{sgg,jdbcType=VARCHAR},
+      scbprice = #{scbprice,jdbcType=REAL},
+      snum = #{snum,jdbcType=INTEGER},
+      sprice = #{sprice,jdbcType=REAL},
+      bz1 = #{bz1,jdbcType=INTEGER},
+      bz2 = #{bz2,jdbcType=VARCHAR},
+      bz3 = #{bz3,jdbcType=VARCHAR}
+    where prdid = #{prdid,jdbcType=INTEGER}
   </update>
 </mapper>

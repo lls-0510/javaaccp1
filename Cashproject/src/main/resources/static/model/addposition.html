@@ -38,14 +38,14 @@
 </head>
 <body>
 <div>
-    <div class="modal-header">
+    <div class="modal-header" id="myModal2">
         <h3>添加职位</h3>
         <span class="close" data-dismiss="modal">&times;</span>
     </div>
     <div class="modal-body">
         <div class="list">
             <label>职位名称：</label>
-            <input type="text" maxlength="8" value="" class="form-control"style="width: 230px;" name="positionname">
+            <input name="type" type="text" maxlength="8" value="" class="form-control"style="width: 230px;" name="positionname">
         </div>
         <div class="lists">
             <label >职位权限</label>
@@ -64,38 +64,71 @@
             <label >收银开单</label>
         </div>
         <div class="lists checkboxlist">
-            <label class="list_title">销售：</label>
+            <label class="checkbox-inline">销售：</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
         </div>
         <div class="lists checkboxlist">
-            <label class="list_title">销售：</label>
+            <label  class="checkbox-inline">销售：</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
             <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
+            <label  class="checkbox-inline">收银开单</label>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
         <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+        <a id="insertpost" href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
     </div>
 </div>
 </body>
+<script type="text/javascript">
+$(function(){
+//新增职位
+$("#insertpost").click(function() {
+	var type = $("[name='type']").val();
+	alert(type)
+	 let arr = [];
+	 //新增职位权限表
+	 $("#myModal .checkbox-inline input:checked").each(function(index){
+		 arr[index]=$(this).val();
+	 })
+	 $.ajax({
+		url : "/toinsertposition",
+		type : "post",
+		data : {
+			type:type,
+			arr:arr
+		},
+		dataType : "json",
+		success : function(res) {
+			if (res == "0") {
+				$("#myModal").modal('hide');
+				page();
+			} else if (res == "1") {
+				alert("新增失败，请重试！");
+				/* $("#myModal").modal('hide');
+				location.reload(); */
+			}
+		}
+	})
+})
+});
+</script>
 </html>
