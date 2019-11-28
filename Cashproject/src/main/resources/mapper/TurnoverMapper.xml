@@ -104,7 +104,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Turnover" >
+  <insert id="insert" useGeneratedKeys="true" keyColumn="orderId" keyProperty="orderId" parameterType="com.accp.domain.Turnover" >
     insert into turnover (order_id, user_id, order_count, 
       order_totalMoney, order_payment, order_date, 
       Ordername, Phone, vid

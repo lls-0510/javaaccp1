@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .close{
+            position: relative;
+            top: -34px;
+        }
+        .lists{
+            float: left !important;
+            margin-bottom: 14px;
+            width: 280px;
+            margin-left: 0px!important;
+            margin-right: 0px !important;
+        }
+        .lists label{
+            float: left;
+            /*width: 76px;*/
+            padding-top: 10px;
+            position: relative;
+        }
+
+        .checkboxlist label{
+            padding-right: 10px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="contentTypeOxw">
+    <div class="modal-header">
+        <h3>会员信息</h3>
+        <span class="close" data-dismiss="modal" id="span">&times;</span>
+    </div>
+   <div class="mainarea clearfix ">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>会员id</th>
+                        <th>会员姓名</th>
+                        <th>会员类型</th>
+                        <th>会员折扣</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody class="lh" v-for="vip,index in lists">
+                    <tr name="tr">
+                        <td>{{vip.vid}}</td>
+                        <td>{{vip.vname}}</td>
+                        <td>{{vip.vtname}}</td>
+                        <td>{{vip.vt}}</td>
+                        <td>
+                            <a href="javascript:;" class="btn btn-sm-success" @click="xz(vip.vid,vip.vt,index)">
+                                	使用
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<script type="text/javascript">
+ 	var vueOxws=new Vue({
+		el:"#contentTypeOxw",
+		data:{
+			lists:[]
+	 	},
+	 	methods:{
+	 		xz:function(vid,vt,index){
+	 			
+	 			$(".modal-content").attr("vid",vid); 
+	 			$(".modal-content").attr("vt",vt); 
+	 			$("[name=tr]").eq(index).css("background","pink");
+	 			 
+	 		}
+	 	}
+	});
+ 	
+ 	$("#span").click(function(){
+ 		getvid();
+ 	})
+ 	
+ 	$(function(){
+ 		$.ajax({
+			url:"/queryAllVipOxw",
+			success:function(result){
+				 result.forEach(item=>{
+					if(item.vprice == null){
+						item.vprice = 0;
+					}
+				}) 
+				vueOxws.lists = result;
+			}
+		});
+ 	})
+</script>
+</body>
+</html>

@@ -39,4 +39,7 @@ public interface VipMapper {
     		") ON vip.`VID`=ss.id WHERE vip.`vname` LIKE #{vname}")
     List<VipCount>Vipcount(String vname);
     
+    @Select("SELECT v.*,(SELECT `VTname`  FROM vtype WHERE vtid = v.`Vtypeid`)AS vtname,(SELECT `VtDiscount`  FROM vtype WHERE vtid = v.`Vtypeid`)AS vt  FROM vip AS v ")
+    List<Vip> queryAll();
+    
 }

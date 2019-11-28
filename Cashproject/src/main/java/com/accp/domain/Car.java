@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Car {
     private Integer carid;
 
@@ -10,8 +12,18 @@ public class Car {
     private Integer totalnum;
 
     private Double discount;
+    
+    private List<Cars> cars;
 
-    public Integer getCarid() {
+    public List<Cars> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Cars> cars) {
+		this.cars = cars;
+	}
+
+	public Integer getCarid() {
         return carid;
     }
 

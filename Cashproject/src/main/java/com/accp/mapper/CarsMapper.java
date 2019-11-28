@@ -4,6 +4,7 @@ import com.accp.domain.Cars;
 import com.accp.domain.CarsExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface CarsMapper {
     int countByExample(CarsExample example);
@@ -26,5 +27,8 @@ public interface CarsMapper {
 
     int updateByPrimaryKeySelective(Cars record);
 
-    int updateByPrimaryKey(Cars record);
+    int updateByPrimaryKey(Cars record);   
+    
+    @Select("SELECT * FROM `cars` WHERE goodname LIKE #{goodname}")
+    List<Cars> carsQueryAll(String goodname);
 }

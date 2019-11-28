@@ -4,6 +4,7 @@ import com.accp.domain.Shop;
 import com.accp.domain.ShopExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface ShopMapper {
     int countByExample(ShopExample example);
@@ -27,4 +28,10 @@ public interface ShopMapper {
     int updateByPrimaryKeySelective(Shop record);
 
     int updateByPrimaryKey(Shop record);
+    
+    @Select("select * from shop where goodid = #{goodid}")
+    List<Shop> queryByGoodid(Integer goodid);
+    
+    @Select("select * from shop where sname like '%${sname}%' ")
+    List<Shop> queryBySname(String sname);
 }

@@ -2,8 +2,11 @@ package com.accp.mapper;
 
 import com.accp.domain.Car;
 import com.accp.domain.CarExample;
+import com.accp.domain.Cars;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface CarMapper {
     int countByExample(CarExample example);
@@ -27,4 +30,6 @@ public interface CarMapper {
     int updateByPrimaryKeySelective(Car record);
 
     int updateByPrimaryKey(Car record);
+    
+    
 }

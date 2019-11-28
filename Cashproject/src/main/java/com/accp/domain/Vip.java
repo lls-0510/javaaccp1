@@ -36,8 +36,28 @@ public class Vip {
     private String street;
 
     private String vpwd;
+    
+    private String vtname;
+    
+    private float vt;
 
-    public Integer getVid() {
+    public String getVtname() {
+		return vtname;
+	}
+
+	public void setVtname(String vtname) {
+		this.vtname = vtname;
+	}
+
+	public float getVt() {
+		return vt;
+	}
+
+	public void setVt(float vt) {
+		this.vt = vt;
+	}
+
+	public Integer getVid() {
         return vid;
     }
 
