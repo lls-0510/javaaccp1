@@ -1,5 +1,6 @@
 package com.accp.mapper;
 
+import com.accp.domain.Model;
 import com.accp.domain.User;
 import com.accp.domain.UserExample;
 import java.util.List;
@@ -31,8 +32,14 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
     
     @Select("SELECT * FROM `user` WHERE Username =#{username} AND Userpwd =#{userpwd}")
-    User Login(@Param("username")String username,@Param("userpwd")String userpwd);
+    User Login(User record);
     
     @Update("UPDATE user set username = #{username},userpwd = #{userpwd},userphone = #{userphone} where userid = #{userid}")
     int updateUser(User u);
+    
+    @Select("  SELECT p.*,m.*\r\n" + 
+    		"	FROM nexus mp,powerone m,post p,staff s\r\n" + 
+    		"	WHERE  mp.`zid`=m.`Jid` AND  p.id=mp.jid  AND s.`postid`=p.`id`\r\n" + 
+    		"	AND s.staffName=#{staffname}")
+    List<Model> selectShopAllByjobnumber(String staffname);
 }

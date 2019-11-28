@@ -72,7 +72,7 @@ public class SuppController {
 	}
 	
 	/**
-	 * 新增供应商
+	 * 删除供应商
 	 * @param record
 	 * @return
 	 */

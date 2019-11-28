@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>修改职位</title>
     <style>
         .close{
             position: relative;
@@ -38,65 +38,140 @@
 </head>
 <body>
 <div>
-    <div class="modal-header">
-        <h3>编辑职位</h3>
+    <div class="modal-header" id="myModal">
+        <h3>修改职位</h3>
         <span class="close" data-dismiss="modal">&times;</span>
     </div>
     <div class="modal-body">
-        <div class="lists">
+        <div class="list">
             <label>职位名称：</label>
-            <input type="text" maxlength="8" value="" class="form-control"style="width: 230px;" name="positionname">
+            <input id="type" name="type" type="text" maxlength="8" value="" class="form-control"style="width: 230px;" name="positionname">
         </div>
         <div class="lists">
             <label >职位权限</label>
         </div>
-        <div class="lists checkboxlist">
-            <label class="list_title">销售：</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-        </div>
-        <div class="lists checkboxlist">
-            <label class="list_title">销售：</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-        </div>
-        <div class="lists checkboxlist">
-            <label class="list_title">销售：</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-        </div>
+       <div class="col-sm-12" name="zwqx">
+		</div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
     <div class="modal-footer" style="text-align: center;">
-        <span  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
-        <a href="javascript:;" class="btn btn-danger" style="width: 100px;color: #ffffff !important;">删除</a>
-        <a href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
+    	<input type="hidden" id="id">
+        <span name="scscope"  class="btn btn-default " data-dismiss="modal" style="width: 100px;">取消</span>
+        <a id="updatepost" href="javascript:;" class="btn btn-success" style="width: 100px;color: #ffffff !important;">确定</a>
     </div>
 </div>
 </body>
+<script type="text/javascript">
+//加载所有权限
+//根据id查询权限
+
+	
+$(function(){
+	$.ajax({
+		url : "/selectModelAll",
+		type : "get",
+		dataType : "json",
+		success:function(res){
+			$("[name=zwqx]").html("");
+			$.each(res,function(i,obj){
+				if(obj.fatherid==0){
+					var $p="<p><span name='yijicaidan' class="+obj.jurisdictionname+">"+obj.jurisdictionname+"：</span></p>";
+					$("[name=zwqx]").append($p);
+					$.each(res,function(j,obj1){
+						if(obj.jid==obj1.fatherid){
+							if(obj.jid==0 || obj.jid==1){ 
+								var $label = "<label class='checkbox-inline' style='margin-left: 11px'> <input type='checkbox'  style='margin-left: -18px' name='qx' value='"+obj1.jid+"'>"+obj1.jurisdictionname+"</label>";
+								$("." + obj.jurisdictionname).append($label);
+							}else{
+								var $label = "<label class='checkbox-inline'> <input type='checkbox'  name='qx' value='"+obj1.jid+"' class='"+obj1.jurisdictionname+"'>"+obj1.jurisdictionname+"</label>";
+								$("." + obj.jurisdictionname).append($label);
+							}
+						}
+					});
+				}
+			});
+			checkedModules();
+			updateposition();
+			getMyscope();
+		}
+	})
+});
+function checkedModules(){
+	let id =$(".modal-content").attr("id");
+	$.ajax({
+		url : "/toselectpositionByid",
+		type : "get",
+		data : {
+			id : id
+		},
+		dataType : "json",
+		success : function(result) {
+			if(result!=""){
+				$("[name=qx]").each(function(a,b){
+					$(this).attr("checked",false);
+				});
+				$.each(result,function(i,obj){
+					$("#type").val(obj.type);
+					$("#id").val(obj.id);
+					$("[value='"+obj.zid+"']")[0].checked=true;
+				});
+			}
+			
+		}
+	});
+}
+/**
+ * 修改
+ */
+function updateposition(){
+	let id =$(".modal-content").attr("id"); 
+	$("#updatepost").click(function(){
+		var type = $("#type").val();
+		 let arr = [];
+		 //新增职位权限表
+		 $(".checkbox-inline input:checked").each(function(index){
+			 arr[index]=$(this).val();
+		 })
+		$.ajax({
+			url : "/toupdateposition",
+			type : "post",
+			data : {
+				jid:id,
+				id:id,
+				type:type,
+				arr:arr
+			},
+			dataType : "json",
+			success : function(res) {
+				alert(res);
+			}
+		})
+	});
+}
+
+function getMyscope(){ 
+   　$.ajax({
+	  url:"/cxcsope",
+	  type:"get",
+	  dataType:"json",
+	  success:function(res){
+		  $("#sb").attr("disabled", "disabled");
+		  $("[name=scscope]").attr("disabled", "disabled");
+		  $("[name=xgscope]").attr("disabled", "disabled");
+		  $.each(res,function(i,obj){
+			  if(obj.moid==18){
+				  $("#sb").removeAttr("disabled");
+			  }
+			  if(obj.moid==19){
+				  $("[name=xgscope]").removeAttr("disabled");
+			  }
+			  if(obj.moid==20){
+				  $("[name=scscope]").removeAttr("disabled");
+			  }
+		  })
+	  }
+   　});
+}; 
+</script>
 </html>

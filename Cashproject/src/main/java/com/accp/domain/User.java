@@ -8,8 +8,10 @@ public class User {
     private String userpwd;
 
     private String userphone;
+    
+    
 
-    public Integer getUserid() {
+	public Integer getUserid() {
         return userid;
     }
 
@@ -40,4 +42,53 @@ public class User {
     public void setUserphone(String userphone) {
         this.userphone = userphone;
     }
+    
+    
+    
+    
+    public User() {
+		super();
+	}
+
+
+
+
+	public User(Integer userid, String username, String userpwd, String userphone) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.userpwd = userpwd;
+		this.userphone = userphone;
+	}
+
+	public User(String username, String userpwd) {
+		super();
+		this.username = username;
+		this.userpwd = userpwd;
+	}
+	
+
+	public User(String username, String userpwd, String userphone) {
+		super();
+		this.username = username;
+		this.userpwd = userpwd;
+		this.userphone = userphone;
+	}
+
+	public User(Integer userid, String username, String userpwd) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.userpwd = userpwd;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", username=" + username + ", userpwd=" + userpwd + ", userphone=" + userphone
+				+ ", getUserid()=" + getUserid() + ", getUsername()=" + getUsername() + ", getUserpwd()=" + getUserpwd()
+				+ ", getUserphone()=" + getUserphone() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+
+	
 }

@@ -15,14 +15,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 
 
-/*@Configuration*/
+@Configuration
 public class MvcConfig extends WebMvcConfigurationSupport {
 	@Autowired
 	MyInterceptor My;
 	
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**").addResourceLocations("/static/").addResourceLocations("file:D:\\images\\");
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").addResourceLocations("file:D:\\images\\");
 		super.addResourceHandlers(registry);
 	}
 	
@@ -39,11 +39,19 @@ public class MvcConfig extends WebMvcConfigurationSupport {
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加拦截的请求，并排除几个不拦截的请求
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/", "/login","/js/**","/css/**","/images/**");
-      /*  registry.addInterceptor(new MyInterceptor()).addPathPatterns("/shop/**","/staff/**}","/shopall/**","/position/**","/model/**")
-        .excludePathPatterns("/shop/toselectBysid","/js/**","/css/**","/images/**","/staff/toselectBysid","/staff/tozjdp","/staff/tozjzw")
-        .excludePathPatterns("/model/toselectmodel","/position/topositionselect","/position/toselectpositionByid");*/
+		
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns(
+        "/storequeryAll","/uploadAjax","/updatestore","/deletestore",
+        "/selectModelAll","/toinsertposition","/toupdateposition",
+        "/staffqueryAll","/updateStaff","/insertStaff","/deleteStaff",
+        "/queryAll","/addGoodType","/deleteGoodType","/doupdate",
+        "/suppqueryAll","/insertsupplier","/sudoupdate","/deletesupplie",
+        "/getpurs","/addpur","/updatepur","/delpur",
+        "/Vipcount","/insertvip","/updatetvip","/deleteVip"
+        
+        )
+        .excludePathPatterns("/js/**","/css/**","/images/**","/model/**");
+        
     }
 
 }

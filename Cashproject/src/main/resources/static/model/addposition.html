@@ -38,7 +38,7 @@
 </head>
 <body>
 <div>
-    <div class="modal-header" id="myModal2">
+    <div class="modal-header" id="myModal">
         <h3>添加职位</h3>
         <span class="close" data-dismiss="modal">&times;</span>
     </div>
@@ -50,45 +50,8 @@
         <div class="lists">
             <label >职位权限</label>
         </div>
-        <div class="lists checkboxlist">
-            <label class="list_title">销售：</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label >收银开单</label>
-        </div>
-        <div class="lists checkboxlist">
-            <label class="checkbox-inline">销售：</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-        </div>
-        <div class="lists checkboxlist">
-            <label  class="checkbox-inline">销售：</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-            <input type="checkbox" class="j_checkbox">
-            <label  class="checkbox-inline">收银开单</label>
-        </div>
+       <div class="col-sm-12" name="zwqx">
+		</div>
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
@@ -99,33 +62,53 @@
 </div>
 </body>
 <script type="text/javascript">
+//加载所有权限
+
 $(function(){
+	$.ajax({
+		url : "/selectModelAll",
+		type : "get",
+		dataType : "json",
+		success:function(res){
+			$("[name=zwqx]").html("");
+			$.each(res,function(i,obj){
+				if(obj.fatherid==0){
+					var $p="<p><span name='yijicaidan' class="+obj.jurisdictionname+">"+obj.jurisdictionname+"：</span></p>";
+					$("[name=zwqx]").append($p);
+					$.each(res,function(j,obj1){
+						if(obj.jid==obj1.fatherid){
+							if(obj.jid==0 || obj.jid==1){
+								var $label = "<label class='checkbox-inline' style='margin-left: 11px'> <input type='checkbox' checked style='margin-left: -18px' name='qx' value='"+obj1.jid+"'>"+obj1.jurisdictionname+"</label>";
+								$("." + obj.jurisdictionname).append($label);
+							}else{
+								var $label = "<label class='checkbox-inline'> <input type='checkbox' checked  name='qx' value='"+obj1.jid+"' class='"+obj1.jurisdictionname+"'>"+obj1.jurisdictionname+"</label>";
+								$("." + obj.jurisdictionname).append($label);
+							}
+						}
+					});
+				}
+			})
+		}
+	})
 //新增职位
 $("#insertpost").click(function() {
 	var type = $("[name='type']").val();
-	alert(type)
 	 let arr = [];
 	 //新增职位权限表
-	 $("#myModal .checkbox-inline input:checked").each(function(index){
+	 $(".checkbox-inline input:checked").each(function(index){
 		 arr[index]=$(this).val();
+		 alert(arr[index]);
 	 })
 	 $.ajax({
 		url : "/toinsertposition",
-		type : "post",
+		type : "get",
 		data : {
 			type:type,
 			arr:arr
 		},
 		dataType : "json",
 		success : function(res) {
-			if (res == "0") {
-				$("#myModal").modal('hide');
-				page();
-			} else if (res == "1") {
-				alert("新增失败，请重试！");
-				/* $("#myModal").modal('hide');
-				location.reload(); */
-			}
+			alert("新增成功了哈哈哈");
 		}
 	})
 })

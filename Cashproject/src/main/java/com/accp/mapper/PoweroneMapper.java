@@ -1,9 +1,11 @@
 package com.accp.mapper;
 
+import com.accp.domain.Model;
 import com.accp.domain.Powerone;
 import com.accp.domain.PoweroneExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface PoweroneMapper {
     int countByExample(PoweroneExample example);
@@ -27,4 +29,7 @@ public interface PoweroneMapper {
     int updateByPrimaryKeySelective(Powerone record);
 
     int updateByPrimaryKey(Powerone record);
+    
+    @Select("select * from powerone")
+    List<Model> selectModelAll();
 }

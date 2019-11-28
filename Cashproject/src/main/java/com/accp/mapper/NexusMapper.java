@@ -3,6 +3,9 @@ package com.accp.mapper;
 import com.accp.domain.Nexus;
 import com.accp.domain.NexusExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
 public interface NexusMapper {
@@ -27,4 +30,9 @@ public interface NexusMapper {
     int updateByPrimaryKeySelective(Nexus record);
 
     int updateByPrimaryKey(Nexus record);
+    @Delete("delete from nexus where jid=#{jid}")
+    int deletemodelposition(Integer jid);
+    
+    @Insert("insert into nexus(zid,jid)values(#{zid},#{jid})")
+    int insertmodelposition(Nexus record);
 }

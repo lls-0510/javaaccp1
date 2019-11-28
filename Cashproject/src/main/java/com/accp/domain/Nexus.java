@@ -6,8 +6,19 @@ public class Nexus {
     private Integer zid;
 
     private Integer jid;
+    
+    public Nexus(Integer zid, Integer jid) {
+		super();
+		this.zid =zid;
+		this.jid = jid;
+	}
 
-    public Integer getId() {
+	
+    public Nexus() {
+		super();
+	}
+
+	public Integer getId() {
         return id;
     }
 

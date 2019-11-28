@@ -15,7 +15,7 @@
                 <span class="title">职位权限</span>
                 <div class="searchArea">
                     <div class="btn-div">
-                            <span  class="btn btn-success" onclick="addposition()" data-target="#tanchuan"  data-toggle="modal">
+                            <span id="sb" class="btn btn-success" onclick="addposition()" data-target="#tanchuan"  data-toggle="modal">
                             添加职位
                         </span>
                     </div>
@@ -45,19 +45,21 @@
     </div>
 
 <script type="text/javascript">
+//获取现在session的内容判断是否有当前页面的功能，如果没有则禁用按钮
+
 	$(function(){
 		$.ajax({
 			url:"/querypost",
 			type:"post",
 			dataType:"json",
-			success:function(result){
-				result.forEach(i=>{
-					var td1=$("<td>").html(i.id);
-					var td2=$("<td>").html(i.type);
-					var td3=$("<td><span onclick='editposition()' data-target='#tanchuan'  data-toggle='modal'>").html("编辑");
-					var tr=$("<tr>");
-					tr.append(td1).append(td2).append(td3);
-					$("#tb").append(tr);
+			success:function(res){
+				$("#tb").html("");
+				$.each(res,function(i, obj) {
+						var $tr = "<tr><td>"
+								+ (i + 1)+ "</td><td>"+ obj.type
+								+ "</td><td data-target=\"#tanchuan\"  data-toggle=\"modal\" onclick='editposition("
+								+ obj.id+ ")'>编辑</td></tr>";
+						$("#tb").append($tr);
 				})
 			}
 		});
@@ -67,7 +69,8 @@
         /*$(".modal-content").attr("id",id);*/
         $(".modal-content").load("model/addposition.html");
     }
-    function editposition() {
+    function editposition(id) {  
+    	 $(".modal-content").attr("id",id); 
         /*$(".modal-content").attr("id",id);*/
         $(".modal-content").load("model/editposition.html");
     }

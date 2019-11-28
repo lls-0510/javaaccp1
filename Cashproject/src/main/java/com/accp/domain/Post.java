@@ -14,8 +14,22 @@ public class Post {
     private String coummt2;
 
     private String coummt3;
+    
 
-    public Integer getId() {
+    public Post(Integer id, String type) {
+		super();
+		this.id = id;
+		this.type = type;
+		
+	}
+    
+    public Post() {
+		super();
+		
+	}
+
+
+	public Integer getId() {
         return id;
     }
 
