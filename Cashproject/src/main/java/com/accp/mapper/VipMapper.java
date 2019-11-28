@@ -54,6 +54,7 @@ public interface VipMapper {
     		") ON vip.`VID`=ss.id WHERE vip.`vname` LIKE #{vname}")
     List<VipCount>Vipcount(String vname);
     
+<<<<<<< HEAD
     @Select("SELECT * FROM `vip`\r\n" + 
     		"LEFT JOIN vtype ON vip.`Vtypeid`=vtype.`VTid`\r\n" + 
     		"LEFT JOIN (\r\n" + 
@@ -62,5 +63,9 @@ public interface VipMapper {
     		"ORDER BY turnover.`order_date`) AS ss\r\n" + 
     		") ON vip.`VID`=ss.id")
     List<VipCount>find();
+=======
+    @Select("SELECT v.*,(SELECT `VTname`  FROM vtype WHERE vtid = v.`Vtypeid`)AS vtname,(SELECT `VtDiscount`  FROM vtype WHERE vtid = v.`Vtypeid`)AS vt  FROM vip AS v ")
+    List<Vip> queryAll();
+>>>>>>> oxw
     
 }

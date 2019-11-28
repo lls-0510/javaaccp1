@@ -16,13 +16,13 @@
     </style>
 </head>
 <body>
-<div class="rightarea clearfix">
+<div class="rightarea clearfix" id="carscontents">
     <div class="title clearfix" style="margin-left: 20px;margin-top: -10px;margin-right: 20px;">
         <h3 class="fl">挂起查询</h3>
         <div class="add_userinfo fr" style="margin-top: 10px;">
             <div class="search">
-                <input class="inputtext" type="text" placeholder="根据客户姓名查找">
-                <a href="javascript:;" class="search-btn"></a>
+                <input class="inputtext" type="text" placeholder="根据客户姓名查找" name="goodname">
+                <a href="javascript:;" class="search-btn" @click="getPage()"></a>
             </div>
         </div>
     </div>
@@ -30,23 +30,21 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>序列</th>
                         <th>所属购物车id</th>
-                        <th>名称</th>
+                        <th>商品名称</th>
                         <th>数量</th>
                         <th>小计</th>
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody class="lh">
+                <tbody class="lh" v-for="car,index in page.list">
                     <tr>
-                        <td>1</td>
-                        <td>123</td>
-                        <td>123123</td>
-                        <td>1</td>
-                        <td>111 <span>￥</span></td>
-                        <td>
-                            <a href="javascript:;" class="btn btn-sm-success">
+                        <td>{{car.carid}}</td>
+                        <td>{{car.goodname}}</td>
+                        <td>{{car.goodnum}}</td>
+                        <td><span>￥</span>{{car.goodprice}}</td>
+                        <td @click="jss(car)">
+                            <a href="javascript:;" class="btn btn-sm-success"  >
                                 结算
                             </a>
                         </td>
@@ -60,34 +58,28 @@
             <div class="page">
                 <ul class="pagination">
                     <li>
-                        <a href="javascript:;">
+                        <a href="javascript:;" v-on:click="getPage(0)">
                             首页
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:;">
+                        <a href="javascript:;" v-on:click="getPage(page.prePage)">
                             &laquo;
                         </a>
                     </li>
                     <li>
-                        <span style="font-size: 14px;">1/5</span>
+                        <span v-for="numPage in page.pages"  v-on:click="getPage(numPage)">
+							<span >{{numPage}}</span>
+						</span>
                     </li>
                     <li>
-                        <a href="javascript:;">
+                        <a href="javascript:;" v-on:click="getPage(page.nextPage)">
                             &raquo;
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:;">
+                        <a href="javascript:;" v-on:click="getPage(page.pages)">
                             尾页
-                        </a>
-                    </li>
-                    <li style="margin-left: 20px; float:left;">
-                        <input type="text" class="form-control" style="width: 100px;">
-                    </li>
-                    <li style="margin-left: 15px; float:left;">
-                        <a href="javascript:;" class="btn btn-default">
-                            跳转
                         </a>
                     </li>
                 </ul>
@@ -100,5 +92,47 @@
         <a href="javascript:;" class="btn btn-danger" style="width: 120px;color: #ffffff !important;">挂起</a>
     </div>-->
 </div>
+
+<script type="text/javascript">
+var carsvue=new Vue({
+	el:"#carscontents",
+	data:{
+		page:{
+			list:[]
+		},
+		carslist:{
+			list:[]
+		}
+	},
+	methods:{
+		getPage:function(currentPage){
+			var goodname=$("[name='goodname']").val();
+			$.ajax({
+				url:"/carsqueryAll",
+				data:{pageNum:currentPage,pageSize:2,goodname:goodname},
+				success:function(result){
+					carsvue.page=result;
+				}
+			});
+		},
+		jss:function(cars){
+			var carid= cars.carid;
+            $(".modal-content").attr("carid",carid);
+            go("cashs","cash_register");
+
+		}
+	},
+	created:function(){
+		this.getPage(1);
+		$.ajax({
+			url:"/carsqueryAll",
+			data:{pageNum:1,pageSize:2,vname:null},
+			success:function(result){
+				carsvue.carslist=result;
+			}
+		});
+	}
+});
+</script>
 </body>
 </html>

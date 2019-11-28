@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Turnover {
     private Integer orderId;
@@ -20,8 +21,18 @@ public class Turnover {
     private String phone;
 
     private Integer vid;
+    
+    private List<Turnoverdetails> turns;
 
-    public Integer getOrderId() {
+    public List<Turnoverdetails> getTurns() {
+		return turns;
+	}
+
+	public void setTurns(List<Turnoverdetails> turns) {
+		this.turns = turns;
+	}
+
+	public Integer getOrderId() {
         return orderId;
     }
 

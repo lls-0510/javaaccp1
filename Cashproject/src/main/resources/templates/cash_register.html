@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>												
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -39,15 +39,14 @@
     <div class="rightarea clearfix">
         <div class="title clearfix" style="margin-left: 20px;margin-top: -10px;margin-right: 20px;">
             <h3 class="fl" >收银结算</h3>
-            <div class="add_userinfo fr" style="margin-top: 10px;">
-               客户姓名 <input type="text" class="form-control" style="display: inline;width: 200px;">
-            </div>
+              <a  @click="editsupplier()" data-target="#tanchuan"  data-toggle="modal"   
+              class="btn btn-success" style="width: 120px;color: #ffffff !important;margin-top: 10px;margin-left: 650px;" >选择会员</a>
         </div>
         <div class="mainarea clearfix row">
             <div class="col-md-7">
                 <div class="totalMoney clearfix">
                     总金额： <span class="fr">￥</span>
-                    <input type="text" class="form-control" style="float: right;width: 100px;" disabled>
+                    <input type="text" class="form-control" style="float: right;width: 100px;" disabled id="zje">
                 </div>
                 <ul  class="clearfix" style="margin-top: 50px;padding: 10px 10px;width: 100%; border: 1px solid #666666; border-radius: 5px;">
                     <li class="onlist clearfix row">
@@ -58,8 +57,9 @@
                         <div class="clearfix"></div>
                     </li>
                     <li class="onlist clearfix row" v-for="shops in list2">
+                        <input type="hidden" :value="shops.carsid" name="carsid">
                         <div class="onname col-md-4"><a href="javascript:;" >{{shops.sname}}</a></div>
-                        <div class="col-md-4"><input type="text" class="form-control" style="width: 50% ; margin-left: 50px;" v-model="shops.num"></div>
+                        <div class="col-md-4"><input type="text" class="form-control" style="width: 50% ; margin-left: 50px;" v-model="shops.num" @change="changeSl(shops)"></div>
                         <div class="col-md-4">
                             ￥<input disabled="false" style="color: red;border: none;text-align:center;width: 70px;background-color: white;" v-model = "shops.xj" name="xj"></input>
                           
@@ -70,13 +70,14 @@
             </div>
             <div class="col-md-5">
                 <div class="shopselect">
-                    <select name="" id="" class="form-control fl" style="width: 150px;">
-                        <option value="类别查询">类别查询</option>
+                    <select name="" id="select" class="form-control fl" style="width: 150px;" @change="changeGt">
+                     <option>类型查询</option>
+                        <option  v-for="shoptype in list3" :value="shoptype.goodid">{{shoptype.goodname}}</option>
                     </select>
                     <!--内容-->
                     <div class="search clearfix" style="float: left;margin-left: 15px;">
-                        <input class="inputtext" type="text" placeholder="查询内容">
-                        <a href="javascript:;" class="search-btn"></a>
+                        <input class="inputtext" type="text" placeholder="查询内容" id="sname">
+                        <a href="javascript:;" class="search-btn" @click="cx"></a>
                     </div>
                 </div>
                 <!--商品列表-->
@@ -110,19 +111,24 @@
         </div>
         <!--按钮-->
         <div class="" style="padding-left: 150px;">
-            <a href="javascript:;" class="btn btn-danger" style="width: 120px;color: #ffffff !important;">挂起</a>
+            <a  class="btn btn-danger" style="width: 120px;color: #ffffff !important;"@click="gq()">挂起</a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="javascript:;" class="btn btn-success" style="width: 120px;color: #ffffff !important">结算</a>
+            <a   data-toggle="modal"   class="btn btn-success" style="width: 120px;color: #ffffff !important" @click="js()">结算</a>
         </div>
     </div>
-    
+     
     <script type="text/javascript">
+    	
     	var vueOxw = new Vue({
     		el:"#content",
     		data(){
     			return{
-    				list:[],
-    				list2:[]
+    				list:[],//商品集合
+    				list2:[],//选中的商品集合
+    				list3:[],//商品类型集合
+    				zje:0,//总金额
+    				zsl:0,//总数量
+    				carid:""
     			}
     		},
     		methods:{
@@ -138,12 +144,6 @@
     						return false;
     					}
     				});
-    				/*  shop.zje = 0;
-    				this.list2.forEach((items,index)=>{
-    					items.zje += items.zj;
-    					alert(items.zje);
-    					return;
-    				}) */
     				if(!flag){
     					shop.num = 1;
     					this.list2.push(shop);
@@ -151,21 +151,190 @@
     					var temJon = JSON.stringify(this.list2);
     					this.list2 = JSON.parse(temJon);
     				}
-    				loadZje();
+    				
+    				var zje = 0;
+    				var zsl = 0;
+    				this.list2.forEach(items=>{
+    					zsl += items.num;
+    					zje += items.xj;
+    					return;
+    				});
+    				$("#zje").val(zje);
+    				this.zje = zje;
+    				this.zsl =zsl;
     			},
-    			changeSl:function(){
-    			}
-    			
+    			changeSl:function(shop){
+    				let flag = false;
+    				shop.xj = shop.num*shop.sdpprice;
+    				var zje = 0;
+    				var zsl = 0;
+    				
+    				this.list2.forEach(items=>{
+    					zje += items.xj;
+    					zsl += items.num;
+    					flag = true;
+						return false;
+    				});
+    				if(flag){
+    					var temJon = JSON.stringify(this.list2);
+    					this.list2 = JSON.parse(temJon);
+    				}
+    				
+    				alert(parseInt(zsl))
+    				$("#zje").val(zje);
+    				this.zje = zje;
+    				this.zsl = zsl;	
+    			},
+    			changeGt:function(){
+    				let goodid = $("#select").val();
+    				this.list = [];
+    				if(goodid == "类型查询"){
+    					$.ajax({
+    		    			url:"[[@{queryAllOxw}]]",
+    		    			success:function(result){
+    		    				vueOxw.list = result;
+    		    			}
+    		    		});
+    				}else{
+    					$.ajax({
+    						url:"[[@{queryByGoodidOxw}]]",
+    						data:{goodid:goodid},
+    						success:function(results){
+    							vueOxw.list = results;
+    						}
+    					});
+    				}
+    			},
+    		  cx:function(){
+    			  $("#select").attr("checked","类型查询");
+    			  let sname = $("#sname").val();
+    			  this.list = [];
+    			  $.ajax({
+    				  url:"[[@{queryBySnameOxw}]]",
+    				  data:{sname:sname},
+    				  success:function(result){
+    					  vueOxw.list = result;
+    				  }
+    			  });
+    		  },
+    		  editsupplier:function() {	
+    		        $(".modal-content").load("model/editsupplier2.html");  
+    		    },
+    		  js:function(){
+    			 let orderTotalmoney = $("#zje").val();
+    			 let orderCount = this.zsl;
+    			 let vid  = 0;
+    			 if($(".modal-content").attr("vid") != ""&&$(".modal-content").attr("vid") != null){
+     				 vid =  $(".modal-content").attr("vid");
+     			 }
+    			 let turn = {
+    					 orderTotalmoney:orderTotalmoney,orderCount:orderCount,vid:vid,turns:[]
+    			 };
+    			 this.list2.forEach((i,e)=>{
+    				 turn.turns.push({
+      					goodsId:i.goodid,
+      					goodsCount:i.num,
+      					goodsPrice:i.xj
+      				});
+      			 })
+      			  alert(JSON.stringify(turn));
+    			$.ajax({
+    				url:"insertTurnOxw",
+    				type:"post",
+    				data:JSON.stringify(turn),
+    				contentType:"application/json;charset=utf-8",
+    				success:function(res){
+    					alert(res);
+    				}
+    			});
+    		
+    		  },
+    		  gq:function(){
+    			 let vid = 0;
+    			 let totalmoney = $("#zje").val();
+     			 let totalnum = this.zsl;
+     			
+     			 if($(".modal-content").attr("vid") != ""&&$(".modal-content").attr("vid") != null){
+     				 vid =  $(".modal-content").attr("vid");
+     			 }
+     			 alert(totalmoney)
+     			 let car = {
+     				carid:vueOxw.carid,totalmoney:totalmoney,totalnum:totalnum,vid:vid,cars:[]
+     			 }
+     			 this.list2.forEach((i,e)=>{
+     				car.cars.push({
+     					carsid:i.carsid,
+     					goodnum:i.num,
+     					goodname:i.sname,
+     					goodprice:i.xj
+     				});
+     			 })
+     			 alert(JSON.stringify(car));
+     			
+     		 	 $.ajax({ 
+     				 url:"/insertCarOxw",
+     				 type:"post", 
+     				 data:JSON.stringify(car), 
+     				 contentType:"application/json;charset=utf-8",
+     				 success:function(result){
+     					 alert(result);
+     				 }
+     			 });
+    		  }
+  
     		}
     	});
     	$(function(){
+    		var carid =  $(".modal-content").attr("carid");
+    		vueOxw.carid= carid;
+    		$(".modal-content").attr("carid","");
+    		alert(carid);
+    		if(carid != ""&& carid != null){
+    			$.ajax({
+    				url:"/queryByCarsid",
+    				data:{carid:carid},
+    				success:function(res){
+    					alert(JSON.stringify(res))
+    					vueOxw.list2 = [];
+    					res.cars.forEach((i,e)=>{
+    						vueOxw.list2.push({
+    							carsid:i.carsid,
+    							sname:i.goodname,
+    							num:i.goodnum,
+    							xj:i.goodprice
+    						});
+    					vueOxw.zje += i.goodprice;
+    					$("#zje").val(vueOxw.zje);
+    					});
+    				}
+    			});
+    		}
+    		
     		$.ajax({
     			url:"[[@{queryAllOxw}]]",
     			success:function(result){
     				vueOxw.list = result;
     			}
     		});
+    		
+    		$.ajax({
+    			url:"[[@{queryGoodOxw}]]",
+    			success:function(result){
+    				vueOxw.list3 = result;
+    			}
+    		})
     	});
+    	  function getvid() {
+    		let vid  = 0;
+    		 if($(".modal-content").attr("vid") != ""&&$(".modal-content").attr("vid") != null){
+ 				 vid =  $(".modal-content").attr("vid");
+ 			 }
+	       let vt =  $(".modal-content").attr("vt");
+	       let zje = vueOxw.zje;
+	       let zjes = zje * vt;
+	       $("#zje").val(zjes)
+	        
+	    } 
     	
     </script>
 </body>
